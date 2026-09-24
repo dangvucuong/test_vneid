@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+**/.vs/
+*.user
+vneid-sign-console/.env
+VNeIDSignGateway/appsettings.json
+VNeIDSignGateway/appsettings.Development.json
+Thông tin kết nối.docx

@@ -1,0 +1,564 @@
+{
+	"info": {
+		"_postman_id": "1f80f8bb-fbab-4e0d-a107-884be58dcf95",
+		"name": "CỔNG KÝ SỐ TẬP TRUNG VNEID - DÀNH CHO ĐỐI TÁC",
+		"description": "Collection mẫu hỗ trợ Đối tác/Đơn vị khai thác tích hợp và test kết nối qua Gateway Trung gian.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "I. XÁC THỰC & TÀI KHOẢN",
+			"item": [
+				{
+					"name": "01. Authenticate - Lấy Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.accessToken) {",
+									"    pm.collectionVariables.set('accessToken', jsonData.accessToken);",
+									"    pm.collectionVariables.set('refreshToken', jsonData.refreshToken);",
+									"    console.log('Lưu Token thành công!');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"CA2\",\n  \"password\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"token"
+							]
+						},
+						"description": "Đăng nhập hệ thống để lấy Access Token và Refresh Token."
+					},
+					"response": []
+				},
+				{
+					"name": "02. Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.accessToken) {",
+									"    pm.collectionVariables.set('accessToken', jsonData.accessToken);",
+									"    pm.collectionVariables.set('refreshToken', jsonData.refreshToken);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/refresh",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh"
+							]
+						},
+						"description": "Cấp lại Access Token khi hết hạn phiên làm việc."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "II. DANH MỤC & CẤU HÌNH",
+			"item": [
+				{
+					"name": "03. Lấy DS Nhà cung cấp & Gói dịch vụ",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/providers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"providers"
+							]
+						},
+						"description": "Lấy danh sách các nhà cung cấp CA và các gói dịch vụ khả dụng."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "III. NGHIỆP VỤ ĐĂNG KÝ CHỨNG THƯ SỐ",
+			"item": [
+				{
+					"name": "04. Đăng ký chứng thư chữ ký số",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.data && jsonData.data.transactionCode) {",
+									"    pm.collectionVariables.set('transactionCode', jsonData.data.transactionCode);",
+									"    console.log('Lưu mã transactionCode:', jsonData.data.transactionCode);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "35716e9b-e8bd-45e7-a121-7af3893e604b",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userInfo\": {\n    \"fullName\": \"Đặng Mỹ Ngọc\",\n    \"birthDate\": \"18/10/2001\",\n    \"citizenPid\": \"054098006041\",\n    \"issuingAuthority\": \"Cục Cảnh sát quản lý hành chính về trật tự xã hội\",\n    \"dateOfIssue\": \"01/01/2025\",\n    \"gender\": \"Nữ\",\n    \"phone\": \"0936543210\",\n    \"email\": \"ngoc.dm@example.com\",\n    \"nationalityCode\": \"VN\",\n    \"permanentAddress\": \"888 Trần Hưng Đạo\",\n    \"permanentVillageText\": \"Phường Cửa Nam\",\n    \"permanentCityText\": \"Thành phố Hà Nội\",\n    \"livingPlaceAddress\": \"888 Trần Hưng Đạo\",\n    \"livingPlaceVillageText\": \"Phường Cửa Nam\",\n    \"livingPlaceCityText\": \"Thành phố Hà Nội\",\n    \"idCardExpireDate\": \"01/01/2035\"\n  },\n  \"provider\": \"HUD-VNPT-SMARTCA\",\n  \"servicePackCode\": \"VNEID-FREE-6M\",\n  \"originatorCode\": \"vuhv123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/certificates/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"certificates",
+								"register"
+							]
+						},
+						"description": "Gửi yêu cầu đăng ký chứng thư số mới cho người dân."
+					},
+					"response": []
+				},
+				{
+					"name": "05. Tra cứu kết quả đăng ký CCTS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "35716e9b-e8bd-45e7-a121-7af3893e604b",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transactionCode\": \"1aebeaf7-488f-40eb-b086-7e9529a6adf4\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/certificates/get-status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"certificates",
+								"get-status"
+							]
+						},
+						"description": "Tra cứu trạng thái xử lý/kích hoạt của yêu cầu cấp chứng thư số."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "IV. NGHIỆP VỤ KÝ SỐ",
+			"item": [
+				{
+					"name": "06. Lấy danh sách chứng thư số người dùng",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "a9fdcf26-b119-4222-846e-28f83f7d88c6",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"citizenPid\": \"054098006041\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/certificates/list",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"certificates",
+								"list"
+							]
+						},
+						"description": "Truy vấn danh sách chứng thư chữ ký số đã được cấp cho CCCD."
+					},
+					"response": []
+				},
+				{
+					"name": "07. Tạo yêu cầu ký số (Ký Hash)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"credentialID\": \"0002BC0CACCE000C00000000000000B0\",\n    \"originatorCode\": \"SAMPLE\",\n    \"documents\": [\n        {\n            \"documentName\": \"123\",\n            \"digestValue\": \"nI0qOi0TelUoI0VfjrB0zoo0/FWHFBsgdBLKDFLP0mw=\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/signings/hash",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"signings",
+								"hash"
+							]
+						},
+						"description": "Gửi dữ liệu đã Hash của tài liệu lên hệ thống để kích hoạt xác nhận ký trên app VNeID."
+					},
+					"response": []
+				},
+				{
+					"name": "08. Tra cứu kết quả ký số",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"handle\": \"290750000000000000\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/signings/polling",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"signings",
+								"polling"
+							]
+						},
+						"description": "Tra cứu kết quả ký số (mã chữ ký/chữ ký số PKCS#7/CMS) để ghép vào file."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "V. MẪU WEBHOOK ĐỐI TÁC CẦN DỰNG (Mô phỏng)",
+			"item": [
+				{
+					"name": "Webhook 1: Nhận mã txnId (App-to-App)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8"
+							},
+							{
+								"key": "X-Webhook-Signature",
+								"value": "sha256=hmac_hash_value_example",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"264205314407010305\",\n  \"type\": \"CERT_REGISTER_WEBHOOK_TRANSCODE\",\n  \"attempt\": 1,\n  \"data\": {\n    \"transactionCode\": \"65393c44-c81f-435a-83fa-5b46046354f0\",\n    \"status\": 0,\n    \"description\": \"Thành công\",\n    \"txnId\": \"e0c790db-283e-4006-ab6b-8e0bd2b4b1b8\"\n  }\n}"
+						},
+						"url": {
+							"raw": "https://partner-app.domain.com/api/webhook/vneid/txn-id",
+							"protocol": "https",
+							"host": [
+								"partner-app",
+								"domain",
+								"com"
+							],
+							"path": [
+								"api",
+								"webhook",
+								"vneid",
+								"txn-id"
+							]
+						},
+						"description": "Mẫu dữ liệu Gateway sẽ bắn sang Webhook của đối tác để lấy txnId ghép Universal Link VNeID."
+					},
+					"response": []
+				},
+				{
+					"name": "Webhook 2: Nhận kết quả cấp CCTS",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json; charset=utf-8"
+							},
+							{
+								"key": "X-Webhook-Signature",
+								"value": "sha256=hmac_hash_value_example",
+								"type": "text"
+							},
+							{
+								"key": "X-Request-Id",
+								"value": "{{$guid}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"263868404304187392\",\n  \"type\": \"CERT_REGISTER_WEBHOOK_RESULT\",\n  \"attempt\": 1,\n  \"data\": {\n    \"transactionCode\": \"65393c44-c81f-435a-83fa-5b46046354f0\",\n    \"serialNumber\": \"1655DD2076CC342F322933A0AA1...\",\n    \"certificateId\": \"251229101836971JyoICkZChx...\",\n    \"certificateData\": \"MIIFZDCCBEygAwIBAgIQFlXdIHbMNC8yKTOgqhsTVDAN...\",\n    \"status\": 0,\n    \"description\": \"Thành công\"\n  }\n}"
+						},
+						"url": {
+							"raw": "https://partner-app.domain.com/api/webhook/vneid/cert-result",
+							"protocol": "https",
+							"host": [
+								"partner-app",
+								"domain",
+								"com"
+							],
+							"path": [
+								"api",
+								"webhook",
+								"vneid",
+								"cert-result"
+							]
+						},
+						"description": "Mẫu dữ liệu Gateway trả về khi người dân kích hoạt CCTS thành công trên VNeID."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://uat-rsvan-gw.vmgmedia.vn",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "partner_test_acc",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "password",
+			"value": "partner_password_123",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "accessToken",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "refreshToken",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "transactionCode",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "accessToken",
+			"value": ""
+		},
+		{
+			"key": "refreshToken",
+			"value": ""
+		},
+		{
+			"key": "transactionCode",
+			"value": ""
+		}
+	]
+}
