@@ -170,8 +170,31 @@ public class VNeIDSignController : ControllerBase
         [FromHeader(Name = "X-Request-Id")] string? requestId,
         CancellationToken cancellationToken)
     {
-        var response = await _gatewayClient.GetCredentialsAsync(citizenPid, requestId, cancellationToken);
-        return Ok(response);
+        try
+        {
+            var (statusCode, body) = await _gatewayClient.GetCredentialsRawAsync(citizenPid, requestId, cancellationToken);
+            if (statusCode >= 200 && statusCode < 300 && body.TrimStart().StartsWith("{"))
+            {
+                return Content(body, "application/json");
+            }
+
+            var description = statusCode == 504
+                ? "Máy chủ RSVAN hết thời gian chờ khi lấy danh sách chứng thư. Hãy thử lại."
+                : $"RSVAN trả HTTP {statusCode}.";
+            return StatusCode(statusCode == 0 ? 502 : statusCode, new ApiResponse<CertificateListResponseData>
+            {
+                Status = statusCode.ToString(),
+                Description = description
+            });
+        }
+        catch (TimeoutException ex)
+        {
+            return StatusCode(StatusCodes.Status504GatewayTimeout, new ApiResponse<CertificateListResponseData>
+            {
+                Status = "504",
+                Description = ex.Message
+            });
+        }
     }
 
     /// <summary>

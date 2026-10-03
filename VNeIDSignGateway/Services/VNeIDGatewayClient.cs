@@ -17,6 +17,7 @@ public class VNeIDGatewayClient : IVNeIDGatewayClient
     private readonly HttpClient _httpClient;
     private readonly IVNeIDAuthService _authService;
     private readonly VNeIDGatewayOptions _options;
+    private readonly ISignFlowLogger _signFlowLogger;
     private readonly ILogger<VNeIDGatewayClient> _logger;
 
     private static readonly JsonSerializerOptions JsonOptions = new()
@@ -28,11 +29,13 @@ public class VNeIDGatewayClient : IVNeIDGatewayClient
         HttpClient httpClient,
         IVNeIDAuthService authService,
         IOptions<VNeIDGatewayOptions> options,
+        ISignFlowLogger signFlowLogger,
         ILogger<VNeIDGatewayClient> logger)
     {
         _httpClient = httpClient;
         _authService = authService;
         _options = options.Value;
+        _signFlowLogger = signFlowLogger;
         _logger = logger;
 
         if (!string.IsNullOrWhiteSpace(_options.BaseUrl))
@@ -99,6 +102,20 @@ public class VNeIDGatewayClient : IVNeIDGatewayClient
             cancellationToken);
     }
 
+    public async Task<(int StatusCode, string Body)> GetCredentialsRawAsync(
+        string citizenPid,
+        string? requestId = null,
+        CancellationToken cancellationToken = default)
+    {
+        var request = new CertificateListRequest { CitizenPid = citizenPid };
+        return await SendRawAsync(
+            HttpMethod.Post,
+            "/api/v1/certificates/list",
+            request,
+            requestId,
+            cancellationToken);
+    }
+
     public async Task<ApiResponse<SignHashResponseData>> CreateSignHashAsync(
         SignHashRequest request, 
         string? requestId = null, 
@@ -160,8 +177,22 @@ public class VNeIDGatewayClient : IVNeIDGatewayClient
 
         _logger.LogInformation("Sending {Method} {Url} [RequestId: {RequestId}]", method, url, actualRequestId);
 
-        var response = await _httpClient.SendAsync(httpRequest, cancellationToken);
+        HttpResponseMessage response;
+        try
+        {
+            response = await _httpClient.SendAsync(httpRequest, cancellationToken);
+        }
+        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
+        {
+            WriteSignLog(method, url, actualRequestId, null, null, requestBodyJson, null, $"RSVAN không phản hồi kịp khi gọi {url}.");
+            throw new TimeoutException($"RSVAN không phản hồi kịp khi gọi {url}.");
+        }
         var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
+        var echoedRequestId = response.Headers.TryGetValues("X-Request-Id", out var echoedIds)
+            ? echoedIds.FirstOrDefault()
+            : null;
+        var trackedRequestId = string.IsNullOrWhiteSpace(echoedRequestId) ? actualRequestId : echoedRequestId;
+        WriteSignLog(method, url, actualRequestId, trackedRequestId, (int)response.StatusCode, requestBodyJson, responseContent);
 
         // Handle 401 Unauthorized by retrying once after invalidating cached token
         if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized && !isRetry)
@@ -181,6 +212,7 @@ public class VNeIDGatewayClient : IVNeIDGatewayClient
             var apiResult = JsonSerializer.Deserialize<ApiResponse<TResponse>>(responseContent, JsonOptions);
             if (apiResult != null)
             {
+                apiResult.RequestId = trackedRequestId;
                 return apiResult;
             }
         }
@@ -192,8 +224,71 @@ public class VNeIDGatewayClient : IVNeIDGatewayClient
         return new ApiResponse<TResponse>
         {
             Status = ((int)response.StatusCode).ToString(),
-            Description = $"HTTP {response.StatusCode}: {responseContent}"
+            Description = $"HTTP {response.StatusCode}: {responseContent}",
+            RequestId = trackedRequestId
         };
+    }
+
+    private async Task<(int StatusCode, string Body)> SendRawAsync<TRequest>(
+        HttpMethod method,
+        string url,
+        TRequest? body,
+        string? requestId,
+        CancellationToken cancellationToken)
+    {
+        var token = await _authService.GetValidAccessTokenAsync(cancellationToken);
+        var actualRequestId = string.IsNullOrWhiteSpace(requestId) ? Guid.NewGuid().ToString() : requestId;
+
+        using var httpRequest = new HttpRequestMessage(method, url);
+        httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        httpRequest.Headers.Add("X-Request-Id", actualRequestId);
+
+        string? requestBodyJson = null;
+        if (body != null)
+        {
+            requestBodyJson = JsonSerializer.Serialize(body, JsonOptions);
+            httpRequest.Content = new StringContent(requestBodyJson, Encoding.UTF8, "application/json");
+        }
+
+        ApplyPartnerHmacHeaders(httpRequest, requestBodyJson);
+        _logger.LogInformation("Sending {Method} {Url} [RequestId: {RequestId}]", method, url, actualRequestId);
+
+        try
+        {
+            var response = await _httpClient.SendAsync(httpRequest, cancellationToken);
+            var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
+            return ((int)response.StatusCode, responseContent);
+        }
+        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
+        {
+            throw new TimeoutException($"RSVAN không phản hồi kịp khi gọi {url}.");
+        }
+    }
+
+    private void WriteSignLog(
+        HttpMethod method,
+        string url,
+        string requestId,
+        string? responseRequestId,
+        int? httpStatus,
+        string? requestBody,
+        string? responseBody,
+        string? error = null)
+    {
+        if (!url.Contains("/signings/", StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        _signFlowLogger.WriteExchange(
+            method.Method,
+            url,
+            requestId,
+            responseRequestId,
+            httpStatus,
+            requestBody,
+            responseBody,
+            error);
     }
 
     private void ApplyPartnerHmacHeaders(HttpRequestMessage httpRequest, string? bodyJson)

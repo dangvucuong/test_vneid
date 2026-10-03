@@ -40,6 +40,11 @@ public interface IVNeIDGatewayClient
         string? requestId = null, 
         CancellationToken cancellationToken = default);
 
+    Task<(int StatusCode, string Body)> GetCredentialsRawAsync(
+        string citizenPid,
+        string? requestId = null,
+        CancellationToken cancellationToken = default);
+
     /// <summary>
     /// API 07: POST /api/v1/signings/hash
     /// Submit document digest hashes to initiate a remote signing transaction on VNeID

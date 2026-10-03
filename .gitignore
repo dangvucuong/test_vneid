@@ -5,6 +5,9 @@
 **/.vs/
 *.user
 vneid-sign-console/.env
+VNeIDSignGateway/logs/
+VNeIDWebhook/logs/
+VNeIDWebhook/App.config
 VNeIDSignGateway/appsettings.json
 VNeIDSignGateway/appsettings.Development.json
 Thông tin kết nối.docx

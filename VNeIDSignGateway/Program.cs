@@ -10,6 +10,7 @@ builder.Services.Configure<VNeIDGatewayOptions>(
     builder.Configuration.GetSection(VNeIDGatewayOptions.SectionName));
 
 // 2. Register Application Services & Typed HttpClients
+builder.Services.AddSingleton<ISignFlowLogger, SignFlowLogger>();
 builder.Services.AddSingleton<IWebhookValidator, WebhookValidator>();
 builder.Services.AddSingleton<IWebhookEventStore, WebhookEventStore>();
 builder.Services.AddSingleton<IUniversalLinkBuilder, UniversalLinkBuilder>();
@@ -40,7 +41,7 @@ builder.Services.AddSingleton<IVNeIDAuthService, VNeIDAuthService>();
 
 builder.Services.AddHttpClient<IVNeIDGatewayClient, VNeIDGatewayClient>(client =>
 {
-    client.Timeout = TimeSpan.FromSeconds(60);
+    client.Timeout = TimeSpan.FromSeconds(180);
 });
 
 // 3. Add Controllers

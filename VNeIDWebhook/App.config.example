@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <appSettings>
+    <add key="ListenPrefix" value="http://localhost:5255/" />
+    <!-- Cùng WebhookSecretKey đã đăng ký với RSVAN. Không commit file App.config thật. -->
+    <add key="WebhookSecretKey" value="" />
+  </appSettings>
+</configuration>
