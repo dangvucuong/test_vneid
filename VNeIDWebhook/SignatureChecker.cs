@@ -17,6 +17,7 @@ namespace VNeIDWebhook
             var actualHash = separator >= 0
                 ? signatureHeader.Substring(separator + 1).Trim()
                 : signatureHeader.Trim();
+            actualHash = actualHash.Replace("-", "").Replace(":", "").Replace(" ", "");
 
             using (var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(secret)))
             {

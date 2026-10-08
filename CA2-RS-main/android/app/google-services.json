@@ -1,0 +1,263 @@
+{
+  "project_info": {
+    "project_number": "422856567567",
+    "firebase_url": "https://pushpassenger-945b2.firebaseio.com",
+    "project_id": "pushpassenger-945b2",
+    "storage_bucket": "pushpassenger-945b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422856567567:android:8d7cbf3cfa222694efac7a",
+        "android_client_info": {
+          "package_name": "com.bvub.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe4RcbsKbkvFgHl-HediGXMMT1zWelCCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "422856567567-0cue7so2tuispglat053c5os0sdrhi1e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vcdc.remotesign"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422856567567:android:f1afdc60c90e7f44efac7a",
+        "android_client_info": {
+          "package_name": "com.ca2.rs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe4RcbsKbkvFgHl-HediGXMMT1zWelCCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "422856567567-0cue7so2tuispglat053c5os0sdrhi1e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vcdc.remotesign"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422856567567:android:86ab566a161441e2efac7a",
+        "android_client_info": {
+          "package_name": "com.ca2.sign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe4RcbsKbkvFgHl-HediGXMMT1zWelCCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "422856567567-0cue7so2tuispglat053c5os0sdrhi1e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vcdc.remotesign"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422856567567:android:4c43b11075c75ab5efac7a",
+        "android_client_info": {
+          "package_name": "com.companyname.ca2sign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe4RcbsKbkvFgHl-HediGXMMT1zWelCCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "422856567567-0cue7so2tuispglat053c5os0sdrhi1e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vcdc.remotesign"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422856567567:android:4868c2111e99b74eefac7a",
+        "android_client_info": {
+          "package_name": "com.remotesign.ca2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe4RcbsKbkvFgHl-HediGXMMT1zWelCCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "422856567567-0cue7so2tuispglat053c5os0sdrhi1e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vcdc.remotesign"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422856567567:android:bfcade84489165abefac7a",
+        "android_client_info": {
+          "package_name": "com.rs.ca2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe4RcbsKbkvFgHl-HediGXMMT1zWelCCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "422856567567-0cue7so2tuispglat053c5os0sdrhi1e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vcdc.remotesign"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422856567567:android:2fb11e5267ffb3faefac7a",
+        "android_client_info": {
+          "package_name": "io.cordova.myapp4d0729"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe4RcbsKbkvFgHl-HediGXMMT1zWelCCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422856567567-b4l40craa832u1bnr01l8r0ricqgigqr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "422856567567-0cue7so2tuispglat053c5os0sdrhi1e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.vcdc.remotesign"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

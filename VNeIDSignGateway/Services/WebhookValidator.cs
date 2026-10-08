@@ -39,6 +39,7 @@ public class WebhookValidator : IWebhookValidator
         // Expected format: sha256=<hash> or sha256 = <hash>
         var parts = signatureHeader.Split('=', 2);
         var actualHash = parts.Length == 2 ? parts[1].Trim() : signatureHeader.Trim();
+        actualHash = actualHash.Replace("-", "").Replace(":", "").Replace(" ", "");
 
         using var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(_options.WebhookSecretKey));
         var computedHashBytes = hmac.ComputeHash(rawBodyBytes);

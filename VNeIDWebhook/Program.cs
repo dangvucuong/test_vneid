@@ -126,6 +126,7 @@ namespace VNeIDWebhook
                 }
 
                 var logPath = WebhookFileLog.Write(request.HttpMethod, path, requestId, signature, valid, status, body);
+                WebhookSqlLog.Write(requestId, status, valid, body, responseBody);
                 Console.WriteLine(DateTime.Now.ToString("HH:mm:ss") + " " + request.HttpMethod + " " + path + " -> " + status + " log=" + logPath);
                 WriteJson(context.Response, status, responseBody);
             }

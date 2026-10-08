@@ -18,6 +18,7 @@ public class VNeIDGatewayClient : IVNeIDGatewayClient
     private readonly IVNeIDAuthService _authService;
     private readonly VNeIDGatewayOptions _options;
     private readonly ISignFlowLogger _signFlowLogger;
+    private readonly IVneIdSqlLog _sqlLog;
     private readonly ILogger<VNeIDGatewayClient> _logger;
 
     private static readonly JsonSerializerOptions JsonOptions = new()
@@ -30,12 +31,14 @@ public class VNeIDGatewayClient : IVNeIDGatewayClient
         IVNeIDAuthService authService,
         IOptions<VNeIDGatewayOptions> options,
         ISignFlowLogger signFlowLogger,
+        IVneIdSqlLog sqlLog,
         ILogger<VNeIDGatewayClient> logger)
     {
         _httpClient = httpClient;
         _authService = authService;
         _options = options.Value;
         _signFlowLogger = signFlowLogger;
+        _sqlLog = sqlLog;
         _logger = logger;
 
         if (!string.IsNullOrWhiteSpace(_options.BaseUrl))
@@ -108,12 +111,51 @@ public class VNeIDGatewayClient : IVNeIDGatewayClient
         CancellationToken cancellationToken = default)
     {
         var request = new CertificateListRequest { CitizenPid = citizenPid };
+        var first = await SendRawAsync(
+            HttpMethod.Post,
+            "/api/v1/certificates/list",
+            request,
+            requestId,
+            cancellationToken);
+        if (!LaLoiDanhSachChungThu(first.StatusCode, first.Body))
+        {
+            return first;
+        }
+
+        _logger.LogWarning(
+            "Lấy danh sách chứng thư lỗi HTTP {StatusCode}. Refresh token rồi gọi lại.",
+            first.StatusCode);
+        await _authService.ForceRefreshAccessTokenAsync(cancellationToken);
         return await SendRawAsync(
             HttpMethod.Post,
             "/api/v1/certificates/list",
             request,
             requestId,
             cancellationToken);
+    }
+
+    private static bool LaLoiDanhSachChungThu(int statusCode, string body)
+    {
+        if (statusCode < 200 || statusCode >= 300)
+        {
+            return true;
+        }
+
+        try
+        {
+            using var document = JsonDocument.Parse(body);
+            if (!document.RootElement.TryGetProperty("status", out var status))
+            {
+                return true;
+            }
+
+            var text = status.ValueKind == JsonValueKind.String ? status.GetString() : status.GetRawText();
+            return text != "01" && text != "1";
+        }
+        catch (JsonException)
+        {
+            return true;
+        }
     }
 
     public async Task<ApiResponse<SignHashResponseData>> CreateSignHashAsync(
@@ -185,6 +227,7 @@ public class VNeIDGatewayClient : IVNeIDGatewayClient
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {
             WriteSignLog(method, url, actualRequestId, null, null, requestBodyJson, null, $"RSVAN không phản hồi kịp khi gọi {url}.");
+            _sqlLog.WriteExchange(url, actualRequestId, null, requestBodyJson, null, $"RSVAN không phản hồi kịp khi gọi {url}.");
             throw new TimeoutException($"RSVAN không phản hồi kịp khi gọi {url}.");
         }
         var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
@@ -193,6 +236,7 @@ public class VNeIDGatewayClient : IVNeIDGatewayClient
             : null;
         var trackedRequestId = string.IsNullOrWhiteSpace(echoedRequestId) ? actualRequestId : echoedRequestId;
         WriteSignLog(method, url, actualRequestId, trackedRequestId, (int)response.StatusCode, requestBodyJson, responseContent);
+        _sqlLog.WriteExchange(url, trackedRequestId, (int)response.StatusCode, requestBodyJson, responseContent, null);
 
         // Handle 401 Unauthorized by retrying once after invalidating cached token
         if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized && !isRetry)

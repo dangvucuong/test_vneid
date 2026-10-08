@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OTPConfirmViewController" customModule="xverifydemoapp" customModuleProvider="target">
+            <connections>
+                <outlet property="otpInputLbl" destination="W6s-Iy-9NR" id="K23-q6-pAU"/>
+                <outlet property="otpLabel" destination="NjI-eF-goM" id="bSe-2p-4dg"/>
+                <outlet property="otpTextFieldView" destination="Sua-qm-D4c" id="D1Z-Wc-uP5"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhập mã OTP:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NjI-eF-goM">
+                    <rect key="frame" x="152" y="112" width="110" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" name="appColorBackground"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhập mã OTP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6s-Iy-9NR">
+                    <rect key="frame" x="51" y="325.5" width="106" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" name="appColorBackground"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sua-qm-D4c" customClass="OTPFieldView" customModule="OTPFieldView">
+                    <rect key="frame" x="51" y="354" width="312" height="42"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="42" id="0jK-Yd-yT8"/>
+                        <constraint firstAttribute="width" constant="312" id="HQz-Lh-zZJ"/>
+                    </constraints>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="img_splash_otp" translatesAutoresizingMaskIntoConstraints="NO" id="aa6-Z8-2Nl">
+                    <rect key="frame" x="105" y="136.5" width="204" height="185"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="aa6-Z8-2Nl" secondAttribute="height" multiplier="204:185" id="9O8-qu-0zN"/>
+                        <constraint firstAttribute="width" constant="204" id="YG2-K2-Usa"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="appColorDarkGray"/>
+            <constraints>
+                <constraint firstItem="Sua-qm-D4c" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="3ov-mE-p7t"/>
+                <constraint firstItem="NjI-eF-goM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" priority="750" constant="64" id="8ec-od-VwC"/>
+                <constraint firstItem="aa6-Z8-2Nl" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="DK5-2M-J0Q"/>
+                <constraint firstItem="NjI-eF-goM" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="E2t-Ik-mjy"/>
+                <constraint firstItem="W6s-Iy-9NR" firstAttribute="leading" secondItem="Sua-qm-D4c" secondAttribute="leading" id="HVG-1i-bR2"/>
+                <constraint firstItem="W6s-Iy-9NR" firstAttribute="top" secondItem="aa6-Z8-2Nl" secondAttribute="bottom" constant="4" id="T3b-TG-JmO"/>
+                <constraint firstItem="NjI-eF-goM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="at3-ew-MiT"/>
+                <constraint firstItem="aa6-Z8-2Nl" firstAttribute="top" secondItem="NjI-eF-goM" secondAttribute="bottom" constant="4" id="gzi-3S-fAv"/>
+                <constraint firstItem="Sua-qm-D4c" firstAttribute="top" secondItem="W6s-Iy-9NR" secondAttribute="bottom" constant="8" id="hjE-2z-akh"/>
+            </constraints>
+            <point key="canvasLocation" x="129.375" y="-32.74647887323944"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="img_splash_otp" width="600" height="600"/>
+        <namedColor name="appColorBackground">
+            <color red="0.90196078431372551" green="0.90980392156862744" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorDarkGray">
+            <color red="0.20000000298023224" green="0.20800000429153442" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

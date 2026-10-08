@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:paddingHorizontal="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.imageview.ShapeableImageView
+                app:layout_constraintDimensionRatio="W,85:54"
+                android:layout_marginStart="@dimen/_5sdp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Rounded"
+                android:id="@+id/iv_eid_front"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iv_eid_back"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:scaleType="centerCrop"/>
+            <com.google.android.material.imageview.ShapeableImageView
+                app:layout_constraintDimensionRatio="W,85:54"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Rounded"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:id="@+id/iv_eid_back"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_eid_front"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:scaleType="centerCrop"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.google.android.material.card.MaterialCardView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mcv_face_match"
+            android:id="@+id/card_view_national_private_information"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:foreground="?android:selectableItemBackground"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="@dimen/_1sdp"
+            app:cardCornerRadius="@dimen/_5sdp">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/margin_small"
+                android:paddingBottom="@dimen/margin_small"
+                android:stretchColumns="1">
+
+                <TableRow
+                    android:id="@+id/row_pod_eid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:id="@+id/label_pod_eid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:gravity="end"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="CCCD/CMND" />
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:id="@+id/value_pod_eid"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="2"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/empty_na"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/value_match_id_number"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        app:srcCompat="@drawable/ic_checkmark" />
+                </TableRow>
+                <TableRow
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:id="@+id/row_pod_fullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:id="@+id/label_pod_fullname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:gravity="end"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/full_name" />
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:id="@+id/value_pod_fullname"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="2"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/empty_na"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/value_match_name"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        app:srcCompat="@drawable/ic_checkmark" />
+                </TableRow>
+                <TableRow
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:id="@+id/row_pod_dob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:id="@+id/label_pod_dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:gravity="end"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/dob" />
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:id="@+id/value_pod_dob"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="2"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/empty_na"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/value_match_date_of_birth"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="start|center_vertical"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        app:srcCompat="@drawable/ic_checkmark" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tbr_passport_number"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:gravity="end"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/number_passport" />
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:id="@+id/value_passport_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="2"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/empty_na"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tbr_address"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:gravity="end"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/place_of_residence" />
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:id="@+id/value_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="2"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/empty_na"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tbr_identification"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:gravity="end"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/personal_identification" />
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:id="@+id/value_identification"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="2"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/empty_na"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tbr_issued_date"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:gravity="end"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/issue_date" />
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:id="@+id/value_issued_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="2"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/empty_na"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tbr_due_date"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:gravity="end"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/expiry_date" />
+
+                    <TextView
+                        android:textSize="@dimen/_12sdp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/google_sans_medium"
+                        android:id="@+id/value_due_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLines="2"
+                        android:padding="@dimen/margin_tiny"
+                        android:text="@string/empty_na"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                </TableRow>
+            </TableLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</ScrollView>

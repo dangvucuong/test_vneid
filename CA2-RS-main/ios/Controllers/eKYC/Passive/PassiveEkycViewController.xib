@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="GoogleSans-Medium.otf">
+            <string>GoogleSans-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PassiveEkycViewController" customModule="xverifydemoapp" customModuleProvider="target">
+            <connections>
+                <outlet property="animationLoading" destination="ZwX-3v-Yx7" id="CPh-9a-dqX"/>
+                <outlet property="animationScan" destination="GH4-yS-8Qf" id="2K5-1p-rM5"/>
+                <outlet property="cameraView" destination="unU-6b-VKW" id="xkO-Vt-cMO"/>
+                <outlet property="stepInstructionLabel" destination="fSv-PB-3vE" id="DTl-XR-Uol"/>
+                <outlet property="view" destination="xjV-cW-pkg" id="8pT-Yc-Hir"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="xjV-cW-pkg">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J23-wK-eaT">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GH4-yS-8Qf" customClass="LottieAnimationView" customModule="Lottie">
+                            <rect key="frame" x="14.333333333333343" y="27.333333333333343" width="364.33333333333326" height="364.33333333333326"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="GH4-yS-8Qf" secondAttribute="height" multiplier="1:1" id="dTy-QF-RZ6"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="face_id_loader"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="unU-6b-VKW" userLabel="Camere View">
+                            <rect key="frame" x="47" y="60" width="299" height="299"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="unU-6b-VKW" secondAttribute="height" multiplier="1:1" id="RdB-Hj-Xct"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GIỮ ĐIỆN THOẠI CỐ ĐỊNH, ĐƯA KHUÔN MẶT CỦA BẠN VÀO KHUNG HÌNH VÀ NHÌN THẲNG" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSv-PB-3vE">
+                            <rect key="frame" x="16" y="414" width="361" height="37.333333333333314"/>
+                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZwX-3v-Yx7" customClass="LottieAnimationView" customModule="Lottie">
+                            <rect key="frame" x="16" y="409" width="361" height="160"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="160" id="xO5-CG-9q3"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="animation_loading"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="fSv-PB-3vE" firstAttribute="leading" secondItem="J23-wK-eaT" secondAttribute="leading" constant="16" id="71F-OO-biy"/>
+                        <constraint firstItem="GH4-yS-8Qf" firstAttribute="width" secondItem="unU-6b-VKW" secondAttribute="height" multiplier="39:32" id="842-Ua-8xs"/>
+                        <constraint firstAttribute="trailing" secondItem="fSv-PB-3vE" secondAttribute="trailing" constant="16" id="Bek-Ju-Dzh"/>
+                        <constraint firstAttribute="trailing" secondItem="ZwX-3v-Yx7" secondAttribute="trailing" constant="16" id="GK0-Xx-TJQ"/>
+                        <constraint firstItem="unU-6b-VKW" firstAttribute="top" secondItem="J23-wK-eaT" secondAttribute="top" constant="60" id="MTu-wp-JhE"/>
+                        <constraint firstItem="fSv-PB-3vE" firstAttribute="top" secondItem="unU-6b-VKW" secondAttribute="bottom" constant="55" id="WZc-Nc-o2w"/>
+                        <constraint firstItem="GH4-yS-8Qf" firstAttribute="centerY" secondItem="unU-6b-VKW" secondAttribute="centerY" id="Ycb-U1-h44"/>
+                        <constraint firstAttribute="trailing" secondItem="unU-6b-VKW" secondAttribute="trailing" constant="47" id="bwJ-fE-A2U"/>
+                        <constraint firstItem="unU-6b-VKW" firstAttribute="leading" secondItem="J23-wK-eaT" secondAttribute="leading" constant="47" id="et7-Ol-PYi"/>
+                        <constraint firstItem="ZwX-3v-Yx7" firstAttribute="leading" secondItem="J23-wK-eaT" secondAttribute="leading" constant="16" id="pnS-DB-X9F"/>
+                        <constraint firstItem="ZwX-3v-Yx7" firstAttribute="top" secondItem="unU-6b-VKW" secondAttribute="bottom" constant="50" id="s5H-JC-vRy"/>
+                        <constraint firstItem="GH4-yS-8Qf" firstAttribute="centerX" secondItem="J23-wK-eaT" secondAttribute="centerX" id="sWI-mJ-M5I"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="qLS-Ha-dDF"/>
+            <color key="backgroundColor" name="appColorDarkGray"/>
+            <constraints>
+                <constraint firstItem="J23-wK-eaT" firstAttribute="leading" secondItem="xjV-cW-pkg" secondAttribute="leading" id="Kbh-br-QJ9"/>
+                <constraint firstAttribute="bottom" secondItem="J23-wK-eaT" secondAttribute="bottom" id="N9c-X4-8br"/>
+                <constraint firstItem="J23-wK-eaT" firstAttribute="trailing" secondItem="xjV-cW-pkg" secondAttribute="trailing" id="QF2-5j-gI7"/>
+                <constraint firstItem="J23-wK-eaT" firstAttribute="top" secondItem="xjV-cW-pkg" secondAttribute="top" id="pdy-Xo-hX1"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <point key="canvasLocation" x="34.782608695652179" y="34.821428571428569"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="appColorDarkGray">
+            <color red="0.20000000298023224" green="0.20800000429153442" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

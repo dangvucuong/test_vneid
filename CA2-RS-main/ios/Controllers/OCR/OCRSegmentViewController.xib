@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="GoogleSans-Medium.otf">
+            <string>GoogleSans-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OCRSegmentViewController" customModule="xverifydemoapp" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="3FL-eK-cxG" id="5Pa-Bm-zyS"/>
+                <outlet property="doneButton" destination="oe4-ZR-F4n" id="me3-sw-2sg"/>
+                <outlet property="topView" destination="U6K-QK-7kZ" id="mr6-me-MWQ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6K-QK-7kZ" userLabel="SegmenView">
+                    <rect key="frame" x="0.0" y="71" width="393" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="cHh-oW-rgG"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3FL-eK-cxG">
+                    <rect key="frame" x="0.0" y="121" width="393" height="625"/>
+                    <color key="backgroundColor" name="appColorDarkGray"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oe4-ZR-F4n">
+                    <rect key="frame" x="16" y="758" width="361" height="50"/>
+                    <color key="backgroundColor" name="appColorGreen"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="oiA-PX-54u"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="16"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="XONG">
+                        <color key="titleColor" name="appColorBackground"/>
+                    </state>
+                    <connections>
+                        <action selector="doneButtonAction:" destination="-1" eventType="touchUpInside" id="nFh-gh-EYO"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="appColorDarkGray"/>
+            <constraints>
+                <constraint firstItem="3FL-eK-cxG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="5MO-PJ-HMu"/>
+                <constraint firstAttribute="trailing" secondItem="U6K-QK-7kZ" secondAttribute="trailing" id="6dD-ul-cGj"/>
+                <constraint firstItem="oe4-ZR-F4n" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="A55-dy-vx4"/>
+                <constraint firstItem="oe4-ZR-F4n" firstAttribute="top" secondItem="3FL-eK-cxG" secondAttribute="bottom" constant="12" id="DHe-3w-QAl"/>
+                <constraint firstItem="U6K-QK-7kZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="GRI-DA-iEr"/>
+                <constraint firstItem="3FL-eK-cxG" firstAttribute="top" secondItem="U6K-QK-7kZ" secondAttribute="bottom" id="JbO-d0-bBj"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3FL-eK-cxG" secondAttribute="trailing" id="OTc-S8-Ky0"/>
+                <constraint firstItem="U6K-QK-7kZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="12" id="lNs-x5-0uM"/>
+                <constraint firstAttribute="bottom" secondItem="oe4-ZR-F4n" secondAttribute="bottom" constant="44" id="n8y-bz-cKm"/>
+                <constraint firstItem="oe4-ZR-F4n" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="zcL-3k-F5w"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="-32"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="appColorBackground">
+            <color red="0.90196078431372551" green="0.90980392156862744" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorDarkGray">
+            <color red="0.20000000298023224" green="0.20800000429153442" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorGreen">
+            <color red="0.0" green="0.6589999794960022" blue="0.34900000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

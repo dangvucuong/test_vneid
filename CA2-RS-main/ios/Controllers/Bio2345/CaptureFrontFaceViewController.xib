@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="GoogleSans-Medium.otf">
+            <string>GoogleSans-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CaptureFrontFaceViewController" customModule="xverifydemoapp" customModuleProvider="target">
+            <connections>
+                <outlet property="animationLoading" destination="Il7-Pz-UuN" id="jWa-wK-USL"/>
+                <outlet property="animationScan" destination="bxX-31-5dg" id="xYx-iX-87Y"/>
+                <outlet property="btnChangeCamera" destination="oEp-Rp-7mh" id="sqq-aU-5gZ"/>
+                <outlet property="cameraView" destination="132-Cz-YX9" id="DK4-mg-pLl"/>
+                <outlet property="stepInstructionLabel" destination="Bj6-d7-T4L" id="xYU-5m-3OA"/>
+                <outlet property="view" destination="U3m-qs-ftD" id="1eQ-hG-ZK6"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="U3m-qs-ftD">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxX-31-5dg" customClass="LottieAnimationView" customModule="Lottie">
+                    <rect key="frame" x="14.333333333333343" y="27.333333333333343" width="364.33333333333326" height="364.33333333333326"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="bxX-31-5dg" secondAttribute="height" multiplier="1:1" id="byC-C8-Z2g"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="face_id_loader"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="132-Cz-YX9" userLabel="Camere View">
+                    <rect key="frame" x="47" y="60" width="299" height="299"/>
+                    <color key="backgroundColor" name="appColorBlack"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="132-Cz-YX9" secondAttribute="height" multiplier="1:1" id="a4f-pt-Ih8"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GIỮ ĐIỆN THOẠI CỐ ĐỊNH, ĐƯA KHUÔN MẶT CỦA BẠN VÀO KHUNG HÌNH VÀ NHÌN THẲNG" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bj6-d7-T4L">
+                    <rect key="frame" x="16" y="414" width="361" height="41"/>
+                    <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Il7-Pz-UuN" customClass="LottieAnimationView" customModule="Lottie">
+                    <rect key="frame" x="16" y="409" width="361" height="160"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="160" id="Ofr-3B-1SR"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="animation_loading"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEp-Rp-7mh">
+                    <rect key="frame" x="170.66666666666666" y="594" width="52" height="35"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="repeat" catalog="system">
+                        <color key="baseForegroundColor" name="appColorBackground"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="btnChangeCameraPressed:" destination="-1" eventType="touchUpInside" id="BtQ-vT-2dw"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Cho-d9-mkC"/>
+            <color key="backgroundColor" name="appColorDarkGray"/>
+            <constraints>
+                <constraint firstItem="oEp-Rp-7mh" firstAttribute="top" secondItem="Il7-Pz-UuN" secondAttribute="bottom" constant="25" id="2b6-yj-GbM"/>
+                <constraint firstItem="bxX-31-5dg" firstAttribute="centerY" secondItem="132-Cz-YX9" secondAttribute="centerY" id="IZB-25-DK4"/>
+                <constraint firstItem="Bj6-d7-T4L" firstAttribute="top" secondItem="132-Cz-YX9" secondAttribute="bottom" constant="55" id="RMB-XZ-eDY"/>
+                <constraint firstItem="Il7-Pz-UuN" firstAttribute="leading" secondItem="U3m-qs-ftD" secondAttribute="leading" constant="16" id="SKT-uM-XJQ"/>
+                <constraint firstItem="132-Cz-YX9" firstAttribute="top" secondItem="U3m-qs-ftD" secondAttribute="top" constant="60" id="cKn-0v-Ewb"/>
+                <constraint firstAttribute="trailing" secondItem="Bj6-d7-T4L" secondAttribute="trailing" constant="16" id="d9Q-yY-VIz"/>
+                <constraint firstItem="132-Cz-YX9" firstAttribute="leading" secondItem="U3m-qs-ftD" secondAttribute="leading" constant="47" id="eTF-B9-1oA"/>
+                <constraint firstItem="bxX-31-5dg" firstAttribute="width" secondItem="132-Cz-YX9" secondAttribute="height" multiplier="39:32" id="ei5-nN-yF8"/>
+                <constraint firstItem="Bj6-d7-T4L" firstAttribute="leading" secondItem="U3m-qs-ftD" secondAttribute="leading" constant="16" id="g62-uA-Yp3"/>
+                <constraint firstItem="oEp-Rp-7mh" firstAttribute="centerX" secondItem="U3m-qs-ftD" secondAttribute="centerX" id="j10-pW-2il"/>
+                <constraint firstItem="bxX-31-5dg" firstAttribute="centerX" secondItem="U3m-qs-ftD" secondAttribute="centerX" id="nti-cE-Oxb"/>
+                <constraint firstAttribute="trailing" secondItem="132-Cz-YX9" secondAttribute="trailing" constant="47" id="w0l-dO-rrc"/>
+                <constraint firstItem="Il7-Pz-UuN" firstAttribute="top" secondItem="132-Cz-YX9" secondAttribute="bottom" constant="50" id="wDw-II-1il"/>
+                <constraint firstAttribute="trailing" secondItem="Il7-Pz-UuN" secondAttribute="trailing" constant="16" id="xDq-kU-qwe"/>
+            </constraints>
+            <point key="canvasLocation" x="-234" y="-68"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="repeat" catalog="system" width="128" height="98"/>
+        <namedColor name="appColorBackground">
+            <color red="0.90196078431372551" green="0.90980392156862744" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorBlack">
+            <color red="0.15299999713897705" green="0.15299999713897705" blue="0.15299999713897705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorDarkGray">
+            <color red="0.20000000298023224" green="0.20800000429153442" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,208 @@
+"verify" = "Verify";
+"title_scan_step" = "Scan Step";
+"ok" = "OK";
+"cancel" = "Cancel";
+"loading_data" = "Loading data...";
+"next_button" = "Next";
+"try_again_button" = "Try Again";
+"done_button" = "Done";
+"start_button" = "Start";
+"home" = "Home";
+"take_photo" = "Take photo";
+"label_choose_form" = "Choose form";
+"label_scan_qrcode" = "Scan QRCode";
+"label_scan_mrz" = "Scan MRZ";
+"label_prepare_scan" = "Prepare to scan your eID card";
+"label_description_scan" = "Place the card's chip area on the top back of the phone to start scanning. Hold the card in the correct position until you see a green check mark.";
+"ready" = "I am ready";
+
+"step_1_scan_mrz" = "Step 1: Scan MRZ";
+"step_2_nfc_read" = "Step 2: NFC Read";
+"step_3_face_detect" = "Step 3: Face Detect";
+
+"message_info" = "Infomation";
+"message_warning" = "Warning";
+"message_error" = "Error";
+"message_success" = "Success";
+"message_notify" = "Notify";
+
+"put_iphone_near_chip" = "Put the iPhone near the eID card";
+"login_to_eid" = "Login to eID card...";
+"read" = "Read";
+"tag_not_valid" = "eID card not valid";
+"tag_more_than_one" = "There are more than one eID card near iPhone. Only one accept at a time.";
+"tag_connection_error" = "Connecting error. Please try again.";
+"tag_mrz_not_valid" = "MRZ is invalid.";
+"tag_error" = "Error during reading eID card";
+"tag_error_try_again" = "Error during reading eID card. Please try again.";
+"tag_success" = "eID card reading successfully.";
+"tag_success_next_step" = "Next step: Face Authentication >>";
+"scan_mrz" = "USE CAMERA TO SCAN MRZ CODE - CHARACTER STRING ON THE BACK OF CCCD CARD WITH CHIP AT THE BOTTOM";
+"scan_nfc" = "PUT THE DEVICE ON THE CARD AND DO NOT MOVE";
+
+
+// EID GENERAL
+"eid_photo" = "Photo eID";
+"eid_valid" = "eID has been authenticated.";
+"eid_invalid" = "eID is not valid.";
+"eid_content_valid" = "eID is valid and authenticated.";
+"eid_ca_invalid" = "Invalid eID.";
+"eid_pa_invalid" = "The information in the eID has been changed.";
+"eid_aa_invalid" = "eID card has been counterfeited.";
+"eid_rar_not_verified" = "SOD information is invalid.";
+"eid_rar_signature_not_verified" = "Invalid authentication information.";
+"eid_no_data" = "Unable to read eID data.";
+
+// SECURITY
+"eid_asystems" = "Data Integrity (A-System Requirements)";
+"eid_ca" = "Chip Authentication";
+"eid_pa" = "Passive Authentication";
+"eid_aa" = "Active Authentication";
+"eid_verification" = "Verification";
+"rar_cert_verification" = "RAR Certificate Verification";
+"rar_sign_verification" = "RAR Signature Verification";
+
+
+"portrait_photo" = "Selfie photo";
+"section_personal" = "Subject Information";
+"section_card" = "Card Information";
+"label_name:" = "Full name:";
+"label_eid_number:" = "eID Number:";
+"label_passport_number:" = "Passport Number";
+"label_date_of_birth:" = "Date of birth:";
+"label_date_of_expiry:" = "Date of expiry:";
+"label_gender:" = "Sex:";
+"label_nationality:" = "Nationality:";
+"label_ethnicity:" = "Ethnicity:";
+"label_religion:" = "Religion:";
+"label_place_of_origin:" = "Place of origin:";
+"label_place_of_residence:" = "Place of residence:";
+"label_identification:" = "Identification:";
+"label_date_of_issue:" = "Date of issue:";
+"label_date_of_expiry:" = "Date of expiry:";
+"label_father_name:" = "Father name:";
+"label_mother_name:" = "Mother name:";
+"label_spouse_name:" = "Spouse name:";
+"label_old_id:" = "Old ID:";
+"label_document_type:" = "Document type:";
+"label_card_type:" = "Card type";
+"label_issuing_authority:" = "Issuing authority:";
+"label_pace:" = "PACE:";
+"label_chip_authentication:" = "Chip authentication:";
+"label_asystem" = "Asystem";
+"label_verify_id" = "Verify ID";
+"label_face_matching" = "Face matching";
+
+// FACE DETECTION
+"put_your_face_in_the_frame" = "Hold the phone steady, put your face in the frame and look straight ahead";
+"please_look_straight" = "Please look straight";
+"please_tilt_your_face_to_the_left" = "Please tilt your face to the left";
+"please_tilt_your_face_to_the_right" = "Please tilt your face to the right";
+"please_open_your_mouth" = "Please open your mouth";
+"please_smile" = "Please smile";
+"multi_face" = "There are many faces in the frame";
+"please_wait_verifying" = "Verifying, please wait";
+"face_detecion_fail" = "Face authentication failed. Please try again";
+"return_the_phone_to_its_original_position" = "Return the phone to its original position";
+"keep_the_phone_intact" = "Keep the phone intact ";
+"move_the_phone_away" = "Please slowly move the phone away and stop when you see the frame turn blue";
+"move_the_phone_closer" = "Please bring the phone closer slowly and stop when you see the frame turn blue";
+"face_detected" = "Face detected. Processing";
+"personal_information" = "Personal information";
+"the_face_is_fake" = "The face is fake or not smiling";
+
+//PASSIVE
+"passive_ekyc" = "Passive Ekyc";
+"passive_is_detect" = "Face detected, processing...";
+"passive_is_near" = "The face is too close";
+"passive_is_far" = "The face is too far away";
+
+// VERIFY RESULT
+"verify_success" = "Authentication successful";
+"verify_fail" = "Unsuccessful";
+"verify_fail_title" = "Authentication failed";
+"verify_success_description" = "Congratulations, you have completed authentication.\nClick the CONTINUE button to digitally sign.";
+"verify_fail_description" = "Authentication failed.\nPlease try again.";
+"error_verification" = "Authentication failed. Please try again.";
+"verify_success_message" = "Congratulations, you have completed authentication.";
+
+// MODULE
+"title_eid" = "CCCD";
+"title_ekyc" = "eKYC";
+"title_passive_ekyc" = "Passive";
+"title_simple_ekyc" = "Simple";
+"title_gtin" = "GTIN";
+"title_ceca" = "Contract";
+"title_transfer" = "Transfer";
+"title_ocr" = "OCR";
+"title_ekyb" = "eKYB";
+
+// INTRO
+"intro_title_eid" = "Authenticate eID card with chip";
+"intro_description_eid" = "Verify the truth and false information of the chip-mounted CCCD and integrate with C06's authentication service.\n\nStep 1: Verify the integrity of CA/PA/AA data.\nStep 2: Authenticate with C06.\nStep 3: Display cardholder information.";
+
+"intro_title_ekyc" = "eKYC authentication";
+"intro_description_ekyc" = "Verify the truth and false information of chip-mounted CCCD, eKYC and integrate with C06 authentication service.\n\nStep 1: Verify the integrity of CA/PA/AA data.\nStep 2: Identify living entities .\nStep 3: Authenticate with C06.\nStep 4: Display cardholder and face information.";
+
+"intro_title_contract" = "Contract validation";
+"intro_description_contract" = "Verify the truth and false information of chip-mounted CCCD, eKYC and integrate with C06's authentication service.\n\nStep 1: Read the contract.\nStep 2: Verify the integrity of CA/PA/AA data.\ nStep 3: Identify living entity.\nStep 4: Authenticate with C06. \nStep 5: Display cardholder information and face.\nStep 6: Complete contract signing";
+
+"intro_title_ekyb" = "eKYB authentication";
+
+//OCR
+"ocr_read_fail" = "Reading data failed";
+"ocr_capture_front" = "TAKE A PHOTO OF THE FRONT OF EID CARD. PLEASE PUT THE CARD IN THE FRAME.";
+"ocr_capture_back" = "TAKE A PHOTO OF THE BACK OF EID CARD. PLEASE PUT THE CARD IN THE FRAME.";
+"chip" = "CCCD Gắn Chip";
+"cccd" = "CCCD";
+"cmnd" = "CMND";
+"passport" = "Passport";
+"loading_ocr" = "Extracting data. Please wait.";
+"error_ocr_card" = "An error occurred while extracting. Please try again.";
+"error_ocr_not_same_document" = "Error. The front and back are not the same type of documents.";
+
+//CARD TYPE
+"card_type_passport" = "Passport";
+"card_type_eid" = "eID";
+"card_type_new_eid" = "New eID";
+"card_type_unknown" = "Unknown";
+
+//TRANSFER
+"sender_information" = "Sender infomation";
+"source_account" = "Source account";
+"available_balance" = "Available balance";
+"beneficiary_information" = "Beneficiary information";
+"beneficiary_name" = "Beneficiary name";
+"transaction_information" = "Transaction information";
+"successful_transaction" = "Successful transaction";
+"written_amount" = "Twenty million dong";
+"beneficiary_account" = "Beneficiary account";
+"transaction_code" = "Transaction code";
+"bank" = "Bank";
+"amount" = "Amount";
+"transaction_description" = "Transaction description";
+
+//PHOTO
+"chip_photo" = "Chip photo";
+"onboard_photo" = "Onboard photo";
+"current_photo" = "Current photo";
+
+//OTP
+"input_otp" = "Enter OTP";
+"input_otp_onboard" = "Onboard OTP authentication";
+"input_otp_trans" = "Authenticate transaction OTP";
+"onboard_success" = "AUTHENTICATION SUCCESSFUL";
+"otp_fail" = "OTP code is incorrect";
+
+//EKYB
+"certificate_of_registration" = "Certificate Of Registration";
+"business_registration_enterprise" = "Business Registration - Enterprise";
+"business_registration_branch" = "Business Registration - Branch";
+"business_registration_household" = "Business Registration - Household";
+"please_select_and_upload_document" = "Please select a document and upload your document";
+"no_image_selected" = "No image selected.";
+"please_select_document_type" = "Please select a document type before proceeding.";
+"select_image" = "Select Image";
+"take_photo" = "Take Photo";
+"choose_from_library" = "Choose from Library";
+"select_an_option" = "Select an option";

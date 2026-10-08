@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_corner_lefttop</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic_corner_lefttop" fill="#B82B30" fill-rule="nonzero">
+            <path d="M7.3828,28 L0.8203,28 C0.3673,28 0,27.6327 0,27.1797 L0,7.383 C0,3.312 3.312,0 7.383,0 L27.1797,0 C27.6327,0 28,0.3673 28,0.8203 L28,7.3828 C28,7.8359 27.6327,8.2031 27.1797,8.2031 L8.2031,8.2031 L8.2031,27.1797 C8.2031,27.6327 7.8359,28 7.3828,28 Z" id="Path"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>422856567567-m9n8ujar081ran0hcqni1qrht3igisfj.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.422856567567-m9n8ujar081ran0hcqni1qrht3igisfj</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB4Ef8vkD6uRVwWEsOtzKsOlFW0V_VwHWs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>422856567567</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ca2.remotesigning</string>
+	<key>PROJECT_ID</key>
+	<string>pushpassenger-945b2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pushpassenger-945b2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:422856567567:ios:a4455a4183dbb230efac7a</string>
+	<key>DATABASE_URL</key>
+	<string>https://pushpassenger-945b2.firebaseio.com</string>
+</dict>
+</plist>

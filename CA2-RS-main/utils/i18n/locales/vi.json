@@ -1,0 +1,109 @@
+{
+  "xac_thuc_thong_tin": {
+    "title": "Xác thực thông tin",
+    "hinh_thuc_xac_thuc": "Hình thức xác thực",
+    "chon_hinh_thuc": "Vui lòng lựa chọn hình thức để tiếp tục",
+    "cccd_gan_chip": "Căn cước công dân gắn chip",
+    "cccd_thuong": "Căn cước công dân thường",
+    "su_dung_vneid": "Sử dụng VNeID",
+    "xac_thuc_ekyc_okr": "Xác thực EKYC / Xác thực OKR",
+    "xac_thuc_okr": "Xác thực OKR",
+    "tai_khoan_dinh_danh": "Tài khoản định danh và xác thực điện tử",
+    "luu_y": "Lưu ý",
+    "cho_phep_xu_ly_du_lieu": "Cho phép Nacencomm xử lý dữ liệu cá nhân theo các điều kiện giao dịch chung về bảo vệ dữ liệu cá nhân cập nhật thông tin của Qúy khách tại Nacencomm. Về hình thức sử dụng dữ liệu cá nhân tuân thủ Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân.",
+    "cho_phep_chia_se": "Cho phép Nacencomm chia sẻ thông tin cá nhân và dữ liệu sinh trắc học tới Hệ thống định danh và xác thực điện tử và đồng ý cho phép Nacencomm xử lý dữ liệu cá nhân để cấp sản phẩm dịch vụ cho Qúy khách."
+  },
+  "scan_orc": {
+    "ocr_verification_title": "Xác thực OCR",
+    "ocr_verification_instructions": "Vui lòng quét mã QR trên CCCD của bạn để hệ thống lấy thông tin.",
+    "scan_success_title": "Quét Thành Công",
+    "scan_success_message": "Dữ liệu QR: {{data}}",
+    "requesting_permission": "Đang yêu cầu quyền truy cập camera...",
+    "permission_denied": "Quyền truy cập camera bị từ chối.",
+    "button_back": "Quay lại",
+    "button_skip": "Bỏ qua",
+    "button_continue": "Tiếp tục"
+  },
+  "orc_data": {
+    "title": "Thông tin định danh",
+    "personal_info": {
+      "title": "Thông tin cá nhân",
+      "hoVaTen": "Họ và tên",
+      "email": "Email",
+      "tinhTP": "Tỉnh/Thành phố",
+      "diaChi": "Địa chỉ",
+      "maSoCaNhan": "Số CCCD",
+      "ngayCap": "Ngày cấp",
+      "noiCap": "Nơi cấp"
+    },
+    "device_info": {
+      "title": "Thông tin đăng ký thiết bị",
+      "deviceName": "Tên máy",
+      "deviceType": "Loại máy",
+      "os": "Hệ điều hành",
+      "version": "Phiên bản",
+      "uuid": "Mã UUID"
+    },
+    "contact_info": {
+      "title": "Thông tin liên hệ",
+      "DienThoai": "Số điện thoại",
+      "email": "Email",
+      "TKKinhdoanh": "Mã nhân viên"
+    },
+    "submit_button": "Tiếp tục",
+    "validation_error_title": "Lỗi xác thực",
+    "validation_error_message": "Vui lòng điền tất cả các trường bắt buộc"
+  },
+  "don_dang_ky_su_dung": {
+    "title": "Đơn đăng ký sử dụng",
+    "chi_tiet_tai_lieu": "Chi tiết tài liệu",
+    "thong_tin_tai_lieu": "Thông tin tài liệu",
+    "footer_text": "Bằng việc chọn Ký điện tử, tôi đồng ý với nội dung hợp đồng và các",
+    "footer_terms": "Điều khoản pháp lý",
+    "footer_text_2": " Tôi hiểu và đồng ý thực hiện hành động từ lúc “Bắt đầu ký điện tử” đến lúc “Hoàn thành ký điện tử” là việc ký hợp đồng cung cấp dịch vụ của CA2 Remote Signing",
+    "sign_button": "Bắt đầu ký điện tử"
+  },
+  "hoan_tat_dang_ky": {
+    "title": "Hoàn tất đăng ký thông tin",
+    "description": {
+      "part1": "Bạn đã hoàn tất đăng ký thông tin, chúng tôi sẽ thẩm định trong vòng 8-10 phút và gửi kết quả về email ",
+      "part2": " đã đăng ký, vui lòng kiểm tra."
+    },
+    "view_registration": "Xem đơn đăng ký sử dụng",
+    "back_to_login": "Về trang đăng nhập"
+  },
+  "cccd_gan_chip": {
+    "thong_tin_cccd_gan_chip": "Thông tin CCCD gắn chip",
+    "hinh_anh_tren_cccd": "Hình ảnh trên CCCD",
+    "tinh_trang_hieu_luc": "Tình trạng hiệu lực",
+    "ket_qua_xac_minh": "Kết quả xác minh",
+    "da_xac_thuc": "Đã xác thực",
+    "thong_tin_ca_nhan": "Thông tin cá nhân",
+    "ho_va_ten": "Họ và tên",
+    "ngay_sinh": "Ngày sinh",
+    "gioi_tinh": "Giới tính",
+    "quoc_tich": "Quốc tịch",
+    "dia_chi":"Địa chỉ",
+    "ma_so_ca_nhan": "Mã số cá nhân",
+    "thong_tin_dang_ky_thiet_bi_di_dong_thue_bao": "Thông tin đăng ký thiết bị di động thuê bao",
+    "ten_may": "Tên máy",
+    "loai_may": "Loại máy",
+    "he_dieu_hanh": "Hệ điều hành",
+    "phien_ban": "Phiên bản",
+    "ma_uuid": "Mã UUID",
+    "thong_tin_dinh_danh": "Thông tin định danh",
+    "cccd_id": "CCCD ID",
+    "so_cccd": "Số CCCD",
+    "noi_phat_hanh": "Nơi phát hành",
+    "co_gia_tri_den": "Có giá trị đến",
+    "ngay_cap": "Ngày cấp",
+    "thong_tin_lien_he": "Thông tin liên hệ",
+    "so_dien_thoai": "Số điện thoại",
+    "email": "Email",
+    "mrz_tren_cccd": "MRZ trên CCCD",
+    "ma_nhan_vien": "Mã nhân viên",
+    "nhap_ma_nhan_vien": "Nhập mã nhân viên",
+    "tiep_tuc": "Tiếp tục"
+  },
+  "required": "Trường này là bắt buộc!"
+}

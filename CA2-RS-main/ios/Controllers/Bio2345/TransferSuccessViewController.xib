@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="GoogleSans-Bold.otf">
+            <string>GoogleSans-Bold</string>
+        </array>
+        <array key="GoogleSans-Medium.otf">
+            <string>GoogleSans-Medium</string>
+        </array>
+        <array key="GoogleSans-Regular.otf">
+            <string>GoogleSans-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TransferSuccessViewController" customModule="xverifydemoapp" customModuleProvider="target">
+            <connections>
+                <outlet property="amountLbl" destination="CH3-K8-ApP" id="pVv-pG-4Ey"/>
+                <outlet property="backToMenuButton" destination="EPA-V5-6bD" id="DXg-cV-SDc"/>
+                <outlet property="bankLbl" destination="PhF-9P-4fY" id="1se-eK-Iq9"/>
+                <outlet property="beneficiaryAccountLbl" destination="uYj-e5-rpU" id="55S-xc-AGZ"/>
+                <outlet property="beneficiaryNameLbl" destination="pKs-me-fcR" id="5fU-Uf-7Ia"/>
+                <outlet property="capturedImageView" destination="NYu-hF-iP9" id="mCV-bF-X6m"/>
+                <outlet property="chipPhotoLbl" destination="yPF-Xu-kWm" id="IqW-So-czS"/>
+                <outlet property="currentPhotoLbl" destination="vE8-fm-kNF" id="sdO-Hc-ZSi"/>
+                <outlet property="faceIdImageView" destination="a6n-4b-LYi" id="pKs-wk-Jxz"/>
+                <outlet property="liveImageView" destination="1Tz-d7-vmS" id="Pka-xp-VW9"/>
+                <outlet property="mainTitleMoney" destination="9yL-vD-MVz" id="aTK-EW-iVc"/>
+                <outlet property="onboardPhotoLbl" destination="cwn-HQ-zFE" id="uRh-oK-1OE"/>
+                <outlet property="subTitleMoney" destination="CnY-P5-ARf" id="3Su-7Z-1HG"/>
+                <outlet property="successfulTransactionLbl" destination="I6d-4L-zSY" id="FhE-qK-4EC"/>
+                <outlet property="timeLabel" destination="Odf-tC-Bke" id="TZx-El-1uc"/>
+                <outlet property="transactionCodeLbl" destination="aV4-KG-KcV" id="zH3-a1-nS6"/>
+                <outlet property="transactionDescriptionLbl" destination="AtE-EF-p8i" id="zir-pd-bgU"/>
+                <outlet property="transactionInfomationLbl" destination="56x-5E-Qye" id="Gs8-QU-JZM"/>
+                <outlet property="transferResult" destination="I6d-4L-zSY" id="WOq-TI-icy"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="writtenAmountLbl" destination="z5M-sU-3fS" id="85h-E3-Irs"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="752" text="GIAO DỊCH THÀNH CÔNG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6d-4L-zSY">
+                    <rect key="frame" x="101" y="56" width="212.5" height="22"/>
+                    <fontDescription key="fontDescription" name="GoogleSans-Bold" family="Google Sans" pointSize="17"/>
+                    <color key="textColor" name="appColorBackground"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="20,000,000 VND" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9yL-vD-MVz">
+                    <rect key="frame" x="104.5" y="90" width="205.5" height="32"/>
+                    <fontDescription key="fontDescription" name="GoogleSans-Bold" family="Google Sans" pointSize="25"/>
+                    <color key="textColor" name="appColorBackground"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hai mươi triệu đồng" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5M-sU-3fS">
+                    <rect key="frame" x="136" y="130" width="142.5" height="20.5"/>
+                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="16"/>
+                    <color key="textColor" name="appColorBackground"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="12:00 - 14/03/2024" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Odf-tC-Bke">
+                    <rect key="frame" x="140" y="154.5" width="134" height="20.5"/>
+                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="16"/>
+                    <color key="textColor" name="appColorBackground"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="p92-Zd-aqX">
+                    <rect key="frame" x="12" y="199" width="390" height="438"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thông tin giao dịch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56x-5E-Qye">
+                            <rect key="frame" x="0.0" y="0.0" width="156" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="HZp-He-Cv1"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="GoogleSans-Bold" family="Google Sans" pointSize="17"/>
+                            <color key="textColor" name="appColorBackground"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="c90-xm-ZDz">
+                            <rect key="frame" x="0.0" y="36" width="372.5" height="28"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tài khoản thụ hưởng:" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uYj-e5-rpU">
+                                    <rect key="frame" x="0.0" y="5" width="129.5" height="18"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="14"/>
+                                    <color key="textColor" name="appColorBackground"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tb2-O5-QZy">
+                                    <rect key="frame" x="145.5" y="0.0" width="227" height="28"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Bold" family="Google Sans" pointSize="14"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="380004782">
+                                        <color key="titleColor" name="appColorBackground"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="LRE-1U-YzC"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="meS-iw-COK">
+                            <rect key="frame" x="0.0" y="76" width="372.5" height="28"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tên người hưởng thụ:" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKs-me-fcR">
+                                    <rect key="frame" x="0.0" y="5" width="133.5" height="18"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="14"/>
+                                    <color key="textColor" name="appColorBackground"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hop-gJ-Erj" userLabel="PHAM THANH VO">
+                                    <rect key="frame" x="145.5" y="0.0" width="227" height="28"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Bold" family="Google Sans" pointSize="14"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="PHAN VAN VO">
+                                        <color key="titleColor" name="appColorBackground"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="Ww2-Fn-Bsc"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="UTO-Vb-b0c">
+                            <rect key="frame" x="0.0" y="116" width="372.5" height="28"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mã giao dịch:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV4-KG-KcV">
+                                    <rect key="frame" x="0.0" y="5" width="133.5" height="18"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="14"/>
+                                    <color key="textColor" name="appColorBackground"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yjJ-3L-AmG">
+                                    <rect key="frame" x="145.5" y="0.0" width="227" height="28"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Bold" family="Google Sans" pointSize="14"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="3888888">
+                                        <color key="titleColor" name="appColorBackground"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="lAB-i9-t0g"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="sFF-iQ-T1Y">
+                            <rect key="frame" x="0.0" y="156" width="372.5" height="28"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Ngân hàng: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhF-9P-4fY" userLabel="Ngân hàng:">
+                                    <rect key="frame" x="0.0" y="5" width="133.5" height="18"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="14"/>
+                                    <color key="textColor" name="appColorBackground"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Wyh-Hw-hl2">
+                                    <rect key="frame" x="145.5" y="0.0" width="227" height="28"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Bold" family="Google Sans" pointSize="14"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Ngân hàng Đầu tư và phát triển Việt Nam (BIDV)">
+                                        <color key="titleColor" name="appColorBackground"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="E6n-4F-9Is"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="v3g-Du-GQR">
+                            <rect key="frame" x="0.0" y="196" width="372.5" height="28"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Số tiền:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CH3-K8-ApP">
+                                    <rect key="frame" x="0.0" y="5" width="133.5" height="18"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="14"/>
+                                    <color key="textColor" name="appColorBackground"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CnY-P5-ARf">
+                                    <rect key="frame" x="145.5" y="0.0" width="227" height="28"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Bold" family="Google Sans" pointSize="14"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="20,000,000 VND">
+                                        <color key="titleColor" name="appColorBackground"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="zIU-ov-wsT"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="QxU-Tq-Bm9">
+                            <rect key="frame" x="0.0" y="236" width="372.5" height="28"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nội dung:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AtE-EF-p8i">
+                                    <rect key="frame" x="0.0" y="5" width="133.5" height="18"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="14"/>
+                                    <color key="textColor" name="appColorBackground"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKO-Mz-58n" userLabel="NGUYEN VAN A chuyen tien">
+                                    <rect key="frame" x="145.5" y="0.0" width="227" height="28"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Bold" family="Google Sans" pointSize="14"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="NGUYEN VAN A chuyen tien">
+                                        <color key="titleColor" name="appColorBackground"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="7ms-30-vgG"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="G6N-Bd-o4T">
+                            <rect key="frame" x="0.0" y="276" width="390" height="162"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="bGL-hv-kSy">
+                                    <rect key="frame" x="0.0" y="0.0" width="124.5" height="162"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a6n-4b-LYi">
+                                            <rect key="frame" x="6.5" y="0.0" width="111.5" height="140"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="140" id="Llr-Gr-MKE"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hình chip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yPF-Xu-kWm">
+                                            <rect key="frame" x="32.5" y="144" width="59.5" height="18"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="14"/>
+                                            <color key="textColor" name="appColorBackground"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="FNW-Uz-EVc">
+                                    <rect key="frame" x="132.5" y="0.0" width="125" height="162"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NYu-hF-iP9">
+                                            <rect key="frame" x="6.5" y="0.0" width="112" height="140"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="140" id="l2z-B0-JCP"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hình onboard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwn-HQ-zFE">
+                                            <rect key="frame" x="20" y="144" width="85.5" height="18"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="14"/>
+                                            <color key="textColor" name="appColorBackground"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="gfu-2N-mPb">
+                                    <rect key="frame" x="265.5" y="0.0" width="124.5" height="162"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Tz-d7-vmS">
+                                            <rect key="frame" x="6.5" y="0.0" width="111.5" height="140"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="140" id="JhA-cI-aTS"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hiện tại" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vE8-fm-kNF">
+                                            <rect key="frame" x="38" y="144" width="48" height="18"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="14"/>
+                                            <color key="textColor" name="appColorBackground"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Wyh-Hw-hl2" firstAttribute="leading" secondItem="yjJ-3L-AmG" secondAttribute="leading" id="0Pe-rh-BTu"/>
+                        <constraint firstItem="sFF-iQ-T1Y" firstAttribute="width" secondItem="UTO-Vb-b0c" secondAttribute="width" id="2N5-eI-sZc"/>
+                        <constraint firstItem="meS-iw-COK" firstAttribute="width" secondItem="c90-xm-ZDz" secondAttribute="width" id="5sK-t9-0fu"/>
+                        <constraint firstItem="hKO-Mz-58n" firstAttribute="leading" secondItem="CnY-P5-ARf" secondAttribute="leading" id="FJN-ie-huB"/>
+                        <constraint firstItem="yjJ-3L-AmG" firstAttribute="leading" secondItem="Hop-gJ-Erj" secondAttribute="leading" id="GnZ-Ye-8Tq"/>
+                        <constraint firstItem="UTO-Vb-b0c" firstAttribute="width" secondItem="meS-iw-COK" secondAttribute="width" id="Kji-0k-sJZ"/>
+                        <constraint firstItem="QxU-Tq-Bm9" firstAttribute="width" secondItem="v3g-Du-GQR" secondAttribute="width" id="Z4g-Ie-NlV"/>
+                        <constraint firstItem="CnY-P5-ARf" firstAttribute="leading" secondItem="Wyh-Hw-hl2" secondAttribute="leading" id="bBZ-uq-7Fj"/>
+                        <constraint firstItem="G6N-Bd-o4T" firstAttribute="width" secondItem="p92-Zd-aqX" secondAttribute="width" id="bfj-n3-oUB"/>
+                        <constraint firstItem="Hop-gJ-Erj" firstAttribute="leading" secondItem="tb2-O5-QZy" secondAttribute="leading" id="wvX-rG-ePC"/>
+                        <constraint firstItem="v3g-Du-GQR" firstAttribute="width" secondItem="sFF-iQ-T1Y" secondAttribute="width" id="zpR-OZ-4Lq"/>
+                    </constraints>
+                </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPA-V5-6bD">
+                    <rect key="frame" x="20.5" y="800" width="373" height="50"/>
+                    <color key="backgroundColor" name="appColorGreen"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="4Nd-ch-b8a"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="16"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="TRANG CHỦ">
+                        <color key="titleColor" name="appColorBackground"/>
+                    </state>
+                    <connections>
+                        <action selector="backToMenuButtonAction:" destination="-1" eventType="touchUpInside" id="Cdv-4q-RNE"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="appColorDarkGray"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="EPA-V5-6bD" secondAttribute="bottom" constant="12" id="3Gj-xa-b5w"/>
+                <constraint firstItem="Odf-tC-Bke" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="6VV-mA-oRb"/>
+                <constraint firstItem="p92-Zd-aqX" firstAttribute="top" secondItem="Odf-tC-Bke" secondAttribute="bottom" constant="24" id="Aux-BZ-8Rj"/>
+                <constraint firstItem="p92-Zd-aqX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="F46-vB-x0S"/>
+                <constraint firstItem="c90-xm-ZDz" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.9" id="GkQ-oz-P7E"/>
+                <constraint firstItem="z5M-sU-3fS" firstAttribute="top" secondItem="9yL-vD-MVz" secondAttribute="bottom" constant="8" id="KSN-k0-zxc"/>
+                <constraint firstItem="I6d-4L-zSY" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="XrY-vy-Pc4"/>
+                <constraint firstItem="EPA-V5-6bD" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="a3Q-j9-Jwe"/>
+                <constraint firstItem="I6d-4L-zSY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="afW-Kc-9DG"/>
+                <constraint firstItem="z5M-sU-3fS" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="csu-VN-nMZ"/>
+                <constraint firstItem="Odf-tC-Bke" firstAttribute="top" secondItem="z5M-sU-3fS" secondAttribute="bottom" constant="4" id="dXA-u3-Od1"/>
+                <constraint firstItem="p92-Zd-aqX" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="eOk-E9-dD2"/>
+                <constraint firstItem="9yL-vD-MVz" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="gaq-aE-SCB"/>
+                <constraint firstItem="EPA-V5-6bD" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.9" id="qO1-Xo-qPd"/>
+                <constraint firstItem="9yL-vD-MVz" firstAttribute="top" secondItem="I6d-4L-zSY" secondAttribute="bottom" constant="12" id="xcD-Ug-lfy"/>
+            </constraints>
+            <point key="canvasLocation" x="87.786259541984734" y="-11.267605633802818"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="appColorBackground">
+            <color red="0.90196078431372551" green="0.90980392156862744" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorDarkGray">
+            <color red="0.20000000298023224" green="0.20800000429153442" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorGreen">
+            <color red="0.0" green="0.6589999794960022" blue="0.34900000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

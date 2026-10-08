@@ -1,0 +1,109 @@
+{
+  "xac_thuc_thong_tin": {
+    "title": "Verification Information",
+    "hinh_thuc_xac_thuc": "Verification Methods",
+    "chon_hinh_thuc": "Please select a method to proceed",
+    "cccd_gan_chip": "Chip-based Citizen ID",
+    "cccd_thuong": "Regular Citizen ID",
+    "su_dung_vneid": "Use VNeID",
+    "xac_thuc_ekyc_okr": "EKYC Verification / OKR Verification",
+    "xac_thuc_okr": "OKR Verification",
+    "tai_khoan_dinh_danh": "Identification and Electronic Authentication",
+    "luu_y": "Note",
+    "cho_phep_xu_ly_du_lieu": "Allow Nacencomm to process personal data in accordance with general transaction conditions on personal data protection and update your information at Nacencomm. The use of personal data complies with Decree 13/2023/ND-CP on personal data protection.",
+    "cho_phep_chia_se": "Allow Nacencomm to share personal information and biometric data with the electronic identification and authentication system and agree to allow Nacencomm to process personal data to provide products and services to you."
+  },
+  "scan_orc": {
+    "ocr_verification_title": "OCR Verification",
+    "ocr_verification_instructions": "Please scan the QR code on your ID card to retrieve information.",
+    "scan_success_title": "Scan Successful",
+    "scan_success_message": "QR Data: {{data}}",
+    "requesting_permission": "Requesting camera permission...",
+    "permission_denied": "Camera permission denied.",
+    "button_back": "Go Back",
+    "button_skip": "Skip",
+    "button_continue": "Continue"
+  },
+  "orc_data": {
+    "title": "Identity Information",
+    "personal_info": {
+      "title": "Personal Information",
+      "hoVaTen": "Full Name",
+      "email": "Email",
+      "tinhTP": "City/Province",
+      "diaChi": "Address",
+      "maSoCaNhan": "ID Number",
+      "ngayCap": "Issue Date",
+      "noiCap": "Issue Place"
+    },
+    "device_info": {
+      "title": "Device Registration Information",
+      "deviceName": "Device Name",
+      "deviceType": "Device Type",
+      "os": "Operating System",
+      "version": "Version",
+      "uuid": "UUID"
+    },
+    "contact_info": {
+      "title": "Contact Information",
+      "DienThoai": "Phone Number",
+      "email": "Email",
+      "TKKinhdoanh": "Employee Code"
+    },
+    "submit_button": "Continue",
+    "validation_error_title": "Validation Error",
+    "validation_error_message": "Please fill in all required fields"
+  },
+  "don_dang_ky_su_dung": {
+    "title": "Registration Form for Service Usage",
+    "chi_tiet_tai_lieu": "Document Details",
+    "thong_tin_tai_lieu": "Document Information",
+    "footer_text": "By selecting Digital Signature, I agree with the content of the contract and the",
+    "footer_terms": "Terms and Conditions",
+    "footer_text_2": "I understand and agree that performing actions from “Start Digital Signing” to “Complete Digital Signing” constitutes entering into a service agreement with CA2 Remote Signing.",
+    "sign_button": "Start Digital Signing"
+  },
+  "hoan_tat_dang_ky": {
+    "title": "Registration Completed",
+    "description": {
+      "part1": "You have successfully completed your registration. We will send account information and the digital certificate agreement to your email",
+      "part2": ". Please check your inbox."
+    },
+    "view_registration": "View Registration Form",
+    "back_to_login": "Back to Login Page"
+  },
+  "cccd_gan_chip": {
+    "thong_tin_cccd_gan_chip": "CCCD Information with Chip",
+    "hinh_anh_tren_cccd": "Image on CCCD",
+    "tinh_trang_hieu_luc": "Status of Validity",
+    "ket_qua_xac_minh": "Verification Result",
+    "da_xac_thuc": "Verified",
+    "thong_tin_ca_nhan": "Personal Information",
+    "ho_va_ten": "Full Name",
+    "ngay_sinh": "Date of Birth",
+    "gioi_tinh": "Gender",
+    "quoc_tich": "Nationality",
+    "dia_chi":"Place Of Residence",
+    "ma_so_ca_nhan": "Personal Number",
+    "thong_tin_dang_ky_thiet_bi_di_dong_thue_bao": "Mobile Device Registration Information",
+    "ten_may": "Device Name",
+    "loai_may": "Device Type",
+    "he_dieu_hanh": "Operating System",
+    "phien_ban": "Version",
+    "ma_uuid": "UUID",
+    "thong_tin_dinh_danh": "Identification Information",
+    "cccd_id": "CCCD ID",
+    "so_cccd": "CCCD Number",
+    "noi_phat_hanh": "Issuing Place",
+    "co_gia_tri_den": "Valid Until",
+    "ngay_cap": "Issuance Date",
+    "thong_tin_lien_he": "Contact Information",
+    "so_dien_thoai": "Phone Number",
+    "email": "Email",
+    "mrz_tren_cccd": "MRZ on CCCD",
+    "ma_nhan_vien": "Employee Code",
+    "nhap_ma_nhan_vien": "Enter Employee Code",
+    "tiep_tuc": "Continue"
+  },
+  "required": "This field is required!"
+}

@@ -53,4 +53,9 @@ public class VNeIDGatewayOptions
     /// Partner's app universal link configured with RAR HUB to redirect back after activation
     /// </summary>
     public string? AppCallbackUrl { get; set; }
+
+    /// <summary>
+    /// SQL Server connection to SignFlatform for VneIdNhatKy. Leave empty to skip database logging.
+    /// </summary>
+    public string SignFlatformConnectionString { get; set; } = string.Empty;
 }

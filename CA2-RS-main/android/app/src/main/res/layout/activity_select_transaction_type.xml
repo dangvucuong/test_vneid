@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include
+        android:id="@+id/ll_header"
+        layout="@layout/layout_header" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_transfer"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_150sdp"
+        app:srcCompat="@drawable/icon_transfer_money"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_header"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_marginTop="@dimen/_30sdp"
+        app:cornerRadius="@dimen/_50sdp"
+        android:insetBottom="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetLeft="0dp"
+        android:padding="0dp"
+        style="@style/Text.Title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_transfer_type_d"
+        app:layout_constraintTop_toBottomOf="@id/iv_transfer"
+        android:id="@+id/btn_transfer_type_c"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:textSize="@dimen/_12sdp"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/success"
+        android:text="Giao dịch\nloại C"/>
+    <com.google.android.material.button.MaterialButton
+        android:layout_marginTop="@dimen/_30sdp"
+        app:cornerRadius="@dimen/_50sdp"
+        android:insetBottom="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetLeft="0dp"
+        android:padding="0dp"
+        style="@style/Text.Title"
+        app:layout_constraintStart_toEndOf="@id/btn_transfer_type_c"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_transfer"
+        android:id="@+id/btn_transfer_type_d"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:textSize="@dimen/_12sdp"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/success"
+        android:text="Giao dịch\nloại D"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

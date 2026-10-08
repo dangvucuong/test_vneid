@@ -1,0 +1,227 @@
+<resources>
+    <string name="app_name" translatable="false">CA2 RS</string>
+    <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
+  <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
+    <string name="app_name_version" translatable="false">VNSAFE Suite - 1.3.9</string>
+    <string name="camera_error">Thiết bị này không hỗ trợ API Camera2</string>
+    <string name="delete_csca">Xóa CSCA Master List</string>
+    <string name="doc_dob">Ngày sinh: %1s</string>
+    <string name="doc_expiry">Hết hạn: %1s</string>
+    <string name="doc_number">Số CCCD: %1s</string>
+
+    <!--  DASHBOARD  -->
+    <string name="title_verify_eid">CCCD</string>
+    <string name="title_verify_eid_ekyc">Active eKYC</string>
+    <string name="title_verify_eid_ekyc_2">Simple eKYC</string>
+    <string name="title_verify_eid_ekyc_passive">Passive eKYC</string>
+    <string name="title_qr_code">GTIN</string>
+    <string name="title_verify_ekyb">EKYB</string>
+    <string name="title_verify_eid_ceca">CECA</string>
+    <string name="title_verify_bio2345">Bio-2345</string>
+    <string name="title_verify_ocr">OCR</string>
+
+
+    <!--  ERROR  -->
+    <string name="error">Xảy ra lỗi. Xin vui lòng thử lại.</string>
+    <string name="error_system">Lỗi hệ thống. Xin vui lòng thử lại.</string>
+    <string name="error_not_success">Không thành công.</string>
+    <string name="not_found_image">Không tìm thấy hình ảnh.</string>
+    <string name="face_not_match">Xác thực lỗi. Khuôn mặt không trùng khớp.</string>
+    <string name="error_verification">Xác thực không thành công. Xin vui lòng thử lại.</string>
+    <string name="active_ekyc_failed_message">EKYC không thành công. Vui lòng thực hiện lại các hướng dẫn</string>
+    <string name="error_read_card">Xảy ra lỗi khi đọc thẻ. Xin vui lòng thử lại.</string>
+    <string name="error_ocr_not_same_document">Lỗi. Mặt trước và mặt sau không cùng loại giấy tờ.</string>
+    <string name="warning_authentication_failed">Xác thực không thành công! Vui lòng thử lại.</string>
+    <string name="warning_cla_not_supported">Không thể đọc được tài liệu. EID không hỗ trợ CLA ..</string>
+    <string name="error_validation_date">Định dạng ngày không hợp lệ</string>
+
+    <!--  COMMON  -->
+    <string name="title_success_not_verification">Xác Thực Không Thành Công</string>
+    <string name="empty_na">Không có dữ liệu</string>
+    <string name="home_page">Trang chủ</string>
+    <string name="button_title_begin">Bắt Đầu</string>
+    <string name="button_title_completed">Xong</string>
+    <string name="button_title_continue">Tiếp tục</string>
+    <string name="button_title_try_again">Thử Lại</string>
+    <string name="title_success_verification">Xác Thực Thành Công</string>
+    <string name="loading">Đang trích xuất dữ liệu</string>
+    <string name="label_verification">Xác thực</string>
+    <string name="completed">Hoàn Thành</string>
+    <string name="loading_verify">Đang xác thực dữ liệu</string>
+    <string name="placeholder_title" translatable="false">Lorem ipsum title</string>
+    <string name="cancel">Hủy</string>
+    <string name="placeholder_description" translatable="false">Lorem Ipsum is simply dummy text of the printing and typesetting industry</string>
+    <string name="title_verify_suite">Dịch Vụ Xác Thực</string>
+    <string name="permission_please_go_to_setting_and_allow">Vui lòng vào Cài đặt và cấp quyền cho ứng dụng</string>
+    <string name="step_1_scan_mrz">Bước 1: Quét mã MRZ</string>
+    <string name="step_2_scan_nfc">Bước 2: Đọc NFC</string>
+    <string name="step_3_scan_nfc">Bước 3: Phát hiện người thật</string>
+    <string name="step_3_verify_face">Bước 3: Xác Thực Khuôn Mặt</string>
+    <string name="label_type_document">Loại giấy tờ</string>
+    <string name="label_name_of_representative">Tên người đại diện</string>
+    <string name="label_display_name">Tên hiển thị</string>
+    <string name="label_address">Địa chỉ</string>
+    <string name="label_place_of_issue">Nơi phát hành</string>
+    <string name="label_signer">Người ký tên</string>
+    <string name="please_select_document">Vui lòng chọn loại tài liệu và upload tài liệu của bạn</string>
+
+
+    <string name="intro_title_eid">Xác thực CCCD gắn chip</string>
+    <string name="intro_description_eid">Xác minh thông tin thật giả của CCCD gắn chip và tích hợp với dịch vụ xác thực của C06.\n\n
+        Bước 1: Xác minh toàn vẹn dữ liệu CA/PA/AA.\n Bước 2: Xác thực với C06. \n Bước 3: Hiển thị thông tin chủ thẻ.</string>
+
+    <string name="intro_title_ekyc">Xác thực eKYC</string>
+    <string name="intro_description_ekyc">Xác minh thông tin thật giả của CCCD gắn chip, eKYC và tích hợp với dịch vụ xác thực của C06.\n\n
+        Bước 1: Xác minh toàn vẹn dữ liệu CA/PA/AA.\n Bước 2: Xác định thực thể sống.\n Bước 3: Xác thực với C06. \n Bước 4: Hiển thị thông tin chủ thẻ và khuôn mặt.</string>
+
+    <string name="intro_title_contract">Xác thực hợp đồng</string>
+    <string name="intro_description_contract">Xác minh thông tin thật giả của CCCD gắn chip, eKYC và tích hợp với dịch vụ xác thực của C06.\n\n
+        Bước 1: Đọc hợp đồng.\n Bước 2: Xác minh toàn vẹn dữ liệu CA/PA/AA.\n Bước 3: Xác định thực thể sống.\n Bước 4: Xác thực với C06. \n Bước 5: Hiển thị thông tin chủ thẻ và khuôn mặt.\n Bước 6: Hoàn tất ký kết hợp đồng</string>
+    <string name="warning_no_nfc">Không có NFC trên thiết bị này</string>
+    <string name="warning_enable_nfc">Cần kích hoạt NFC</string>
+    <string name="permission_camera_rationale">Cần truy cập vào camera để thực hiện tác vụ</string>
+
+    <string name="select_method_scan">Lựa chọn hình thức</string>
+    <string name="scan_qrcode">Quét mã QRCODE</string>
+    <string name="scan_mrz">Quét chuỗi MRZ</string>
+
+    <string name="use_other_option">Sử dụng cách khác</string>
+    <string name="take_photo">Chụp hình</string>
+    <string name="collection">Bộ sưu tập</string>
+    <string name="start">Bắt đầu</string>
+
+    <string name="number_passport">Số hộ chiếu</string>
+    <string name="document_type">Loại giấy tờ:</string>
+
+    <!--  LIVENESS  -->
+    <string name="please_look_straight">Xin vui lòng nhìn thẳng</string>
+    <string name="image_face_live">Hiện tại</string>
+    <string name="multi_face">Có nhiều khuôn mặt trong khung hình</string>
+    <string name="put_your_face_in_the_frame">Giữ điện thoại cố định, đưa khuôn mặt của bạn vào khung hình và nhìn thẳng</string>
+    <string name="please_tilt_your_face_to_the_left">Xin vui lòng quay mặt sang bên trái</string>
+    <string name="please_tilt_your_face_to_the_right">Xin vui lòng quay mặt sang bên phải</string>
+    <string name="please_open_your_mouth">Xin vui lòng mở miệng</string>
+    <string name="please_smile">Xin vui lòng hãy cười</string>
+    <string name="please_sadness">Xin vui lòng hãy biểu cảm buồn</string>
+    <string name="please_surprised">Xin vui lòng hãy biểu cảm ngạc nhiên</string>
+    <string name="tip_face_far">Đưa điện thoại từ từ ra xa và dừng lại khi biểu tượng khuôn mặt màu xanh</string>
+    <string name="tip_face_near">Đưa điện thoại từ từ lại gần và dừng lại biểu tượng khuôn mặt màu xanh</string>
+    <string name="please_nod_up">Xin vui lòng ngửa mặt lên.</string>
+    <string name="please_nod_down">Xin vui lòng cuối mặt xuống.</string>
+    <string name="tip_state_keep_stable">GIỮ NGUYÊN VỊ TRÍ ĐIỆN THOẠI VÀ&#160;</string>
+    <string name="tip_state_distance_near">ĐƯA ĐIỆN THOẠI VỀ VỊ TRÍ BAN ĐẦU VÀ&#160;</string>
+    <string name="tip_state_distance_far">ĐƯA ĐIỆN THOẠI VỀ VỊ TRÍ BAN ĐẦU VÀ&#160;</string>
+    <string name="is_face_so_far">Khuôn mặt quá xa, xin vui lòng đưa điện thoại lại gần.</string>
+    <string name="is_face_so_nearby">Khuôn mặt quá gần, xin vui lòng đưa điện thoại ra xa.</string>
+
+
+
+    <!--  EKYC  -->
+    <string name="onboard_success">Onboard Thành công</string>
+    <string name="image_chip">Hình chip</string>
+    <string name="image_selfie">Hình onboard</string>
+    <string name="personal_info">Thông tin cá nhân</string>
+    <string name="eid_asystems_requirements">Toàn vẹn</string>
+    <string name="eid_verification">Xác thực CCCD</string>
+    <string name="face_matching">Face Matching</string>
+    <string name="contract_eid_verified">Chúc mừng bạn đã hoàn tất xác thực.\nBấm nút TIẾP TỤC để ký số</string>
+    <string name="instruction_mrz_code">Dùng Camera để scan MRZ Code - chuỗi ký tự mặt sau thẻ CCCD gắn chip</string>
+
+    <string name="instruction_front">Chụp ảnh mặt trước CCCD</string>
+    <string name="instruction_back">Chụp ảnh mặt sau CCCD</string>
+
+    <string name="enter_otp">Nhập mã OTP:</string>
+    <string name="transaction_type_c">Giao dịch loại C</string>
+    <string name="transaction_type_d">Giao dịch loại D</string>
+    <string name="info_transferee">Thông tin người chuyển</string>
+    <string name="source_account">Tài khoản nguồn:</string>
+    <string name="available_balance">Số dư khả dụng:</string>
+    <string name="beneficiary_info">Thông tin người thụ hưởng</string>
+    <string name="name_beneficiary">Tên người thụ hưởng</string>
+    <string name="transaction_info">Thông tin giao dịch</string>
+    <string name="transaction_fee">Phí giao dịch người chuyển trả</string>
+    <string name="transaction_amount">Số tiền giao dịch</string>
+    <string name="transaction_code">Mã giao dịch</string>
+    <string name="banking_name">Tên ngân hàng</string>
+    <string name="content_transaction">Nội dung</string>
+
+    <string name="transaction_success">Giao dịch thành công</string>
+    <string name="verify_transaction_otp">Xác thực OTP giao dịch</string>
+    <string name="intro_title_bio2345">Xác thực Bio-2345</string>
+    <string name="intro_description_bio2345">Xác minh thông tin thật giả của CCCD gắn chip và dịch vụ xác thực của C06.
+        \n\nBước 1: Xác thực thẻ gắn chip với Bộ Công An.\nBước 2: Xác thực sinh trắc Face Match 1:1 với thẻ Chip.\nBước 3: Xác thực OTP trên thiết bị.\nBước 4: Ghi nhận OTP thành công thì có thể bắt đầu giao dịch loại C&amp;D trên thiết bị.</string>
+    <string name="verify_onboard_otp">Xác thực OTP onboard</string>
+    <string name="error_read_mrz_not_success">Đọc mã không thành công</string>
+    <string name="error_read_mrz_not_image">Không tìm thấy hình ảnh</string>
+    <string name="error_take_picture">Lỗi chụp ảnh</string>
+
+
+    <string name="verify_face_transfer" >Xác Thực Khuôn Mặt Giao Dịch</string>
+    <string name="transaction_failed">Giao dịch thất bại</string>
+    <string name="ocr_info">OCR</string>
+    <string name="ocr_title_ekyb" translatable="false">eKYB</string>
+    <string name="ocr_title_chip">CCCD Chip</string>
+    <string name="capture_success">Chụp hình thành công</string>
+    <string name="ocr_title_ekyc">eKYC</string>
+    <string name="card_type_cmnd">CMND</string>
+    <string name="card_type_cccd_12">CCCD 12 Số</string>
+    <string name="card_type_cccd_chip">CCCD Gắn Chip</string>
+    <string name="card_type_passport">Hộ Chiếu</string>
+    <string name="card_type_new_cccd_chip">Thẻ Căn Cước</string>
+    <string name="representative_information">Thông tin người đại diện</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="business_name">Tên doanh nghiệp</string>
+    <string name="business_household_name">Tên hộ kinh doanh</string>
+    <string name="business_branch_name">Tên chi nhánh</string>
+    <string name="title_status">Trạng thái</string>
+    <string name="tax_code">Mã số thuế</string>
+    <string name="label_verify">Thẩm định</string>
+    <string name="verify_tax_code">Xác thực MST</string>
+    <string name="verify_representative">Xác thực người đại diện</string>
+
+    <!--  Personal option Details  -->
+    <string name="citizen_id">Số CCCD</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="dob">Ngày sinh</string>
+    <string name="gender">Giới tính</string>
+    <string name="nationality">Quốc tịch</string>
+    <string name="ethnicity">Dân tộc</string>
+    <string name="religion">Tôn giáo</string>
+    <string name="place_of_origin">Quê quán</string>
+    <string name="place_of_residence">Thường trú</string>
+    <string name="age">Tuổi</string>
+    <string name="date_of_issue">Ngày cấp</string>
+    <string name="date_of_expiry">Có giá trị đến</string>
+    <string name="personal_identification">Đặc điểm nhận dạng</string>
+    <string name="issue_date">Ngày cấp</string>
+    <string name="expiry_date">Có giá trị đến</string>
+    <string name="father_name">Tên bố</string>
+    <string name="mother_name">Tên mẹ</string>
+    <string name="spouse_name">Tên vợ/chồng</string>
+    <string name="old_id_card">Số CMND</string>
+    <string name="type_card">Loại thẻ</string>
+    <string name="label_document_number">Số CCCD</string>
+
+
+    <!--  NFC  -->
+    <string name="nfc_title">Đặt thiết bị lên thẻ CCCD và không di chuyển</string>
+    <string name="tag_lost_connect">Mất kết nối tới thẻ</string>
+    <string name="label_scan_qrcode">Quét mã QRCODE</string>
+    <string name="popup_nfc_title_ready_read_info">Sẵn sàng đọc thông tin</string>
+    <string name="popup_nfc_content_guide_ready_read_info">Vui lòng đặt vị trí quét NFC của điện thoại gần Chip gắn trên căn cước công dân</string>
+    <string name="popup_nfc_title_reading_info">Đang đọc thông tin...</string>
+    <string name="popup_nfc_content_guide_reading_info">Vui lòng giữ nguyên thiết bị và CCCD cho đến khi nhận được thông báo kết thúc quá trình đọc thông tin</string>
+    <string name="popup_nfc_success">Thành công</string>
+    <string name="popup_nfc_read_success">Đọc thông tin trên Chip thành công</string>
+    <string name="popup_nfc_waiting_connect_card">Đang chờ kết nối lại thẻ CHIP ... </string>
+    <string name="invalid_qr_code">Mã QRCode không hợp lệ</string>
+    <string name="nfc_verify">Đang xác thực, vui lòng chờ.</string>
+
+
+    <string name="doc_business">Đăng ký kinh doanh - Doanh nghiệp</string>
+    <string name="doc_branch">Đăng ký kinh doanh - Chi nhánh</string>
+    <string name="doc_business_household">Đăng ký kinh doanh - Hộ kinh doanh</string>
+
+    <!--  OTHER  -->
+    <string name="error_validation_document_number">Document number is not valid</string>
+</resources>

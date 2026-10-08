@@ -1,0 +1,201 @@
+apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
+apply plugin: "com.facebook.react"
+
+def projectRoot = rootDir.getAbsoluteFile().getParentFile().getAbsolutePath()
+
+react {
+    entryFile = file(["node", "-e", "require('expo/scripts/resolveAppEntry')", projectRoot, "android", "absolute"].execute(null, rootDir).text.trim())
+    reactNativeDir = new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim()).getParentFile().getAbsoluteFile()
+    hermesCommand = new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim()).getParentFile().getAbsolutePath() + "/sdks/hermesc/%OS-BIN%/hermesc"
+    codegenDir = new File(["node", "--print", "require.resolve('@react-native/codegen/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim()).getParentFile().getAbsoluteFile()
+    cliFile = new File(["node", "--print", "require.resolve('@expo/cli', { paths: [require.resolve('expo/package.json')] })"].execute(null, rootDir).text.trim())
+    bundleCommand = "export:embed"
+    autolinkLibrariesWithApp()
+}
+
+def enableProguardInReleaseBuilds = (findProperty('android.enableProguardInReleaseBuilds') ?: false).toBoolean()
+def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
+
+android {
+    ndkVersion rootProject.ext.ndkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
+
+    namespace 'com.rs.ca2'
+      flavorDimensions "env"
+      productFlavors {
+          dev {
+              dimension "env"
+              buildConfigField "String", "API_KEY", "\"iL572exYxosnGA0XakqeMjU9xsKiUPCi\""
+              buildConfigField "String", "API_BASE_URL", "\"https://api.idcheck.vn/\""
+              buildConfigField "String", "API_BIO2345_BASE_URL", "\"https://api.vmgtech.vn/bio-demo/\""
+              buildConfigField "String", "CUSTOMER_CODE", "\"NACENCOMM\""
+              buildConfigField "String", "CECA_VERSION", "\"1.0.0\""
+              buildConfigField "String", "CECA_SENDER_ID", "\"CECA001\""
+              buildConfigField "String", "CECA_RECEIVER_ID", "\"GTELEKYC\""
+              buildConfigField "String", "CECA_PROVIDER_PUBLIC_KEY", "\"P42D6AA6DF07846BA82FD726C0F06E13C\""
+              buildConfigField "String", "CECA_PROVIDER_SECRET_KEY", "\"2540E77E5DF54A6493C5D8F2EF585C8E\""
+          }
+          prod {
+              dimension "env"
+              buildConfigField "String", "API_KEY", "\"iL572exYxosnGA0XakqeMjU9xsKiUPCi\""
+              buildConfigField "String", "API_BASE_URL", "\"https://api.idcheck.vn/\""
+              buildConfigField "String", "API_BIO2345_BASE_URL", "\"https://api.vmgtech.vn/bio-demo/\""
+              buildConfigField "String", "CUSTOMER_CODE", "\"NACENCOMM\""
+              buildConfigField "String", "CECA_VERSION", "\"1.0.0\""
+              buildConfigField "String", "CECA_SENDER_ID", "\"CECA001\""
+              buildConfigField "String", "CECA_RECEIVER_ID", "\"GTELEKYC\""
+              buildConfigField "String", "CECA_PROVIDER_PUBLIC_KEY", "\"P42D6AA6DF07846BA82FD726C0F06E13C\""
+              buildConfigField "String", "CECA_PROVIDER_SECRET_KEY", "\"2540E77E5DF54A6493C5D8F2EF585C8E\""
+          }
+      }
+    defaultConfig {
+        applicationId 'com.rs.ca2'
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 36
+        versionName "1.4.8"
+        buildConfigField "String", "API_KEY", "\"iL572exYxosnGA0XakqeMjU9xsKiUPCi\""
+        buildConfigField "String", "API_BASE_URL", "\"https://api.idcheck.vn/\""
+        buildConfigField "String", "API_BIO2345_BASE_URL", "\"https://api.vmgtech.vn/bio-demo/\""
+        buildConfigField "String", "CUSTOMER_CODE", "\"NACENCOMM\""
+        buildConfigField "String", "CECA_VERSION", "\"1.0.0\""
+        buildConfigField "String", "CECA_SENDER_ID", "\"CECA001\""
+        buildConfigField "String", "CECA_RECEIVER_ID", "\"GTELEKYC\""
+        buildConfigField "String", "CECA_PROVIDER_PUBLIC_KEY", "\"P42D6AA6DF07846BA82FD726C0F06E13C\""
+        buildConfigField "String", "CECA_PROVIDER_SECRET_KEY", "\"2540E77E5DF54A6493C5D8F2EF585C8E\""
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+        release 
+        {
+        if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) 
+        {
+            storeFile file(MYAPP_UPLOAD_STORE_FILE)
+            storePassword MYAPP_UPLOAD_STORE_PASSWORD
+            keyAlias MYAPP_UPLOAD_KEY_ALIAS
+            keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+        }
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+        release {
+            signingConfig signingConfigs.release
+            debuggable false
+            minifyEnabled enableProguardInReleaseBuilds
+            shrinkResources (findProperty('android.enableShrinkResourcesInReleaseBuilds')?.toBoolean() ?: false)
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            crunchPngs (findProperty('android.enablePngCrunchInReleaseBuilds')?.toBoolean() ?: true)
+        }
+    }
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+    }
+     compileOptions {
+         sourceCompatibility JavaVersion.VERSION_17
+         targetCompatibility JavaVersion.VERSION_17
+     }
+     kotlinOptions {
+         jvmTarget = "17"
+     }
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging (findProperty('expo.useLegacyPackaging')?.toBoolean() ?: false)
+            pickFirsts += [
+                'lib/arm64-v8a/libc++_shared.so',
+                'lib/armeabi-v7a/libc++_shared.so',
+                'lib/x86/libc++_shared.so',
+                'lib/x86_64/libc++_shared.so'
+            ]
+        }
+        resources {
+            excludes += ['META-INF/versions/9/OSGI-INF/MANIFEST.MF']
+        }
+    }
+    androidResources {
+        ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+dependencies {
+    implementation("com.facebook.react:react-android")
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.mobsandgeeks:android-saripaar:2.0.3")
+    implementation("com.pranavpandey.android:dynamic-toasts:4.0.0")
+    implementation("com.karumi:dexter:6.2.3")
+//    implementation("com.github.mhiew:android-pdf-viewer:3.2.0-beta.3")
+    implementation("com.airbnb.android:lottie:6.5.2")
+    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("com.github.stfalcon-studio:StfalconImageViewer:1.0.1")
+    implementation("com.intuit.sdp:sdp-android:1.1.1")
+    implementation("org.greenrobot:eventbus:3.3.1")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+    implementation("com.google.zxing:core:3.5.0")
+    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
+    implementation("com.google.guava:guava:33.3.1-android")
+    implementation("com.google.android.gms:play-services-mlkit-text-recognition:19.0.1")
+    implementation("com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    implementation("androidx.camera:camera-camera2:1.4.1")
+    implementation("androidx.camera:camera-core:1.4.1")
+    implementation("androidx.camera:camera-lifecycle:1.4.1")
+    implementation("androidx.camera:camera-view:1.4.1")
+    implementation("androidx.camera:camera-mlkit-vision:1.4.1")
+    implementation("com.google.mlkit:face-detection:16.1.7")
+    implementation("org.jmrtd:jmrtd:0.8.3") {
+        exclude group: "net.sf.scuba", module: "scuba-smartcards"
+    }
+    implementation("org.bouncycastle:bcprov-jdk18on:1.82")
+    implementation("org.bouncycastle:bcpkix-jdk18on:1.82")
+    implementation("com.github.mhshams:jnbis:2.0.2")
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+
+    def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true"
+    def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true"
+    def isWebpAnimatedEnabled = (findProperty('expo.webp.animated') ?: "") == "true"
+
+    if (isGifEnabled) {
+        implementation("com.facebook.fresco:animated-gif:${expoLibs.versions.fresco.get()}")
+    }
+    if (isWebpEnabled) {
+        implementation("com.facebook.fresco:webpsupport:${expoLibs.versions.fresco.get()}")
+        if (isWebpAnimatedEnabled) {
+            implementation("com.facebook.fresco:animated-webp:${expoLibs.versions.fresco.get()}")
+        }
+    }
+    if (hermesEnabled.toBoolean()) {
+        implementation("com.facebook.react:hermes-android")
+    } else {
+        implementation jscFlavor
+    }
+}
+
+apply plugin: 'com.google.gms.google-services'

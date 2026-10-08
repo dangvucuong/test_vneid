@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="GoogleSans-Medium.otf">
+            <string>GoogleSans-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MRZScannerViewController" customModule="xverifydemoapp" customModuleProvider="target">
+            <connections>
+                <outlet property="animationScanNfc" destination="gtu-eb-bpA" id="SK9-52-ZVD"/>
+                <outlet property="cameraFrameImage" destination="H4s-85-X02" id="5aI-Wb-YfT"/>
+                <outlet property="cameraView" destination="MFI-fn-wcZ" id="xf1-QZ-wfw"/>
+                <outlet property="importImageButton" destination="GYR-g2-n9D" id="SpE-Pw-0IX"/>
+                <outlet property="mrzInstructionLabel" destination="X9j-EE-ggh" id="yaH-pc-Wib"/>
+                <outlet property="mrzScanButton" destination="MaB-Ku-a8m" id="Nsg-bf-fu7"/>
+                <outlet property="nfcInstructionLabel" destination="4ow-V0-J0P" id="r7i-LB-TLO"/>
+                <outlet property="nfcScanButton" destination="zYf-o5-PrU" id="TkO-aT-TH9"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfL-0f-V9w">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MFI-fn-wcZ">
+                            <rect key="frame" x="16" y="80" width="382" height="260"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="MFI-fn-wcZ" secondAttribute="height" multiplier="191:130" id="vbq-tG-uae"/>
+                            </constraints>
+                        </view>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image_frame" translatesAutoresizingMaskIntoConstraints="NO" id="H4s-85-X02">
+                            <rect key="frame" x="16" y="80" width="382" height="260"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="H4s-85-X02" secondAttribute="height" multiplier="191:130" id="FU0-Jl-G67"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DÙNG CAMERA ĐỂ SCAN MRZ CODE - CHUỖI KÝ TỰ MẶT SAU THẺ CCCD GẮN CHIP Ở PHÍA DƯỚI" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X9j-EE-ggh">
+                            <rect key="frame" x="16" y="364" width="382" height="41"/>
+                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ĐẶT THIẾT BỊ LÊN THẺ CCCD VÀ KHÔNG DI CHUYỂN" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ow-V0-J0P">
+                            <rect key="frame" x="16" y="284" width="382" height="41"/>
+                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gtu-eb-bpA" customClass="LottieAnimationView" customModule="Lottie">
+                            <rect key="frame" x="64" y="80" width="286" height="180"/>
+                            <color key="backgroundColor" name="appColorDarkGray"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="180" id="0T1-Kl-hp2"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="anim_scan_id"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="iX4-0R-94p">
+                            <rect key="frame" x="32" y="786" width="350" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MaB-Ku-a8m">
+                                    <rect key="frame" x="0.0" y="0.0" width="165" height="50"/>
+                                    <color key="backgroundColor" name="appColorGreen"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="mlN-d9-D9u"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="16"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="QUÉT MÃ MRZ">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="mrzScanButtonAction:" destination="-1" eventType="touchUpInside" id="ONw-Ig-D6S"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYf-o5-PrU">
+                                    <rect key="frame" x="185" y="0.0" width="165" height="50"/>
+                                    <color key="backgroundColor" name="appColorRed"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="6UN-FP-YS0"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="16"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="ĐỌC NFC">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="nfcScanButtonAction:" destination="-1" eventType="touchUpInside" id="HJP-tG-kjF"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="GCz-vY-Ya5"/>
+                            </constraints>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYR-g2-n9D">
+                            <rect key="frame" x="32" y="786" width="350" height="50"/>
+                            <color key="backgroundColor" name="appColorGreen"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="jvl-3o-cUq"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="16"/>
+                            <color key="tintColor" name="appColorBackground"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="HOẶC TỪ HÌNH ẢNH CÓ SẴN"/>
+                            <connections>
+                                <action selector="importImageButtonAction:" destination="-1" eventType="touchUpInside" id="NdL-C0-4ch"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="GYR-g2-n9D" firstAttribute="centerX" secondItem="jfL-0f-V9w" secondAttribute="centerX" id="1De-WG-C7W"/>
+                        <constraint firstItem="MFI-fn-wcZ" firstAttribute="top" secondItem="jfL-0f-V9w" secondAttribute="top" constant="80" id="33j-sV-Y0o"/>
+                        <constraint firstItem="4ow-V0-J0P" firstAttribute="leading" secondItem="jfL-0f-V9w" secondAttribute="leading" constant="16" id="45U-5f-JBf"/>
+                        <constraint firstAttribute="trailing" secondItem="gtu-eb-bpA" secondAttribute="trailing" constant="64" id="5Ep-8C-xl3"/>
+                        <constraint firstAttribute="trailing" secondItem="4ow-V0-J0P" secondAttribute="trailing" constant="16" id="C3D-C9-DZ7"/>
+                        <constraint firstItem="iX4-0R-94p" firstAttribute="leading" secondItem="jfL-0f-V9w" secondAttribute="leading" constant="32" id="DLi-nr-Udo"/>
+                        <constraint firstItem="MFI-fn-wcZ" firstAttribute="leading" secondItem="jfL-0f-V9w" secondAttribute="leading" constant="16" id="E7y-KB-PN4"/>
+                        <constraint firstItem="iX4-0R-94p" firstAttribute="top" secondItem="GYR-g2-n9D" secondAttribute="top" id="ECS-GI-BmX"/>
+                        <constraint firstItem="H4s-85-X02" firstAttribute="top" secondItem="jfL-0f-V9w" secondAttribute="top" constant="80" id="Ldz-VK-fp8"/>
+                        <constraint firstAttribute="trailing" secondItem="H4s-85-X02" secondAttribute="trailing" constant="16" id="PGU-l1-Dnv"/>
+                        <constraint firstAttribute="trailing" secondItem="MFI-fn-wcZ" secondAttribute="trailing" constant="16" id="Qsr-cV-6v5"/>
+                        <constraint firstAttribute="bottom" secondItem="iX4-0R-94p" secondAttribute="bottom" constant="60" id="R6b-1K-hLp"/>
+                        <constraint firstItem="H4s-85-X02" firstAttribute="leading" secondItem="jfL-0f-V9w" secondAttribute="leading" constant="16" id="S1F-3H-Osr"/>
+                        <constraint firstItem="gtu-eb-bpA" firstAttribute="leading" secondItem="jfL-0f-V9w" secondAttribute="leading" constant="64" id="aZQ-UM-jbE"/>
+                        <constraint firstItem="X9j-EE-ggh" firstAttribute="top" secondItem="MFI-fn-wcZ" secondAttribute="bottom" constant="24" id="bTN-Cs-w8n"/>
+                        <constraint firstItem="GYR-g2-n9D" firstAttribute="leading" secondItem="jfL-0f-V9w" secondAttribute="leading" constant="32" id="fgP-En-P2h"/>
+                        <constraint firstItem="X9j-EE-ggh" firstAttribute="leading" secondItem="jfL-0f-V9w" secondAttribute="leading" constant="16" id="fig-ye-Pwr"/>
+                        <constraint firstAttribute="trailing" secondItem="X9j-EE-ggh" secondAttribute="trailing" constant="16" id="pPV-nc-sby"/>
+                        <constraint firstAttribute="trailing" secondItem="iX4-0R-94p" secondAttribute="trailing" constant="32" id="w3b-Ao-YrD"/>
+                        <constraint firstItem="gtu-eb-bpA" firstAttribute="top" secondItem="jfL-0f-V9w" secondAttribute="top" constant="80" id="xpq-Oe-h21"/>
+                        <constraint firstItem="4ow-V0-J0P" firstAttribute="top" secondItem="gtu-eb-bpA" secondAttribute="bottom" constant="24" id="yVu-zU-QpP"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="appColorDarkGray"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="jfL-0f-V9w" secondAttribute="bottom" id="EEt-Lv-rg0"/>
+                <constraint firstItem="jfL-0f-V9w" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="GZz-W4-FDN"/>
+                <constraint firstItem="jfL-0f-V9w" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="GrH-hx-hB4"/>
+                <constraint firstItem="jfL-0f-V9w" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="SOZ-GJ-6Qa"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <point key="canvasLocation" x="34.782608695652179" y="34.821428571428569"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="image_frame" width="438" height="306"/>
+        <namedColor name="appColorBackground">
+            <color red="0.90196078431372551" green="0.90980392156862744" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorDarkGray">
+            <color red="0.20000000298023224" green="0.20800000429153442" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorGreen">
+            <color red="0.0" green="0.6589999794960022" blue="0.34900000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorRed">
+            <color red="0.9570000171661377" green="0.25900000333786011" blue="0.21199999749660492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="GoogleSans-Medium.otf">
+            <string>GoogleSans-Medium</string>
+        </array>
+        <array key="GoogleSans-Regular.otf">
+            <string>GoogleSans-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SummaryEkybViewController" customModule="xverifydemoapp" customModuleProvider="target">
+            <connections>
+                <outlet property="addressOfTheRepresentativeValueLbl" destination="dcR-co-p1f" id="IM8-lG-HDl"/>
+                <outlet property="addressValueLbl" destination="fko-6o-9pB" id="UkD-Aa-xP1"/>
+                <outlet property="bussinessNameValueLbl" destination="ehZ-PR-16B" id="eqo-m9-VCl"/>
+                <outlet property="dateOfIssueValueLbl" destination="AdV-8X-eWU" id="KfD-aR-eck"/>
+                <outlet property="documentNumberValueLbl" destination="63h-b9-uTh" id="5ZU-rz-4Kv"/>
+                <outlet property="documentTypeValueLbl" destination="R8J-yA-IKD" id="L7Z-th-7mB"/>
+                <outlet property="nextButton" destination="uA2-4Z-SN5" id="Jfk-Ca-znY"/>
+                <outlet property="phoneNumberValueLbl" destination="YCy-1R-2pB" id="gK6-hF-kVO"/>
+                <outlet property="placeOfIssueValueLbl" destination="amt-UR-K08" id="Pqu-xj-rBm"/>
+                <outlet property="representativeNameValueLbl" destination="szg-sv-12P" id="RAb-dZ-6Mz"/>
+                <outlet property="signerValueLbl" destination="5R3-CR-niB" id="PSd-yI-CyB"/>
+                <outlet property="taxCodeValueLbl" destination="hwo-oY-HzG" id="4wU-gC-E45"/>
+                <outlet property="titleLabel" destination="uvd-U6-Yed" id="kpI-Z2-My3"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uA2-4Z-SN5">
+                    <rect key="frame" x="32" y="770" width="329" height="50"/>
+                    <color key="backgroundColor" name="appColorGreen"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="BBe-6M-L9f"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="16"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="TIẾP TỤC">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="nextButtonAction:" destination="-1" eventType="touchUpInside" id="7FO-WT-3eD"/>
+                    </connections>
+                </button>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Es4-Et-K32">
+                    <rect key="frame" x="0.0" y="59" width="393" height="701"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eG6-Id-1G2">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="1097"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ĐĂNG KÝ KINH DOANH" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvd-U6-Yed">
+                                    <rect key="frame" x="20" y="20" width="353" height="21.666666666666671"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="17"/>
+                                    <color key="textColor" name="appColorWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loại giấy tờ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wk0-HA-F4i">
+                                    <rect key="frame" x="20" y="61.666666666666679" width="353" height="19.333333333333336"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="15"/>
+                                    <color key="textColor" name="appColorWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7v9-ff-qiw">
+                                    <rect key="frame" x="20" y="91" width="353" height="41.666666666666657"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8J-yA-IKD">
+                                            <rect key="frame" x="10" y="10.000000000000002" width="333" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="17"/>
+                                            <color key="textColor" name="appColorWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="appColorGray"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="R8J-yA-IKD" secondAttribute="trailing" constant="10" id="7gs-rT-9Gf"/>
+                                        <constraint firstAttribute="bottom" secondItem="R8J-yA-IKD" secondAttribute="bottom" constant="10" id="BVp-7v-4qi"/>
+                                        <constraint firstItem="R8J-yA-IKD" firstAttribute="leading" secondItem="7v9-ff-qiw" secondAttribute="leading" constant="10" id="HJo-Eo-rev"/>
+                                        <constraint firstItem="R8J-yA-IKD" firstAttribute="top" secondItem="7v9-ff-qiw" secondAttribute="top" constant="10" id="zas-Vi-lpb"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mã số thuế" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEw-C2-Pbt">
+                                    <rect key="frame" x="20" y="152.66666666666666" width="353" height="19.333333333333343"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="15"/>
+                                    <color key="textColor" name="appColorWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s71-or-xIz">
+                                    <rect key="frame" x="20" y="182" width="353" height="41.666666666666657"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwo-oY-HzG">
+                                            <rect key="frame" x="10" y="10.000000000000002" width="333" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="17"/>
+                                            <color key="textColor" name="appColorWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="appColorGray"/>
+                                    <constraints>
+                                        <constraint firstItem="hwo-oY-HzG" firstAttribute="top" secondItem="s71-or-xIz" secondAttribute="top" constant="10" id="2M9-63-cCF"/>
+                                        <constraint firstItem="hwo-oY-HzG" firstAttribute="leading" secondItem="s71-or-xIz" secondAttribute="leading" constant="10" id="7uF-1i-Ust"/>
+                                        <constraint firstAttribute="trailing" secondItem="hwo-oY-HzG" secondAttribute="trailing" constant="10" id="Dea-7w-Yzh"/>
+                                        <constraint firstAttribute="bottom" secondItem="hwo-oY-HzG" secondAttribute="bottom" constant="10" id="xDr-Lr-Y8Y"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tên doanh nghiệp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ef-Zf-zRs">
+                                    <rect key="frame" x="20" y="243.66666666666669" width="353" height="19.333333333333314"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="15"/>
+                                    <color key="textColor" name="appColorWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G8z-fq-Hmo">
+                                    <rect key="frame" x="20" y="273" width="353" height="41.666666666666686"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehZ-PR-16B">
+                                            <rect key="frame" x="10" y="10.000000000000002" width="333" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="17"/>
+                                            <color key="textColor" name="appColorWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="appColorGray"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="ehZ-PR-16B" secondAttribute="bottom" constant="10" id="F79-hG-xte"/>
+                                        <constraint firstItem="ehZ-PR-16B" firstAttribute="top" secondItem="G8z-fq-Hmo" secondAttribute="top" constant="10" id="IUd-U1-EtG"/>
+                                        <constraint firstAttribute="trailing" secondItem="ehZ-PR-16B" secondAttribute="trailing" constant="10" id="Vns-qh-roX"/>
+                                        <constraint firstItem="ehZ-PR-16B" firstAttribute="leading" secondItem="G8z-fq-Hmo" secondAttribute="leading" constant="10" id="u21-ge-IVk"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Số điện thoại" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNe-3b-htq">
+                                    <rect key="frame" x="20" y="334.66666666666669" width="353" height="19.333333333333314"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="15"/>
+                                    <color key="textColor" name="appColorWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8HI-aY-DWr">
+                                    <rect key="frame" x="20" y="364" width="353" height="41.666666666666686"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCy-1R-2pB">
+                                            <rect key="frame" x="10" y="10.000000000000002" width="333" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="17"/>
+                                            <color key="textColor" name="appColorWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="appColorGray"/>
+                                    <constraints>
+                                        <constraint firstItem="YCy-1R-2pB" firstAttribute="leading" secondItem="8HI-aY-DWr" secondAttribute="leading" constant="10" id="At5-Jr-032"/>
+                                        <constraint firstItem="YCy-1R-2pB" firstAttribute="top" secondItem="8HI-aY-DWr" secondAttribute="top" constant="10" id="KzZ-xs-jLs"/>
+                                        <constraint firstAttribute="bottom" secondItem="YCy-1R-2pB" secondAttribute="bottom" constant="10" id="T3c-Zh-uRE"/>
+                                        <constraint firstAttribute="trailing" secondItem="YCy-1R-2pB" secondAttribute="trailing" constant="10" id="xIG-0u-1Jk"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Địa chỉ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zb9-ue-eaY">
+                                    <rect key="frame" x="20" y="425.66666666666669" width="353" height="19.333333333333314"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="15"/>
+                                    <color key="textColor" name="appColorWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Htz-gu-ogi">
+                                    <rect key="frame" x="20" y="455" width="353" height="41.666666666666686"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fko-6o-9pB">
+                                            <rect key="frame" x="10" y="10.000000000000002" width="333" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="17"/>
+                                            <color key="textColor" name="appColorWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="appColorGray"/>
+                                    <constraints>
+                                        <constraint firstItem="fko-6o-9pB" firstAttribute="leading" secondItem="Htz-gu-ogi" secondAttribute="leading" constant="10" id="RVG-ZG-aBO"/>
+                                        <constraint firstAttribute="trailing" secondItem="fko-6o-9pB" secondAttribute="trailing" constant="10" id="c9G-Fd-abO"/>
+                                        <constraint firstAttribute="bottom" secondItem="fko-6o-9pB" secondAttribute="bottom" constant="10" id="cpQ-tQ-3Qx"/>
+                                        <constraint firstItem="fko-6o-9pB" firstAttribute="top" secondItem="Htz-gu-ogi" secondAttribute="top" constant="10" id="gx6-sm-fb5"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nơi phát hành" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ocs-wV-EFJ">
+                                    <rect key="frame" x="20" y="516.66666666666663" width="353" height="19.333333333333371"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="15"/>
+                                    <color key="textColor" name="appColorWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7C-F3-3B4">
+                                    <rect key="frame" x="20" y="546" width="353" height="41.666666666666629"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amt-UR-K08">
+                                            <rect key="frame" x="10" y="10.000000000000002" width="333" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="17"/>
+                                            <color key="textColor" name="appColorWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="appColorGray"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="amt-UR-K08" secondAttribute="trailing" constant="10" id="BbB-a2-2Kl"/>
+                                        <constraint firstAttribute="bottom" secondItem="amt-UR-K08" secondAttribute="bottom" constant="10" id="S7g-Tc-9kv"/>
+                                        <constraint firstItem="amt-UR-K08" firstAttribute="top" secondItem="U7C-F3-3B4" secondAttribute="top" constant="10" id="kDp-ib-2RY"/>
+                                        <constraint firstItem="amt-UR-K08" firstAttribute="leading" secondItem="U7C-F3-3B4" secondAttribute="leading" constant="10" id="ztI-Oo-lkU"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Người ký tên" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTT-tP-CGt">
+                                    <rect key="frame" x="20" y="607.66666666666663" width="353" height="19.333333333333371"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="15"/>
+                                    <color key="textColor" name="appColorWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M8u-oL-Nr3">
+                                    <rect key="frame" x="20" y="637" width="353" height="41.666666666666629"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5R3-CR-niB">
+                                            <rect key="frame" x="10" y="10.000000000000002" width="333" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="17"/>
+                                            <color key="textColor" name="appColorWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="appColorGray"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="5R3-CR-niB" secondAttribute="bottom" constant="10" id="DGp-TY-KiY"/>
+                                        <constraint firstItem="5R3-CR-niB" firstAttribute="top" secondItem="M8u-oL-Nr3" secondAttribute="top" constant="10" id="br6-Gu-nud"/>
+                                        <constraint firstItem="5R3-CR-niB" firstAttribute="leading" secondItem="M8u-oL-Nr3" secondAttribute="leading" constant="10" id="nH6-Ga-Vtj"/>
+                                        <constraint firstAttribute="trailing" secondItem="5R3-CR-niB" secondAttribute="trailing" constant="10" id="r8f-cM-aLj"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thông tin người đại diện" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFd-GN-wp6">
+                                    <rect key="frame" x="115.33333333333333" y="698.66666666666663" width="162.33333333333337" height="19.333333333333371"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="15"/>
+                                    <color key="textColor" name="appColorBackground"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CMND/CCCD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9p-e2-EI7">
+                                    <rect key="frame" x="20" y="723" width="353" height="19.333333333333371"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="15"/>
+                                    <color key="textColor" name="appColorWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RTL-2V-0Md">
+                                    <rect key="frame" x="20" y="752.33333333333337" width="353" height="41.666666666666629"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63h-b9-uTh">
+                                            <rect key="frame" x="10" y="10.000000000000002" width="333" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="17"/>
+                                            <color key="textColor" name="appColorWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="appColorGray"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="63h-b9-uTh" secondAttribute="bottom" constant="10" id="5ka-4B-Usl"/>
+                                        <constraint firstItem="63h-b9-uTh" firstAttribute="leading" secondItem="RTL-2V-0Md" secondAttribute="leading" constant="10" id="VhH-WM-aEF"/>
+                                        <constraint firstAttribute="trailing" secondItem="63h-b9-uTh" secondAttribute="trailing" constant="10" id="c4d-RL-jcx"/>
+                                        <constraint firstItem="63h-b9-uTh" firstAttribute="top" secondItem="RTL-2V-0Md" secondAttribute="top" constant="10" id="cZg-7Z-uvV"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tên người đại diện" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rC1-aq-p0u">
+                                    <rect key="frame" x="20" y="814" width="353" height="19.333333333333371"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="15"/>
+                                    <color key="textColor" name="appColorWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yoU-zf-GP9">
+                                    <rect key="frame" x="20" y="843.33333333333337" width="353" height="41.666666666666629"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szg-sv-12P">
+                                            <rect key="frame" x="10" y="10.000000000000002" width="333" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="17"/>
+                                            <color key="textColor" name="appColorWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="appColorGray"/>
+                                    <constraints>
+                                        <constraint firstItem="szg-sv-12P" firstAttribute="leading" secondItem="yoU-zf-GP9" secondAttribute="leading" constant="10" id="EO1-GK-lkS"/>
+                                        <constraint firstItem="szg-sv-12P" firstAttribute="top" secondItem="yoU-zf-GP9" secondAttribute="top" constant="10" id="Zlt-29-ezn"/>
+                                        <constraint firstAttribute="bottom" secondItem="szg-sv-12P" secondAttribute="bottom" constant="10" id="ers-pP-9W7"/>
+                                        <constraint firstAttribute="trailing" secondItem="szg-sv-12P" secondAttribute="trailing" constant="10" id="u1d-gK-Wjm"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ngày cấp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ai5-u5-v6c">
+                                    <rect key="frame" x="20" y="905" width="353" height="19.333333333333371"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="15"/>
+                                    <color key="textColor" name="appColorWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8WL-Wk-zhx">
+                                    <rect key="frame" x="20" y="934.33333333333337" width="353" height="41.666666666666629"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AdV-8X-eWU">
+                                            <rect key="frame" x="10" y="10.000000000000002" width="333" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="17"/>
+                                            <color key="textColor" name="appColorWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="appColorGray"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="AdV-8X-eWU" secondAttribute="trailing" constant="10" id="1et-Cm-svU"/>
+                                        <constraint firstItem="AdV-8X-eWU" firstAttribute="top" secondItem="8WL-Wk-zhx" secondAttribute="top" constant="10" id="2H0-uA-lJs"/>
+                                        <constraint firstItem="AdV-8X-eWU" firstAttribute="leading" secondItem="8WL-Wk-zhx" secondAttribute="leading" constant="10" id="Cxp-WQ-WI2"/>
+                                        <constraint firstAttribute="bottom" secondItem="AdV-8X-eWU" secondAttribute="bottom" constant="10" id="ZhL-x6-BDT"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Địa chỉ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdU-mL-Qce">
+                                    <rect key="frame" x="20" y="996" width="353" height="19.333333333333371"/>
+                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="15"/>
+                                    <color key="textColor" name="appColorWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7OI-t2-Esx">
+                                    <rect key="frame" x="20" y="1025.3333333333333" width="353" height="41.666666666666742"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcR-co-p1f">
+                                            <rect key="frame" x="10" y="10.000000000000002" width="333" height="21.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="17"/>
+                                            <color key="textColor" name="appColorWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" name="appColorGray"/>
+                                    <constraints>
+                                        <constraint firstItem="dcR-co-p1f" firstAttribute="top" secondItem="7OI-t2-Esx" secondAttribute="top" constant="10" id="3Zz-nY-MJL"/>
+                                        <constraint firstItem="dcR-co-p1f" firstAttribute="leading" secondItem="7OI-t2-Esx" secondAttribute="leading" constant="10" id="Jbq-xr-0gm"/>
+                                        <constraint firstAttribute="bottom" secondItem="dcR-co-p1f" secondAttribute="bottom" constant="10" id="fDB-Ap-rnG"/>
+                                        <constraint firstAttribute="trailing" secondItem="dcR-co-p1f" secondAttribute="trailing" constant="10" id="pp8-Ph-A0O"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" name="appColorDarkGray"/>
+                            <constraints>
+                                <constraint firstItem="G8z-fq-Hmo" firstAttribute="top" secondItem="1ef-Zf-zRs" secondAttribute="bottom" constant="10" id="0Hd-Ln-76Y"/>
+                                <constraint firstAttribute="trailing" secondItem="Wk0-HA-F4i" secondAttribute="trailing" constant="20" id="1Hh-s2-pLY"/>
+                                <constraint firstAttribute="trailing" secondItem="7OI-t2-Esx" secondAttribute="trailing" constant="20" symbolic="YES" id="1n2-Sq-zvT"/>
+                                <constraint firstAttribute="trailing" secondItem="RTL-2V-0Md" secondAttribute="trailing" constant="20" id="2fA-xC-f4F"/>
+                                <constraint firstAttribute="trailing" secondItem="ai5-u5-v6c" secondAttribute="trailing" constant="20" id="2sj-t7-ulh"/>
+                                <constraint firstItem="A9p-e2-EI7" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" symbolic="YES" id="3RN-rA-mtX"/>
+                                <constraint firstAttribute="trailing" secondItem="U7C-F3-3B4" secondAttribute="trailing" constant="20" symbolic="YES" id="4vu-L0-1Ao"/>
+                                <constraint firstAttribute="trailing" secondItem="8WL-Wk-zhx" secondAttribute="trailing" constant="20" symbolic="YES" id="5io-uR-Ifg"/>
+                                <constraint firstItem="rC1-aq-p0u" firstAttribute="top" secondItem="RTL-2V-0Md" secondAttribute="bottom" constant="20" id="5uA-6E-ND1"/>
+                                <constraint firstItem="Zb9-ue-eaY" firstAttribute="top" secondItem="8HI-aY-DWr" secondAttribute="bottom" constant="20" id="8g6-Bj-0iM"/>
+                                <constraint firstItem="G8z-fq-Hmo" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" id="95L-xe-vZE"/>
+                                <constraint firstItem="uvd-U6-Yed" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" id="A62-Nr-IRP"/>
+                                <constraint firstItem="Htz-gu-ogi" firstAttribute="top" secondItem="Zb9-ue-eaY" secondAttribute="bottom" constant="10" id="Adt-pv-YhE"/>
+                                <constraint firstItem="Wk0-HA-F4i" firstAttribute="top" secondItem="uvd-U6-Yed" secondAttribute="bottom" constant="20" id="BFx-PT-8KD"/>
+                                <constraint firstItem="RTL-2V-0Md" firstAttribute="top" secondItem="A9p-e2-EI7" secondAttribute="bottom" constant="10" id="C6o-Xu-q03"/>
+                                <constraint firstItem="rC1-aq-p0u" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" symbolic="YES" id="CGy-DS-uYs"/>
+                                <constraint firstAttribute="bottom" secondItem="7OI-t2-Esx" secondAttribute="bottom" constant="30" id="Csu-Lt-K1I"/>
+                                <constraint firstItem="yoU-zf-GP9" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" id="CuR-Gi-lps"/>
+                                <constraint firstItem="s71-or-xIz" firstAttribute="top" secondItem="HEw-C2-Pbt" secondAttribute="bottom" constant="10" id="CxL-rL-Nwa"/>
+                                <constraint firstItem="Htz-gu-ogi" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" symbolic="YES" id="E6t-9D-gYj"/>
+                                <constraint firstItem="8HI-aY-DWr" firstAttribute="top" secondItem="FNe-3b-htq" secondAttribute="bottom" constant="10" id="EQi-1L-rvO"/>
+                                <constraint firstItem="FNe-3b-htq" firstAttribute="top" secondItem="G8z-fq-Hmo" secondAttribute="bottom" constant="20" id="Egp-NE-cbU"/>
+                                <constraint firstItem="HdU-mL-Qce" firstAttribute="top" secondItem="8WL-Wk-zhx" secondAttribute="bottom" constant="20" id="Esr-hV-lvr"/>
+                                <constraint firstAttribute="trailing" secondItem="Zb9-ue-eaY" secondAttribute="trailing" constant="20" symbolic="YES" id="F6K-VS-lmQ"/>
+                                <constraint firstAttribute="trailing" secondItem="s71-or-xIz" secondAttribute="trailing" constant="20" id="IJd-O7-ZBv"/>
+                                <constraint firstAttribute="trailing" secondItem="8HI-aY-DWr" secondAttribute="trailing" constant="20" symbolic="YES" id="ISD-BG-FQc"/>
+                                <constraint firstItem="HdU-mL-Qce" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" symbolic="YES" id="KDm-rK-lwh"/>
+                                <constraint firstItem="tTT-tP-CGt" firstAttribute="top" secondItem="U7C-F3-3B4" secondAttribute="bottom" constant="20" id="L7M-va-UIj"/>
+                                <constraint firstItem="tTT-tP-CGt" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" symbolic="YES" id="LzD-Sq-ldy"/>
+                                <constraint firstItem="uvd-U6-Yed" firstAttribute="top" secondItem="eG6-Id-1G2" secondAttribute="top" constant="20" id="Nul-Sf-fMP"/>
+                                <constraint firstItem="8WL-Wk-zhx" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" symbolic="YES" id="POm-LO-AsW"/>
+                                <constraint firstItem="Ocs-wV-EFJ" firstAttribute="top" secondItem="Htz-gu-ogi" secondAttribute="bottom" constant="20" id="Pa0-il-ugq"/>
+                                <constraint firstAttribute="trailing" secondItem="A9p-e2-EI7" secondAttribute="trailing" constant="20" symbolic="YES" id="QjY-uo-Cwb"/>
+                                <constraint firstItem="7v9-ff-qiw" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" id="RZJ-ux-fE6"/>
+                                <constraint firstItem="Wk0-HA-F4i" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" id="SyY-qX-IPP"/>
+                                <constraint firstItem="U7C-F3-3B4" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" symbolic="YES" id="VAD-Gc-RJC"/>
+                                <constraint firstItem="7OI-t2-Esx" firstAttribute="top" secondItem="HdU-mL-Qce" secondAttribute="bottom" constant="10" id="XXG-K3-cff"/>
+                                <constraint firstItem="rFd-GN-wp6" firstAttribute="top" secondItem="M8u-oL-Nr3" secondAttribute="bottom" constant="20" id="Ydn-wY-DHZ"/>
+                                <constraint firstItem="8HI-aY-DWr" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" symbolic="YES" id="ZBA-Ns-S2e"/>
+                                <constraint firstItem="RTL-2V-0Md" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" id="ZLu-5W-9Dn"/>
+                                <constraint firstAttribute="trailing" secondItem="1ef-Zf-zRs" secondAttribute="trailing" constant="20" id="aXr-hl-mhI"/>
+                                <constraint firstItem="7OI-t2-Esx" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" symbolic="YES" id="ase-fp-nnK"/>
+                                <constraint firstItem="s71-or-xIz" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" id="blb-SV-i7A"/>
+                                <constraint firstItem="7v9-ff-qiw" firstAttribute="top" secondItem="Wk0-HA-F4i" secondAttribute="bottom" constant="10" id="bt9-4d-rqU"/>
+                                <constraint firstAttribute="trailing" secondItem="M8u-oL-Nr3" secondAttribute="trailing" constant="20" symbolic="YES" id="cht-LH-fKH"/>
+                                <constraint firstAttribute="trailing" secondItem="yoU-zf-GP9" secondAttribute="trailing" constant="20" id="eJa-kl-AE6"/>
+                                <constraint firstItem="Ocs-wV-EFJ" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" symbolic="YES" id="iBh-UC-NLw"/>
+                                <constraint firstItem="ai5-u5-v6c" firstAttribute="top" secondItem="yoU-zf-GP9" secondAttribute="bottom" constant="20" id="jQe-4H-ESg"/>
+                                <constraint firstItem="yoU-zf-GP9" firstAttribute="top" secondItem="rC1-aq-p0u" secondAttribute="bottom" constant="10" id="jWG-s7-qxS"/>
+                                <constraint firstAttribute="trailing" secondItem="7v9-ff-qiw" secondAttribute="trailing" constant="20" id="kH0-sZ-m9s"/>
+                                <constraint firstAttribute="trailing" secondItem="Htz-gu-ogi" secondAttribute="trailing" constant="20" symbolic="YES" id="kb3-yk-1y9"/>
+                                <constraint firstItem="M8u-oL-Nr3" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" symbolic="YES" id="kwe-2U-D9h"/>
+                                <constraint firstItem="HEw-C2-Pbt" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" id="l4u-s2-7R3"/>
+                                <constraint firstAttribute="trailing" secondItem="FNe-3b-htq" secondAttribute="trailing" constant="20" id="nlt-ZK-H8p"/>
+                                <constraint firstAttribute="trailing" secondItem="Ocs-wV-EFJ" secondAttribute="trailing" constant="20" symbolic="YES" id="ozJ-qr-b4G"/>
+                                <constraint firstItem="U7C-F3-3B4" firstAttribute="top" secondItem="Ocs-wV-EFJ" secondAttribute="bottom" constant="10" id="p3i-be-ZW7"/>
+                                <constraint firstItem="8WL-Wk-zhx" firstAttribute="top" secondItem="ai5-u5-v6c" secondAttribute="bottom" constant="10" id="pcH-ny-DmL"/>
+                                <constraint firstItem="HEw-C2-Pbt" firstAttribute="top" secondItem="7v9-ff-qiw" secondAttribute="bottom" constant="20" id="psv-GZ-zQg"/>
+                                <constraint firstAttribute="trailing" secondItem="rC1-aq-p0u" secondAttribute="trailing" constant="20" id="r1P-Wa-KMC"/>
+                                <constraint firstItem="ai5-u5-v6c" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" id="rFV-O0-Shj"/>
+                                <constraint firstItem="FNe-3b-htq" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" id="reB-Ax-yvW"/>
+                                <constraint firstItem="rFd-GN-wp6" firstAttribute="centerX" secondItem="eG6-Id-1G2" secondAttribute="centerX" id="rwP-Pn-csp"/>
+                                <constraint firstAttribute="trailing" secondItem="uvd-U6-Yed" secondAttribute="trailing" constant="20" id="s97-2p-8r3"/>
+                                <constraint firstItem="Zb9-ue-eaY" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" symbolic="YES" id="sd7-99-a2d"/>
+                                <constraint firstItem="A9p-e2-EI7" firstAttribute="top" secondItem="rFd-GN-wp6" secondAttribute="bottom" constant="5" id="sth-vh-Nhd"/>
+                                <constraint firstAttribute="trailing" secondItem="G8z-fq-Hmo" secondAttribute="trailing" constant="20" id="uAT-5X-0b7"/>
+                                <constraint firstAttribute="trailing" secondItem="HdU-mL-Qce" secondAttribute="trailing" constant="20" id="uPa-yS-8iT"/>
+                                <constraint firstItem="1ef-Zf-zRs" firstAttribute="top" secondItem="s71-or-xIz" secondAttribute="bottom" constant="20" id="ui9-Wh-TFq"/>
+                                <constraint firstAttribute="trailing" secondItem="tTT-tP-CGt" secondAttribute="trailing" constant="20" symbolic="YES" id="vQ5-JQ-i7F"/>
+                                <constraint firstItem="M8u-oL-Nr3" firstAttribute="top" secondItem="tTT-tP-CGt" secondAttribute="bottom" constant="10" id="wU0-yh-89F"/>
+                                <constraint firstAttribute="trailing" secondItem="HEw-C2-Pbt" secondAttribute="trailing" constant="20" id="wuq-fc-PX1"/>
+                                <constraint firstItem="1ef-Zf-zRs" firstAttribute="leading" secondItem="eG6-Id-1G2" secondAttribute="leading" constant="20" id="zeJ-il-Ggh"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="eG6-Id-1G2" secondAttribute="trailing" id="3ux-QR-jni"/>
+                        <constraint firstItem="eG6-Id-1G2" firstAttribute="leading" secondItem="Es4-Et-K32" secondAttribute="leading" id="7Z8-2g-TNc"/>
+                        <constraint firstItem="eG6-Id-1G2" firstAttribute="top" secondItem="Es4-Et-K32" secondAttribute="top" id="N1v-ku-MfA"/>
+                        <constraint firstAttribute="bottom" secondItem="eG6-Id-1G2" secondAttribute="bottom" id="dto-FV-gJz"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="appColorDarkGray"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="uA2-4Z-SN5" secondAttribute="bottom" constant="32" id="045-kD-Qi2"/>
+                <constraint firstItem="uA2-4Z-SN5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="9nk-qM-nKM"/>
+                <constraint firstItem="Es4-Et-K32" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="ApU-Om-uqF"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="uA2-4Z-SN5" secondAttribute="trailing" constant="32" id="J15-AW-MaC"/>
+                <constraint firstItem="Es4-Et-K32" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bt8-xA-9bW"/>
+                <constraint firstItem="eG6-Id-1G2" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="hZi-WZ-uX2"/>
+                <constraint firstItem="Es4-Et-K32" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="uXW-dS-J5h"/>
+                <constraint firstItem="uA2-4Z-SN5" firstAttribute="top" secondItem="Es4-Et-K32" secondAttribute="bottom" constant="10" id="zWK-1z-VhM"/>
+            </constraints>
+            <point key="canvasLocation" x="87.786259541984734" y="20.422535211267608"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="appColorBackground">
+            <color red="0.90196078431372551" green="0.90980392156862744" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorDarkGray">
+            <color red="0.20000000298023224" green="0.20800000429153442" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorGray">
+            <color red="0.49000000953674316" green="0.52899998426437378" blue="0.59200000762939453" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorGreen">
+            <color red="0.0" green="0.6589999794960022" blue="0.34900000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

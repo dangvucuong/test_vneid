@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="GoogleSans-Medium.otf">
+            <string>GoogleSans-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OCRLoadingViewController" customModule="xverifydemoapp" customModuleProvider="target">
+            <connections>
+                <outlet property="animationLoading" destination="1oQ-iC-uiW" id="IvN-Q7-ZNr"/>
+                <outlet property="instructionLabel" destination="bfY-8t-e9O" id="mbM-fH-paT"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fBe-gi-YDo">
+                    <rect key="frame" x="16" y="338.66666666666669" width="361" height="200.00000000000006"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1oQ-iC-uiW" customClass="LottieAnimationView" customModule="Lottie">
+                            <rect key="frame" x="8" y="16" width="345" height="152"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="animation_loading"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ĐANG XÁC THỰC DỮ LIỆU" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bfY-8t-e9O">
+                            <rect key="frame" x="0.0" y="32" width="361" height="21"/>
+                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="16"/>
+                            <color key="textColor" name="appColorBackground"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="1oQ-iC-uiW" firstAttribute="top" secondItem="fBe-gi-YDo" secondAttribute="top" constant="16" id="5PR-U3-vlH"/>
+                        <constraint firstItem="1oQ-iC-uiW" firstAttribute="centerX" secondItem="fBe-gi-YDo" secondAttribute="centerX" id="IFm-qP-cBQ"/>
+                        <constraint firstItem="bfY-8t-e9O" firstAttribute="leading" secondItem="fBe-gi-YDo" secondAttribute="leading" id="Xtc-l0-TmN"/>
+                        <constraint firstItem="bfY-8t-e9O" firstAttribute="centerX" secondItem="fBe-gi-YDo" secondAttribute="centerX" id="c38-je-o6U"/>
+                        <constraint firstItem="bfY-8t-e9O" firstAttribute="top" secondItem="fBe-gi-YDo" secondAttribute="top" constant="32" id="mQH-Xl-Q9b"/>
+                        <constraint firstAttribute="height" constant="200" id="qpe-P1-QKo"/>
+                        <constraint firstAttribute="bottom" secondItem="1oQ-iC-uiW" secondAttribute="bottom" constant="32" id="y1y-Gs-w94"/>
+                        <constraint firstItem="1oQ-iC-uiW" firstAttribute="leading" secondItem="fBe-gi-YDo" secondAttribute="leading" constant="8" id="zF4-e6-mQ2"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="appColorDarkGray"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fBe-gi-YDo" secondAttribute="trailing" constant="16" id="XeQ-Gm-Ue2"/>
+                <constraint firstItem="fBe-gi-YDo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="bAd-i4-Wg1"/>
+                <constraint firstItem="fBe-gi-YDo" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="pNJ-3O-Peo"/>
+                <constraint firstItem="fBe-gi-YDo" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="zbx-hN-kKL"/>
+            </constraints>
+            <point key="canvasLocation" x="12" y="-11"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="appColorBackground">
+            <color red="0.90196078431372551" green="0.90980392156862744" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorDarkGray">
+            <color red="0.20000000298023224" green="0.20800000429153442" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

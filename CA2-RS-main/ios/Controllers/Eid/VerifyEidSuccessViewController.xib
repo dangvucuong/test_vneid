@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="GoogleSans-Medium.otf">
+            <string>GoogleSans-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VerifyEidSuccessViewController" customModule="xverifydemoapp" customModuleProvider="target">
+            <connections>
+                <outlet property="bottomTbViewToBtnContrainst" destination="tas-lj-6qj" id="qbB-SJ-bMt"/>
+                <outlet property="bottomToSuperViewContrainst" destination="dAQ-yy-IiL" id="eB3-f6-CxC"/>
+                <outlet property="doneButton" destination="cAI-y3-HCx" id="Nkf-bI-g7e"/>
+                <outlet property="tableView" destination="Zz6-hr-DbU" id="2rG-da-zbd"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Zz6-hr-DbU" customClass="CustomTableView" customModule="xverifydemoapp" customModuleProvider="target">
+                    <rect key="frame" x="8" y="60" width="398" height="738"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="separatorColor" name="appColorSilverGray"/>
+                    <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAI-y3-HCx">
+                    <rect key="frame" x="32" y="814" width="350" height="50"/>
+                    <color key="backgroundColor" name="appColorGreen"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="ZRu-ep-aBb"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="16"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="XONG">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="doneButtonAction:" destination="-1" eventType="touchUpInside" id="Ixd-1P-o9Q"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="appColorDarkGray"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="cAI-y3-HCx" secondAttribute="bottom" constant="32" id="Pj8-XO-Nmu"/>
+                <constraint firstItem="Zz6-hr-DbU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="cXB-RM-xNu"/>
+                <constraint firstAttribute="bottom" secondItem="Zz6-hr-DbU" secondAttribute="bottom" constant="98" id="dAQ-yy-IiL"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cAI-y3-HCx" secondAttribute="trailing" constant="32" id="dUV-da-nV0"/>
+                <constraint firstItem="Zz6-hr-DbU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="mrl-pv-fHq"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Zz6-hr-DbU" secondAttribute="trailing" constant="8" id="nvh-vR-f6S"/>
+                <constraint firstItem="cAI-y3-HCx" firstAttribute="top" secondItem="Zz6-hr-DbU" secondAttribute="bottom" constant="16" id="tas-lj-6qj"/>
+                <constraint firstItem="cAI-y3-HCx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="xTi-QN-Rtg"/>
+            </constraints>
+            <point key="canvasLocation" x="110.14492753623189" y="-12.723214285714285"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="appColorDarkGray">
+            <color red="0.20000000298023224" green="0.20800000429153442" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorGreen">
+            <color red="0.0" green="0.6589999794960022" blue="0.34900000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorSilverGray">
+            <color red="0.83499997854232788" green="0.83499997854232788" blue="0.83499997854232788" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

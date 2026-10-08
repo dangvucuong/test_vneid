@@ -1,0 +1,179 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
+    <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+    <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="android:statusBarColor">#ffffff</item>
+      <item name="colorAccent">@color/colorAccent</item>
+      <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+      <item name="android:windowBackground">@drawable/background_black</item>
+  </style>
+  <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
+    <item name="windowSplashScreenBackground">@color/splashscreen_background</item>
+    <item name="windowSplashScreenAnimatedIcon">@drawable/splashscreen_logo</item>
+    <item name="postSplashScreenTheme">@style/AppTheme</item>
+  </style>
+   <!-- Base application theme. -->
+    <!-- <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/background_black</item>
+    </style> -->
+
+    <style name="AppFullScreenTheme" parent="AppTheme">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+    </style>
+
+    <style name="Text">
+
+    </style>
+
+    <style name="Text.SubHead">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="Text.SubHead.Light" parent="Text.SubHead">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/bold</item>
+    </style>
+
+    <style name="Text.Body3">
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/grey_mid</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+    </style>
+    <style name="Text.Body3.Light" parent="Text.Body3">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Body3.Light.Bold" parent="Text.Body3.Light">
+        <item name="android:fontFamily">@font/bold</item>
+    </style>
+
+    <style name="Text.Title">
+        <item name="fontFamily">@font/google_sans_medium</item>
+    </style>
+
+    <style name="Text.Body">
+        <item name="fontFamily">@font/google_sans_regular</item>
+    </style>
+
+    <style name="CardViewStyle">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">0dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_none</item>
+        <item name="android:layout_marginRight">@dimen/margin_none</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="ToggleButtonText">
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:fontFamily">@font/medium</item>
+    </style>
+    <style name="ToogleButton" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">@dimen/toggle_padding</item>
+        <item name="android:layout_marginTop">@dimen/tiny_margin</item>
+        <item name="android:layout_marginBottom">@dimen/tiny_margin</item>
+        <item name="android:textAppearance">@style/ToggleButtonText</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="ToogleButton.Left">
+        <item name="android:background">@drawable/toggle_background_left</item>
+    </style>
+    <style name="ToogleButton.Right">
+        <item name="android:background">@drawable/toggle_background_right</item>
+    </style>
+    <style name="ToogleGroup">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/toggle_height</item>
+        <item name="android:background">@drawable/toggle_background_border</item>
+    </style>
+
+    <style name="InputLabel" parent="TextAppearance.AppCompat.Small">
+        <item name="android:paddingBottom">@dimen/input_label_padding_bottom</item>
+        <item name="android:paddingLeft">@dimen/input_label_horizontal_spacing</item>
+        <item name="android:paddingRight">@dimen/input_label_horizontal_spacing</item>
+    </style>
+    <style name="circle">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.Rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_10sdp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.RoundedStroke" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_5sdp</item>
+        <item name="strokeWidth">@dimen/_10sdp</item>
+        <item name="strokeColor">@color/app_color_light_gray</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MyApp.Dialog.Rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="OverlayAlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.Dialog.Rounded</item>
+    </style>
+
+    <style name="TextInputLayoutShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+
+    <style name="corner_10sdp">
+        <item name="cornerSize">@dimen/_10sdp</item>
+    </style>
+    <style name="corner_5sdp">
+        <item name="cornerSize">@dimen/_5sdp</item>
+    </style>
+
+
+    <style name="one_rounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0dp</item>
+        <item name="cornerSizeTopLeft">50%</item>
+        <item name="cornerSizeBottomLeft">50%</item>
+        <item name="cornerSizeTopRight">50%</item>
+        <item name="cornerSizeBottomRight">50%</item>
+    </style>
+
+    <style name="style_item_title_tab">
+        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:textSize">@dimen/_13sdp</item>
+    </style>
+
+
+    <style name="style_item_subtitle">
+        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:textSize">@dimen/_11sdp</item>
+    </style>
+
+
+    <style name="Them.Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="Custom_Dialog" parent="Them.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+</resources>

@@ -1,0 +1,226 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+  <uses-permission android:name="android.permission.CAMERA"/>
+  <uses-permission android:name="android.permission.NFC"/>
+  <uses-feature android:name="android.hardware.camera" android:required="true" />
+  <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+  <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+  <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+  <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+  <uses-permission android:name="android.permission.VIBRATE"/>
+  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove" />
+  <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove" />
+  <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" tools:node="remove" />
+  <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" tools:node="remove" />
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+  <!-- Permissions for react-native-push-notification -->
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+  <uses-permission android:name="android.permission.WAKE_LOCK"/>
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.VIEW"/>
+      <category android:name="android.intent.category.BROWSABLE"/>
+      <data android:scheme="https"/>
+    </intent>
+  </queries>
+  <application 
+      android:name=".MainApplication" 
+      android:label="@string/app_name" 
+      android:icon="@mipmap/ic_launcher" 
+      android:roundIcon="@mipmap/ic_launcher_round" 
+      android:allowBackup="true" 
+      android:theme="@style/AppTheme" 
+      android:supportsRtl="true" 
+      android:requestLegacyExternalStorage="true">
+      <meta-data
+        android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@drawable/ic_notification" />
+
+      <meta-data
+        android:name="com.google.firebase.messaging.default_notification_color"
+        android:resource="@color/primary" tools:replace="android:resource"
+          />
+    <meta-data android:name="expo.modules.updates.ENABLED" android:value="false"/>
+    <meta-data android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH" android:value="ALWAYS"/>
+    <meta-data android:name="expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS" android:value="0"/>
+    <meta-data
+        android:name="com.google.mlkit.vision.DEPENDENCIES"
+        android:value="ocr,face"
+        tools:replace="android:value"/>
+    <activity 
+        android:name=".MainActivity" 
+        android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|uiMode|locale|layoutDirection" 
+        android:launchMode="singleTask" 
+        android:windowSoftInputMode="adjustResize" 
+        android:theme="@style/Theme.App.SplashScreen" 
+        android:exported="true" 
+        android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="apprs"/>
+        <data android:scheme="exp+apprs"/>
+      </intent-filter>
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="https"
+            android:host="applink.nacencomm.vn"
+            android:pathPrefix="/" />
+      </intent-filter>
+    </activity>
+    <!-- Other activities remain unchanged -->
+    <activity
+        android:name=".activities.ekyb.VerifyEkybSuccessActivity"
+        android:exported="false" />
+    <activity
+        android:name=".activities.qrcode.VerifyGtinActivity"
+        android:exported="false" />
+    <activity
+        android:name=".activities.ekyb.EkybVerifyDocumentActivity"
+        android:exported="false" />
+    <activity
+        android:name=".activities.qrcode.QRCodeScannerActivity"
+        android:exported="false" />
+    <activity
+        android:name=".activities.qrcode.ScanQrCodeEidActivity"
+        android:exported="false" />
+    <activity
+        android:name=".activities.common.ScanMrzActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppFullScreenTheme"
+        android:windowSoftInputMode="stateAlwaysHidden" />
+    <activity
+        android:name=".activities.common.NfcActivity"
+        android:keepScreenOn="true"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.common.LivenessActivity"
+        android:keepScreenOn="true"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.verifyeid.VerifyEidMainActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.verifyeid.VerifyEidSuccessActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.verifyeid.VerifyingEidActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.verifyekyc.VerifyEkycMainActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.verifyekyc.VerifyEkycSuccessActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.verifyekyc.VerifyingEkycActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.common.SimpleEkycActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.common.ImportMrzActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.ocr.OcrMainActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.ocr.OcrConfirmActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.ocr.OcrFaceMatchingActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.ocr.VerifyOcrSuccessActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.ocr.VerifyingOcrFaceActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.ocr.OcrInfoActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.ocr.VerifyingOcrActivity"
+        android:screenOrientation="portrait" />
+    <activity 
+        android:name=".activities.ocr.OcrTransporterActivity" />
+    <activity
+        android:name=".activities.bio2345.TransferCreateActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.bio2345.TransferFaceMatchingActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.bio2345.TransferSuccessActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.bio2345.VerifyEkycTransferMainActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.bio2345.VerifyingFaceTransferActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.bio2345.OnboardingBankActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.bio2345.LivenessOnboardingActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.bio2345.VerifyOTPTransferActivity"
+        android:screenOrientation="portrait"
+        android:windowSoftInputMode="adjustResize" />
+    <activity
+        android:name=".activities.bio2345.TransactionCDActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.bio2345.OnboardSuccessActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.bio2345.Bio2345VerifyingActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.bio2345.BioSelectTransactionTypeActivity"
+        android:screenOrientation="portrait" />
+    <activity
+        android:name=".activities.common.PassiveEkycActivity"
+        android:screenOrientation="portrait" />
+    <!-- Firebase Messaging Service for @react-native-firebase/messaging -->
+    <service
+        android:name="com.google.firebase.messaging.FirebaseMessagingService"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
+      </intent-filter>
+    </service>
+    <!-- Receivers for react-native-push-notification (kept for local notifications) -->
+    <receiver
+        android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+      </intent-filter>
+    </receiver>
+    <receiver
+        android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher"
+        android:exported="false" />
+    <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="${applicationId}.provider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+      <meta-data
+          android:name="android.support.FILE_PROVIDER_PATHS"
+          android:resource="@xml/file_paths" />
+    </provider>
+  </application>
+</manifest>

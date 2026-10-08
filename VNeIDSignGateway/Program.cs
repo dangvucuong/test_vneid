@@ -11,6 +11,7 @@ builder.Services.Configure<VNeIDGatewayOptions>(
 
 // 2. Register Application Services & Typed HttpClients
 builder.Services.AddSingleton<ISignFlowLogger, SignFlowLogger>();
+builder.Services.AddSingleton<IVneIdSqlLog, VneIdSqlLog>();
 builder.Services.AddSingleton<IWebhookValidator, WebhookValidator>();
 builder.Services.AddSingleton<IWebhookEventStore, WebhookEventStore>();
 builder.Services.AddSingleton<IUniversalLinkBuilder, UniversalLinkBuilder>();

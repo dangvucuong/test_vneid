@@ -83,6 +83,42 @@ public class VNeIDAuthService : IVNeIDAuthService
         }
     }
 
+    public async Task ForceRefreshAccessTokenAsync(CancellationToken cancellationToken = default)
+    {
+        await _semaphore.WaitAsync(cancellationToken);
+        try
+        {
+            if (!string.IsNullOrEmpty(_cachedRefreshToken) && DateTimeOffset.UtcNow < _refreshTokenExpiry)
+            {
+                try
+                {
+                    _logger.LogInformation("Force refreshing VNeID access token after certificate list error.");
+                    var refreshResult = await RefreshTokenAsync(_cachedRefreshToken, cancellationToken);
+                    if (refreshResult.IsSuccess && !string.IsNullOrEmpty(refreshResult.AccessToken))
+                    {
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Force refresh failed. Falling back to username/password login.");
+                }
+            }
+
+            _cachedAccessToken = null;
+            _accessTokenExpiry = DateTimeOffset.MinValue;
+            var authResult = await AuthenticateAsync(_options.Username, _options.Password, cancellationToken);
+            if (!authResult.IsSuccess || string.IsNullOrEmpty(authResult.AccessToken))
+            {
+                throw new InvalidOperationException($"VNeID Gateway authentication failed: {authResult.Message ?? "Unknown error"}");
+            }
+        }
+        finally
+        {
+            _semaphore.Release();
+        }
+    }
+
     public async Task<TokenResponse> AuthenticateAsync(string? username = null, string? password = null, CancellationToken cancellationToken = default)
     {
         var req = new TokenRequest

@@ -4,5 +4,6 @@
     <add key="ListenPrefix" value="http://localhost:5255/" />
     <!-- Cùng WebhookSecretKey đã đăng ký với RSVAN. Không commit file App.config thật. -->
     <add key="WebhookSecretKey" value="" />
+    <add key="SignFlatformConnectionString" value="" />
   </appSettings>
 </configuration>

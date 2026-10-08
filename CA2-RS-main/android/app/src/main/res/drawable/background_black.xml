@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base background color -->
+    <item
+        android:drawable="@drawable/background_gradient_dark">
+    </item>
+
+    <!-- Logo centered on the screen (avoid @mipmap/ic_launcher — adaptive icon NPE at startup) -->
+    <item
+        android:drawable="@drawable/splashscreen_logo"
+        android:gravity="center"/>
+</layer-list>

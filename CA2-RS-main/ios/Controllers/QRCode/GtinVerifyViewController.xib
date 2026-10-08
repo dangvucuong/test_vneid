@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="GoogleSans-Medium.otf">
+            <string>GoogleSans-Medium</string>
+        </array>
+        <array key="GoogleSans-Regular.otf">
+            <string>GoogleSans-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GtinVerifyViewController" customModule="xverifydemoapp" customModuleProvider="target">
+            <connections>
+                <outlet property="addressLocalityLbl" destination="7aM-Wu-M46" id="Q1b-Ch-Iej"/>
+                <outlet property="addressLocalityView" destination="wzc-ib-sEc" id="dWb-nJ-WF2"/>
+                <outlet property="addressStreetLbl" destination="Fay-vM-x1j" id="ubU-4O-PMw"/>
+                <outlet property="addressStreetLine2Lbl" destination="uQG-d8-Xvz" id="K2l-yr-b5g"/>
+                <outlet property="addressStreetLine2View" destination="4it-a3-wYY" id="M2P-Es-PG9"/>
+                <outlet property="addressStreetView" destination="GVs-0H-nK4" id="svU-6T-gj2"/>
+                <outlet property="barCodeImage" destination="KHT-Kf-WNb" id="cur-r0-tEt"/>
+                <outlet property="barCodeView" destination="v9y-Ss-GW3" id="YP8-Ge-d6a"/>
+                <outlet property="countryLbl" destination="uyy-Zn-JoY" id="iku-Qg-wFU"/>
+                <outlet property="countryView" destination="20K-YT-ufq" id="t50-hW-mJD"/>
+                <outlet property="createdDateLbl" destination="Iec-mw-xkS" id="Bj1-7c-S0q"/>
+                <outlet property="createdDateView" destination="0ml-Rc-HPA" id="MWY-Hu-O2l"/>
+                <outlet property="glnLbl" destination="3iE-Ed-rM1" id="qsE-ZA-Bjg"/>
+                <outlet property="glnView" destination="IGR-P7-cr6" id="rxc-SO-2pw"/>
+                <outlet property="gtinLbl" destination="mNP-gL-eT7" id="BqP-uY-y8a"/>
+                <outlet property="headerView" destination="ov4-c4-i1h" id="AA5-H1-LjK"/>
+                <outlet property="licenseKeyLbl" destination="apl-o0-fzO" id="jJr-VD-YM6"/>
+                <outlet property="licenseKeyView" destination="g6t-dL-NDK" id="hqI-RT-8h3"/>
+                <outlet property="licenseMoLbl" destination="qaG-1J-FIp" id="5wz-fj-3Vd"/>
+                <outlet property="licenseMoView" destination="IzG-4R-p12" id="e7E-ed-1aQ"/>
+                <outlet property="licenseNameLbl" destination="bXd-gd-JZV" id="JPH-TP-NQY"/>
+                <outlet property="licenseNameView" destination="Ppz-DP-RSg" id="6NZ-qd-C0E"/>
+                <outlet property="licenseTypeLbl" destination="Cro-kl-4de" id="y9K-DH-NeS"/>
+                <outlet property="licenseTypeView" destination="9B5-p4-0W0" id="hYK-Gq-qGj"/>
+                <outlet property="statusContainer" destination="Jkc-4E-tUq" id="zDS-Wz-9sU"/>
+                <outlet property="statusLbl" destination="mk9-1M-nUg" id="0TZ-EB-gmU"/>
+                <outlet property="updatedDateLbl" destination="6zs-9h-XMy" id="5Cw-dN-R5R"/>
+                <outlet property="updatedDateView" destination="0hQ-1W-mPF" id="Njb-Uc-nPo"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="749"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pF-xO-uUT">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="715"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Vs-X4-F1f" customClass="ImageSlideshow" customModule="ImageSlideshow">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="0.0"/>
+                            <color key="backgroundColor" systemColor="systemGray5Color"/>
+                            <constraints>
+                                <constraint firstAttribute="height" id="RHc-om-qzl"/>
+                            </constraints>
+                        </view>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ov4-c4-i1h">
+                            <rect key="frame" x="0.0" y="10" width="393" height="60"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="N49-dS-rYn">
+                                    <rect key="frame" x="20" y="15" width="353" height="30"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ihm-hi-jcd">
+                                            <rect key="frame" x="0.0" y="5" width="162.33333333333334" height="20"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_productscan" translatesAutoresizingMaskIntoConstraints="NO" id="Ss2-Al-t8t">
+                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="DxS-gI-USR"/>
+                                                        <constraint firstAttribute="width" constant="20" id="nhb-mo-9sj"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="93500181440l" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNP-gL-eT7">
+                                                    <rect key="frame" x="30" y="0.0" width="132.33333333333334" height="20"/>
+                                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="21"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jkc-4E-tUq">
+                                            <rect key="frame" x="266" y="0.0" width="87" height="30"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verified" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mk9-1M-nUg">
+                                                    <rect key="frame" x="12" y="3.6666666666666572" width="63" height="23"/>
+                                                    <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="18"/>
+                                                    <color key="textColor" name="appColorWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.19607843137254902" green="0.80392156862745101" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="mk9-1M-nUg" firstAttribute="centerY" secondItem="Jkc-4E-tUq" secondAttribute="centerY" id="BpB-B8-lND"/>
+                                                <constraint firstItem="mk9-1M-nUg" firstAttribute="leading" secondItem="Jkc-4E-tUq" secondAttribute="leading" constant="12" id="CFa-wi-OCq"/>
+                                                <constraint firstAttribute="height" constant="30" id="Dgu-7d-ht5"/>
+                                                <constraint firstAttribute="trailing" secondItem="mk9-1M-nUg" secondAttribute="trailing" constant="12" id="h6c-7k-MqG"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="N49-dS-rYn" firstAttribute="top" secondItem="ov4-c4-i1h" secondAttribute="top" constant="15" id="5mI-Y1-vYO"/>
+                                <constraint firstItem="N49-dS-rYn" firstAttribute="leading" secondItem="ov4-c4-i1h" secondAttribute="leading" constant="20" id="C1n-0O-yEy"/>
+                                <constraint firstAttribute="bottom" secondItem="N49-dS-rYn" secondAttribute="bottom" constant="15" id="P66-8n-4PS"/>
+                                <constraint firstAttribute="trailing" secondItem="N49-dS-rYn" secondAttribute="trailing" constant="20" id="jNU-kx-Nqt"/>
+                            </constraints>
+                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="OeI-xm-j1w">
+                            <rect key="frame" x="0.0" y="80" width="393" height="0.0"/>
+                            <subviews>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v9y-Ss-GW3">
+                                    <rect key="frame" x="0.0" y="0.0" width="684.66666666666663" height="176"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KHT-Kf-WNb">
+                                            <rect key="frame" x="50" y="10" width="584.66666666666663" height="156"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="156" id="MWN-Mt-T7p"/>
+                                            </constraints>
+                                        </imageView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VME-4d-fMl">
+                                            <rect key="frame" x="20" y="176" width="644.66666666666663" height="1"/>
+                                            <color key="backgroundColor" name="appColorDarkWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="0jw-rX-cRX"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="VME-4d-fMl" firstAttribute="top" secondItem="v9y-Ss-GW3" secondAttribute="bottom" id="Jkf-fJ-EXi"/>
+                                        <constraint firstItem="KHT-Kf-WNb" firstAttribute="leading" secondItem="v9y-Ss-GW3" secondAttribute="leading" constant="50" id="Koz-rc-5d9"/>
+                                        <constraint firstItem="VME-4d-fMl" firstAttribute="top" secondItem="KHT-Kf-WNb" secondAttribute="bottom" constant="10" id="VFc-bp-5tQ"/>
+                                        <constraint firstItem="KHT-Kf-WNb" firstAttribute="top" secondItem="v9y-Ss-GW3" secondAttribute="top" constant="10" id="WHA-PF-65p"/>
+                                        <constraint firstAttribute="trailing" secondItem="VME-4d-fMl" secondAttribute="trailing" constant="20" id="c3T-ko-Vro"/>
+                                        <constraint firstAttribute="trailing" secondItem="KHT-Kf-WNb" secondAttribute="trailing" constant="50" id="ok4-E2-YOl"/>
+                                        <constraint firstItem="VME-4d-fMl" firstAttribute="leading" secondItem="v9y-Ss-GW3" secondAttribute="leading" constant="20" id="taJ-PK-FP5"/>
+                                    </constraints>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wzc-ib-sEc">
+                                    <rect key="frame" x="0.0" y="0.0" width="684.66666666666663" height="25"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address Locality" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wFI-iD-fgI">
+                                            <rect key="frame" x="20" y="10" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="15"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bút Bảng Trắng là dụng cụ không thể thiếu trong các " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aM-Wu-M46">
+                                            <rect key="frame" x="20" y="15" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <string key="userLabel">Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình hay giảng dạy, mang đến khả năng viết mượt mà và dễ xóa trên bế mặt bảng trắng. Được thiết kế với ngòi bút chắc chẳn,</string>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWY-Ml-mDY">
+                                            <rect key="frame" x="20" y="25" width="644.66666666666663" height="1"/>
+                                            <color key="backgroundColor" name="appColorDarkWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="uiI-1y-r8w"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="wFI-iD-fgI" secondAttribute="trailing" constant="20" id="0mL-cP-l1I"/>
+                                        <constraint firstAttribute="bottom" secondItem="7aM-Wu-M46" secondAttribute="bottom" constant="10" id="Bzf-os-kQ3"/>
+                                        <constraint firstItem="CWY-Ml-mDY" firstAttribute="leading" secondItem="wzc-ib-sEc" secondAttribute="leading" constant="20" id="EyU-Ho-Qzt"/>
+                                        <constraint firstItem="7aM-Wu-M46" firstAttribute="leading" secondItem="wzc-ib-sEc" secondAttribute="leading" constant="20" id="GPj-mq-eMG"/>
+                                        <constraint firstItem="7aM-Wu-M46" firstAttribute="top" secondItem="wFI-iD-fgI" secondAttribute="bottom" constant="5" id="LSt-Pk-Fy7"/>
+                                        <constraint firstItem="CWY-Ml-mDY" firstAttribute="top" secondItem="wzc-ib-sEc" secondAttribute="bottom" id="NOC-1H-stO"/>
+                                        <constraint firstAttribute="trailing" secondItem="CWY-Ml-mDY" secondAttribute="trailing" constant="20" id="Xi7-06-LnL"/>
+                                        <constraint firstItem="wFI-iD-fgI" firstAttribute="top" secondItem="wzc-ib-sEc" secondAttribute="top" constant="10" id="Zlp-bf-2Iu"/>
+                                        <constraint firstItem="wFI-iD-fgI" firstAttribute="leading" secondItem="wzc-ib-sEc" secondAttribute="leading" constant="20" id="ngd-I4-ocq"/>
+                                        <constraint firstAttribute="trailing" secondItem="7aM-Wu-M46" secondAttribute="trailing" constant="20" id="zOS-w6-V2d"/>
+                                    </constraints>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GVs-0H-nK4">
+                                    <rect key="frame" x="0.0" y="0.0" width="684.66666666666663" height="25"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address Street" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="POq-la-6Gz">
+                                            <rect key="frame" x="20" y="10" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="15"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bút Bảng Trắng là dụng cụ không thể thiếu trong các " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fay-vM-x1j">
+                                            <rect key="frame" x="20" y="15" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <string key="userLabel">Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình hay giảng dạy, mang đến khả năng viết mượt mà và dễ xóa trên bế mặt bảng trắng. Được thiết kế với ngòi bút chắc chẳn,</string>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bu6-Wo-o5T">
+                                            <rect key="frame" x="20" y="25" width="644.66666666666663" height="1"/>
+                                            <color key="backgroundColor" name="appColorDarkWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="M5V-uc-lsm"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="POq-la-6Gz" firstAttribute="top" secondItem="GVs-0H-nK4" secondAttribute="top" constant="10" id="57N-BZ-czS"/>
+                                        <constraint firstItem="Fay-vM-x1j" firstAttribute="leading" secondItem="GVs-0H-nK4" secondAttribute="leading" constant="20" id="DAV-ch-VeD"/>
+                                        <constraint firstAttribute="bottom" secondItem="Fay-vM-x1j" secondAttribute="bottom" constant="10" id="HD0-7a-kky"/>
+                                        <constraint firstItem="POq-la-6Gz" firstAttribute="leading" secondItem="GVs-0H-nK4" secondAttribute="leading" constant="20" id="KXD-ll-cSU"/>
+                                        <constraint firstItem="Fay-vM-x1j" firstAttribute="top" secondItem="POq-la-6Gz" secondAttribute="bottom" constant="5" id="Ms1-pz-U2Z"/>
+                                        <constraint firstAttribute="trailing" secondItem="Bu6-Wo-o5T" secondAttribute="trailing" constant="20" id="Xlw-V6-N5r"/>
+                                        <constraint firstAttribute="trailing" secondItem="POq-la-6Gz" secondAttribute="trailing" constant="20" id="bAR-eg-Z0K"/>
+                                        <constraint firstItem="Bu6-Wo-o5T" firstAttribute="leading" secondItem="GVs-0H-nK4" secondAttribute="leading" constant="20" id="hHC-aE-16f"/>
+                                        <constraint firstItem="Bu6-Wo-o5T" firstAttribute="top" secondItem="GVs-0H-nK4" secondAttribute="bottom" id="pLk-Cv-5f7"/>
+                                        <constraint firstAttribute="trailing" secondItem="Fay-vM-x1j" secondAttribute="trailing" constant="20" id="yt4-Hz-GGS"/>
+                                    </constraints>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4it-a3-wYY">
+                                    <rect key="frame" x="0.0" y="0.0" width="684.66666666666663" height="25"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address Street Line 2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMF-tT-GSd">
+                                            <rect key="frame" x="20" y="10" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="15"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bút Bảng Trắng là dụng cụ không thể thiếu trong các " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQG-d8-Xvz">
+                                            <rect key="frame" x="20" y="15" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <string key="userLabel">Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình hay giảng dạy, mang đến khả năng viết mượt mà và dễ xóa trên bế mặt bảng trắng. Được thiết kế với ngòi bút chắc chẳn,</string>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9J9-ew-17P">
+                                            <rect key="frame" x="20" y="25" width="644.66666666666663" height="1"/>
+                                            <color key="backgroundColor" name="appColorDarkWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="HjS-4I-8e1"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="9J9-ew-17P" secondAttribute="trailing" constant="20" id="18w-MT-iVT"/>
+                                        <constraint firstAttribute="trailing" secondItem="uQG-d8-Xvz" secondAttribute="trailing" constant="20" id="Jx8-VK-fRa"/>
+                                        <constraint firstItem="rMF-tT-GSd" firstAttribute="top" secondItem="4it-a3-wYY" secondAttribute="top" constant="10" id="KVV-mk-uso"/>
+                                        <constraint firstItem="9J9-ew-17P" firstAttribute="leading" secondItem="4it-a3-wYY" secondAttribute="leading" constant="20" id="Nvj-8t-Xzz"/>
+                                        <constraint firstItem="uQG-d8-Xvz" firstAttribute="leading" secondItem="4it-a3-wYY" secondAttribute="leading" constant="20" id="dXQ-38-zXN"/>
+                                        <constraint firstAttribute="bottom" secondItem="uQG-d8-Xvz" secondAttribute="bottom" constant="10" id="f5f-h3-xhQ"/>
+                                        <constraint firstItem="uQG-d8-Xvz" firstAttribute="top" secondItem="rMF-tT-GSd" secondAttribute="bottom" constant="5" id="fl7-Dp-txB"/>
+                                        <constraint firstItem="9J9-ew-17P" firstAttribute="top" secondItem="4it-a3-wYY" secondAttribute="bottom" id="p5W-gf-XGN"/>
+                                        <constraint firstAttribute="trailing" secondItem="rMF-tT-GSd" secondAttribute="trailing" constant="20" id="qSx-wZ-aAH"/>
+                                        <constraint firstItem="rMF-tT-GSd" firstAttribute="leading" secondItem="4it-a3-wYY" secondAttribute="leading" constant="20" id="rwB-7E-oMa"/>
+                                    </constraints>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="20K-YT-ufq">
+                                    <rect key="frame" x="0.0" y="0.0" width="684.66666666666663" height="25"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country Code" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftE-Lz-IXg">
+                                            <rect key="frame" x="20" y="10" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="15"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bút Bảng Trắng là dụng cụ không thể thiếu trong các " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uyy-Zn-JoY">
+                                            <rect key="frame" x="20" y="15" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <string key="userLabel">Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình hay giảng dạy, mang đến khả năng viết mượt mà và dễ xóa trên bế mặt bảng trắng. Được thiết kế với ngòi bút chắc chẳn,</string>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h4F-fJ-Ge0">
+                                            <rect key="frame" x="20" y="25" width="644.66666666666663" height="1"/>
+                                            <color key="backgroundColor" name="appColorDarkWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="uIv-gA-DS0"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="ftE-Lz-IXg" firstAttribute="top" secondItem="20K-YT-ufq" secondAttribute="top" constant="10" id="0p0-5o-sb6"/>
+                                        <constraint firstItem="uyy-Zn-JoY" firstAttribute="leading" secondItem="20K-YT-ufq" secondAttribute="leading" constant="20" id="75P-dk-AaI"/>
+                                        <constraint firstAttribute="trailing" secondItem="ftE-Lz-IXg" secondAttribute="trailing" constant="20" id="8o2-QA-sLz"/>
+                                        <constraint firstAttribute="trailing" secondItem="h4F-fJ-Ge0" secondAttribute="trailing" constant="20" id="BJj-Pl-bZO"/>
+                                        <constraint firstAttribute="trailing" secondItem="uyy-Zn-JoY" secondAttribute="trailing" constant="20" id="Cg5-Go-Kud"/>
+                                        <constraint firstItem="ftE-Lz-IXg" firstAttribute="leading" secondItem="20K-YT-ufq" secondAttribute="leading" constant="20" id="hMF-DK-yZq"/>
+                                        <constraint firstItem="h4F-fJ-Ge0" firstAttribute="top" secondItem="20K-YT-ufq" secondAttribute="bottom" id="lqX-1J-ra3"/>
+                                        <constraint firstItem="uyy-Zn-JoY" firstAttribute="top" secondItem="ftE-Lz-IXg" secondAttribute="bottom" constant="5" id="vIh-rm-cZm"/>
+                                        <constraint firstAttribute="bottom" secondItem="uyy-Zn-JoY" secondAttribute="bottom" constant="10" id="vwZ-Qa-yvG"/>
+                                        <constraint firstItem="h4F-fJ-Ge0" firstAttribute="leading" secondItem="20K-YT-ufq" secondAttribute="leading" constant="20" id="xVH-H2-XWK"/>
+                                    </constraints>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ml-Rc-HPA">
+                                    <rect key="frame" x="0.0" y="0.0" width="684.66666666666663" height="25"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Created" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqK-vQ-UsI">
+                                            <rect key="frame" x="20" y="10" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="15"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iec-mw-xkS">
+                                            <rect key="frame" x="20" y="15" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <string key="userLabel">Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình hay giảng dạy, mang đến khả năng viết mượt mà và dễ xóa trên bế mặt bảng trắng. Được thiết kế với ngòi bút chắc chẳn,</string>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9NC-Ir-JBG">
+                                            <rect key="frame" x="20" y="25" width="644.66666666666663" height="1"/>
+                                            <color key="backgroundColor" name="appColorDarkWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="9Ac-F2-USK"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="tqK-vQ-UsI" firstAttribute="top" secondItem="0ml-Rc-HPA" secondAttribute="top" constant="10" id="0HU-Qh-HeE"/>
+                                        <constraint firstItem="9NC-Ir-JBG" firstAttribute="leading" secondItem="0ml-Rc-HPA" secondAttribute="leading" constant="20" id="1oN-cq-8qV"/>
+                                        <constraint firstItem="9NC-Ir-JBG" firstAttribute="top" secondItem="0ml-Rc-HPA" secondAttribute="bottom" id="3jv-2n-PyM"/>
+                                        <constraint firstItem="Iec-mw-xkS" firstAttribute="leading" secondItem="0ml-Rc-HPA" secondAttribute="leading" constant="20" id="Hm2-om-K5i"/>
+                                        <constraint firstAttribute="trailing" secondItem="9NC-Ir-JBG" secondAttribute="trailing" constant="20" id="NJ4-df-hBQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="Iec-mw-xkS" secondAttribute="trailing" constant="20" id="cFZ-MM-2fe"/>
+                                        <constraint firstAttribute="bottom" secondItem="Iec-mw-xkS" secondAttribute="bottom" constant="10" id="cXN-x7-eJh"/>
+                                        <constraint firstItem="tqK-vQ-UsI" firstAttribute="leading" secondItem="0ml-Rc-HPA" secondAttribute="leading" constant="20" id="dDZ-Q1-QKn"/>
+                                        <constraint firstItem="Iec-mw-xkS" firstAttribute="top" secondItem="tqK-vQ-UsI" secondAttribute="bottom" constant="5" id="wnJ-Vu-3CB"/>
+                                        <constraint firstAttribute="trailing" secondItem="tqK-vQ-UsI" secondAttribute="trailing" constant="20" id="yH9-3z-bkF"/>
+                                    </constraints>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0hQ-1W-mPF">
+                                    <rect key="frame" x="0.0" y="0.0" width="684.66666666666663" height="25"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Updated" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5d-YU-bp7">
+                                            <rect key="frame" x="20" y="10" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="15"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zs-9h-XMy">
+                                            <rect key="frame" x="20" y="15" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <string key="userLabel">Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình hay giảng dạy, mang đến khả năng viết mượt mà và dễ xóa trên bế mặt bảng trắng. Được thiết kế với ngòi bút chắc chẳn,</string>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dph-SR-J6L">
+                                            <rect key="frame" x="20" y="25" width="644.66666666666663" height="1"/>
+                                            <color key="backgroundColor" name="appColorDarkWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="QNX-Ld-VgS"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="dph-SR-J6L" secondAttribute="trailing" constant="20" id="4hG-MQ-jCG"/>
+                                        <constraint firstItem="dph-SR-J6L" firstAttribute="leading" secondItem="0hQ-1W-mPF" secondAttribute="leading" constant="20" id="7Qt-ow-1Y4"/>
+                                        <constraint firstItem="j5d-YU-bp7" firstAttribute="leading" secondItem="0hQ-1W-mPF" secondAttribute="leading" constant="20" id="7ii-0X-ATD"/>
+                                        <constraint firstAttribute="bottom" secondItem="6zs-9h-XMy" secondAttribute="bottom" constant="10" id="DGJ-JE-0mt"/>
+                                        <constraint firstItem="j5d-YU-bp7" firstAttribute="top" secondItem="0hQ-1W-mPF" secondAttribute="top" constant="10" id="RUh-mh-nIA"/>
+                                        <constraint firstAttribute="trailing" secondItem="j5d-YU-bp7" secondAttribute="trailing" constant="20" id="Rjf-z4-LHL"/>
+                                        <constraint firstAttribute="trailing" secondItem="6zs-9h-XMy" secondAttribute="trailing" constant="20" id="Yn0-xA-iD0"/>
+                                        <constraint firstItem="6zs-9h-XMy" firstAttribute="leading" secondItem="0hQ-1W-mPF" secondAttribute="leading" constant="20" id="Zh1-DW-8sP"/>
+                                        <constraint firstItem="dph-SR-J6L" firstAttribute="top" secondItem="0hQ-1W-mPF" secondAttribute="bottom" id="aiY-Z4-vRq"/>
+                                        <constraint firstItem="6zs-9h-XMy" firstAttribute="top" secondItem="j5d-YU-bp7" secondAttribute="bottom" constant="5" id="hCv-rt-dXP"/>
+                                    </constraints>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IGR-P7-cr6">
+                                    <rect key="frame" x="0.0" y="0.0" width="684.66666666666663" height="25"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="License Gln" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twh-L8-F5g">
+                                            <rect key="frame" x="20" y="10" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="15"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3iE-Ed-rM1">
+                                            <rect key="frame" x="20" y="15" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <string key="userLabel">Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình hay giảng dạy, mang đến khả năng viết mượt mà và dễ xóa trên bế mặt bảng trắng. Được thiết kế với ngòi bút chắc chẳn,</string>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qv1-N3-Iv7">
+                                            <rect key="frame" x="20" y="25" width="644.66666666666663" height="1"/>
+                                            <color key="backgroundColor" name="appColorDarkWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="pVS-ZS-fN5"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="3iE-Ed-rM1" firstAttribute="leading" secondItem="IGR-P7-cr6" secondAttribute="leading" constant="20" id="22b-X9-BsT"/>
+                                        <constraint firstItem="twh-L8-F5g" firstAttribute="top" secondItem="IGR-P7-cr6" secondAttribute="top" constant="10" id="50g-sm-hGI"/>
+                                        <constraint firstAttribute="trailing" secondItem="twh-L8-F5g" secondAttribute="trailing" constant="20" id="7zn-J8-4sf"/>
+                                        <constraint firstAttribute="trailing" secondItem="3iE-Ed-rM1" secondAttribute="trailing" constant="20" id="JHb-7I-X32"/>
+                                        <constraint firstItem="Qv1-N3-Iv7" firstAttribute="top" secondItem="IGR-P7-cr6" secondAttribute="bottom" id="NIY-Cd-DQP"/>
+                                        <constraint firstAttribute="trailing" secondItem="Qv1-N3-Iv7" secondAttribute="trailing" constant="20" id="Ukk-vw-eMt"/>
+                                        <constraint firstItem="twh-L8-F5g" firstAttribute="leading" secondItem="IGR-P7-cr6" secondAttribute="leading" constant="20" id="ZaW-hV-6i9"/>
+                                        <constraint firstAttribute="bottom" secondItem="3iE-Ed-rM1" secondAttribute="bottom" constant="10" id="dU4-iX-RbW"/>
+                                        <constraint firstItem="Qv1-N3-Iv7" firstAttribute="leading" secondItem="IGR-P7-cr6" secondAttribute="leading" constant="20" id="k1l-zQ-Yfu"/>
+                                        <constraint firstItem="3iE-Ed-rM1" firstAttribute="top" secondItem="twh-L8-F5g" secondAttribute="bottom" constant="5" id="ohG-uN-pic"/>
+                                    </constraints>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6t-dL-NDK">
+                                    <rect key="frame" x="0.0" y="0.0" width="684.66666666666663" height="25"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="License Key" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJz-C9-gBL">
+                                            <rect key="frame" x="20" y="10" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="15"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apl-o0-fzO">
+                                            <rect key="frame" x="20" y="15" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <string key="userLabel">Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình hay giảng dạy, mang đến khả năng viết mượt mà và dễ xóa trên bế mặt bảng trắng. Được thiết kế với ngòi bút chắc chẳn,</string>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qEd-rS-qs3">
+                                            <rect key="frame" x="20" y="25" width="644.66666666666663" height="1"/>
+                                            <color key="backgroundColor" name="appColorDarkWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="lEZ-JE-aSk"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="qEd-rS-qs3" firstAttribute="leading" secondItem="g6t-dL-NDK" secondAttribute="leading" constant="20" id="3vK-FL-wFM"/>
+                                        <constraint firstItem="qEd-rS-qs3" firstAttribute="top" secondItem="g6t-dL-NDK" secondAttribute="bottom" id="IfI-bN-ZRy"/>
+                                        <constraint firstAttribute="trailing" secondItem="OJz-C9-gBL" secondAttribute="trailing" constant="20" id="Vlk-Cr-srz"/>
+                                        <constraint firstItem="OJz-C9-gBL" firstAttribute="top" secondItem="g6t-dL-NDK" secondAttribute="top" constant="10" id="brO-QT-IBh"/>
+                                        <constraint firstAttribute="trailing" secondItem="qEd-rS-qs3" secondAttribute="trailing" constant="20" id="cP4-ok-RrX"/>
+                                        <constraint firstItem="apl-o0-fzO" firstAttribute="top" secondItem="OJz-C9-gBL" secondAttribute="bottom" constant="5" id="fHH-rq-edG"/>
+                                        <constraint firstItem="OJz-C9-gBL" firstAttribute="leading" secondItem="g6t-dL-NDK" secondAttribute="leading" constant="20" id="hfZ-iZ-Ysm"/>
+                                        <constraint firstAttribute="bottom" secondItem="apl-o0-fzO" secondAttribute="bottom" constant="10" id="huJ-OR-nba"/>
+                                        <constraint firstAttribute="trailing" secondItem="apl-o0-fzO" secondAttribute="trailing" constant="20" id="nff-Ec-f8D"/>
+                                        <constraint firstItem="apl-o0-fzO" firstAttribute="leading" secondItem="g6t-dL-NDK" secondAttribute="leading" constant="20" id="vD9-gk-o4m"/>
+                                    </constraints>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ppz-DP-RSg">
+                                    <rect key="frame" x="0.0" y="0.0" width="684.66666666666663" height="25"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="License Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqz-0x-Ji0">
+                                            <rect key="frame" x="20" y="10" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="15"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXd-gd-JZV">
+                                            <rect key="frame" x="20" y="15" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <string key="userLabel">Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình hay giảng dạy, mang đến khả năng viết mượt mà và dễ xóa trên bế mặt bảng trắng. Được thiết kế với ngòi bút chắc chẳn,</string>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0b7-PJ-lao">
+                                            <rect key="frame" x="20" y="25" width="644.66666666666663" height="1"/>
+                                            <color key="backgroundColor" name="appColorDarkWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="Rpn-xg-eDb"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="bXd-gd-JZV" secondAttribute="bottom" constant="10" id="Lhn-eP-sde"/>
+                                        <constraint firstAttribute="trailing" secondItem="bXd-gd-JZV" secondAttribute="trailing" constant="20" id="MOc-eo-uho"/>
+                                        <constraint firstItem="0b7-PJ-lao" firstAttribute="leading" secondItem="Ppz-DP-RSg" secondAttribute="leading" constant="20" id="Qqv-WR-HAh"/>
+                                        <constraint firstItem="bXd-gd-JZV" firstAttribute="top" secondItem="mqz-0x-Ji0" secondAttribute="bottom" constant="5" id="WFq-wH-vBk"/>
+                                        <constraint firstItem="mqz-0x-Ji0" firstAttribute="top" secondItem="Ppz-DP-RSg" secondAttribute="top" constant="10" id="Waw-3W-o7Z"/>
+                                        <constraint firstItem="bXd-gd-JZV" firstAttribute="leading" secondItem="Ppz-DP-RSg" secondAttribute="leading" constant="20" id="XKd-h9-YIP"/>
+                                        <constraint firstAttribute="trailing" secondItem="mqz-0x-Ji0" secondAttribute="trailing" constant="20" id="dVG-ks-hvp"/>
+                                        <constraint firstAttribute="trailing" secondItem="0b7-PJ-lao" secondAttribute="trailing" constant="20" id="dbx-xw-Hua"/>
+                                        <constraint firstItem="mqz-0x-Ji0" firstAttribute="leading" secondItem="Ppz-DP-RSg" secondAttribute="leading" constant="20" id="jaD-QH-e0b"/>
+                                        <constraint firstItem="0b7-PJ-lao" firstAttribute="top" secondItem="Ppz-DP-RSg" secondAttribute="bottom" id="wIV-q1-5L0"/>
+                                    </constraints>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9B5-p4-0W0">
+                                    <rect key="frame" x="0.0" y="0.0" width="684.66666666666663" height="25"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="License Type" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NFu-54-ZGL">
+                                            <rect key="frame" x="20" y="10" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="15"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cro-kl-4de">
+                                            <rect key="frame" x="20" y="15" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <string key="userLabel">Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình hay giảng dạy, mang đến khả năng viết mượt mà và dễ xóa trên bế mặt bảng trắng. Được thiết kế với ngòi bút chắc chẳn,</string>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v0s-Xd-65X">
+                                            <rect key="frame" x="20" y="25" width="644.66666666666663" height="1"/>
+                                            <color key="backgroundColor" name="appColorDarkWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="jwY-Hu-9as"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Cro-kl-4de" secondAttribute="trailing" constant="20" id="1fo-eE-L4c"/>
+                                        <constraint firstItem="Cro-kl-4de" firstAttribute="top" secondItem="NFu-54-ZGL" secondAttribute="bottom" constant="5" id="7IR-Jo-mhw"/>
+                                        <constraint firstItem="Cro-kl-4de" firstAttribute="leading" secondItem="9B5-p4-0W0" secondAttribute="leading" constant="20" id="Ect-XS-Qlh"/>
+                                        <constraint firstItem="v0s-Xd-65X" firstAttribute="leading" secondItem="9B5-p4-0W0" secondAttribute="leading" constant="20" id="Pil-Oj-ef4"/>
+                                        <constraint firstItem="v0s-Xd-65X" firstAttribute="top" secondItem="9B5-p4-0W0" secondAttribute="bottom" id="XH1-dW-aWn"/>
+                                        <constraint firstAttribute="trailing" secondItem="v0s-Xd-65X" secondAttribute="trailing" constant="20" id="h09-6v-B7b"/>
+                                        <constraint firstAttribute="trailing" secondItem="NFu-54-ZGL" secondAttribute="trailing" constant="20" id="kEF-lv-3wE"/>
+                                        <constraint firstAttribute="bottom" secondItem="Cro-kl-4de" secondAttribute="bottom" constant="10" id="mJg-rh-TTP"/>
+                                        <constraint firstItem="NFu-54-ZGL" firstAttribute="leading" secondItem="9B5-p4-0W0" secondAttribute="leading" constant="20" id="no8-du-xyx"/>
+                                        <constraint firstItem="NFu-54-ZGL" firstAttribute="top" secondItem="9B5-p4-0W0" secondAttribute="top" constant="10" id="oYm-w8-AhH"/>
+                                    </constraints>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IzG-4R-p12">
+                                    <rect key="frame" x="0.0" y="0.0" width="684.66666666666663" height="25"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="License Mo" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1H-qN-yIW">
+                                            <rect key="frame" x="20" y="10" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="15"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qaG-1J-FIp">
+                                            <rect key="frame" x="20" y="15" width="644.66666666666663" height="0.0"/>
+                                            <fontDescription key="fontDescription" name="GoogleSans-Regular" family="Google Sans" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <string key="userLabel">Bút Bảng Trắng là dụng cụ không thể thiếu trong các buổi học, họp, thuyết trình hay giảng dạy, mang đến khả năng viết mượt mà và dễ xóa trên bế mặt bảng trắng. Được thiết kế với ngòi bút chắc chẳn,</string>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AA0-UD-jOV">
+                                            <rect key="frame" x="20" y="25" width="644.66666666666663" height="1"/>
+                                            <color key="backgroundColor" name="appColorDarkWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="bzH-ns-nV3"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="T1H-qN-yIW" firstAttribute="leading" secondItem="IzG-4R-p12" secondAttribute="leading" constant="20" id="36y-rD-axA"/>
+                                        <constraint firstItem="qaG-1J-FIp" firstAttribute="leading" secondItem="IzG-4R-p12" secondAttribute="leading" constant="20" id="D1Z-We-1a4"/>
+                                        <constraint firstAttribute="trailing" secondItem="T1H-qN-yIW" secondAttribute="trailing" constant="20" id="INg-at-qgI"/>
+                                        <constraint firstItem="qaG-1J-FIp" firstAttribute="top" secondItem="T1H-qN-yIW" secondAttribute="bottom" constant="5" id="RGs-Ma-Koj"/>
+                                        <constraint firstAttribute="trailing" secondItem="qaG-1J-FIp" secondAttribute="trailing" constant="20" id="Tzn-3j-Atk"/>
+                                        <constraint firstItem="AA0-UD-jOV" firstAttribute="top" secondItem="IzG-4R-p12" secondAttribute="bottom" id="UMl-Yd-1pA"/>
+                                        <constraint firstItem="AA0-UD-jOV" firstAttribute="leading" secondItem="IzG-4R-p12" secondAttribute="leading" constant="20" id="bXa-FF-MXM"/>
+                                        <constraint firstAttribute="bottom" secondItem="qaG-1J-FIp" secondAttribute="bottom" constant="10" id="dua-yB-0zq"/>
+                                        <constraint firstItem="T1H-qN-yIW" firstAttribute="top" secondItem="IzG-4R-p12" secondAttribute="top" constant="10" id="ifa-xE-4Oy"/>
+                                        <constraint firstAttribute="trailing" secondItem="AA0-UD-jOV" secondAttribute="trailing" constant="20" id="j0u-5H-yhp"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="OeI-xm-j1w" secondAttribute="trailing" id="DZE-UH-wfe"/>
+                        <constraint firstAttribute="trailing" secondItem="1Vs-X4-F1f" secondAttribute="trailing" id="Gp0-3M-R7e"/>
+                        <constraint firstAttribute="bottom" secondItem="OeI-xm-j1w" secondAttribute="bottom" id="Jrp-F8-ZPT"/>
+                        <constraint firstItem="ov4-c4-i1h" firstAttribute="leading" secondItem="1hg-DH-ajX" secondAttribute="leading" id="MUB-tN-eFX"/>
+                        <constraint firstItem="1Vs-X4-F1f" firstAttribute="leading" secondItem="3pF-xO-uUT" secondAttribute="leading" id="Oga-Xt-eAt"/>
+                        <constraint firstItem="1Vs-X4-F1f" firstAttribute="top" secondItem="3pF-xO-uUT" secondAttribute="top" id="V4b-9m-rxA"/>
+                        <constraint firstItem="OeI-xm-j1w" firstAttribute="leading" secondItem="3pF-xO-uUT" secondAttribute="leading" id="VFm-xw-0uB"/>
+                        <constraint firstItem="ov4-c4-i1h" firstAttribute="trailing" secondItem="1hg-DH-ajX" secondAttribute="trailing" id="ak0-vG-21q"/>
+                        <constraint firstItem="OeI-xm-j1w" firstAttribute="top" secondItem="ov4-c4-i1h" secondAttribute="bottom" constant="10" id="pJx-fw-PA7"/>
+                        <constraint firstItem="1Vs-X4-F1f" firstAttribute="width" secondItem="3pF-xO-uUT" secondAttribute="width" id="rQx-BV-pwc"/>
+                        <constraint firstItem="ov4-c4-i1h" firstAttribute="top" secondItem="1Vs-X4-F1f" secondAttribute="bottom" constant="10" id="sAz-S5-ttf"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="z7H-2T-7zP"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="1hg-DH-ajX"/>
+                </scrollView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="3pF-xO-uUT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Io1-fu-XjF"/>
+                <constraint firstAttribute="trailing" secondItem="3pF-xO-uUT" secondAttribute="trailing" id="J3f-pP-pX0"/>
+                <constraint firstItem="3pF-xO-uUT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="eKR-RT-Enn"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="3pF-xO-uUT" secondAttribute="bottom" id="vCO-Qx-qfP"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <point key="canvasLocation" x="43.511450381679388" y="-11.267605633802818"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_productscan" width="40" height="40"/>
+        <namedColor name="appColorDarkWhite">
+            <color red="0.79600000381469727" green="0.81199997663497925" blue="0.86699998378753662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

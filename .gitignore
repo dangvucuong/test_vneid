@@ -11,3 +11,13 @@ VNeIDWebhook/App.config
 VNeIDSignGateway/appsettings.json
 VNeIDSignGateway/appsettings.Development.json
 Thông tin kết nối.docx
+**/.env
+**/.env.*
+**/local.properties
+**/*.apk
+**/*.keystore
+**/*.rar
+VNeIDSignGateway/publish/
+CA2-RS-main/android/.gradle/
+CA2-RS-main/android/app/build/
+CA2-RS-main/android/build/

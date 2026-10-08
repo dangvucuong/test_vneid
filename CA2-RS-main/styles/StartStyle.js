@@ -1,0 +1,95 @@
+import { StyleSheet } from "react-native";
+
+export default StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    content: {
+        flex: 1,
+        width: '100%',
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    languageIcon: {
+        position: "absolute",
+        zIndex: 99,
+        left: 16,
+        top: 16,
+    },
+    icon: {
+        width: 24,
+        height: 24,
+    },
+    skipContainer: {
+        position: "absolute",
+        width: 45,
+        height: 20,
+        right: 16,
+        top: 62,
+    },
+    skipText: {
+        fontSize: 14,
+        lineHeight: 20,
+        textAlign: "right",
+        color: "#9CA3AF",
+    },
+    startLogo: {
+        width: 34,
+        height: 34,
+    },
+    startImg: {
+        width: 343,
+        height: 260,
+        marginTop: 48,
+        marginBottom: 56,
+    },
+    startTextContent: {
+        display: "flex",
+        flexDirection: "column",
+        textAlign: "center",
+        padding: 0,
+        gap: 8,
+        width: "100%",
+        maxWidth: 343,
+    },
+    start2Text: {
+        height: 28,
+        fontSize: 20,
+        lineHeight: 28,
+        fontWeight: "700",
+        color: "#0F172A",
+    },
+    start2TextSmall: {
+        height: 40,
+        fontSize: 14,
+        lineHeight: 20,
+        color: "#6B7280",
+        marginTop: 8,
+        marginRight: 16,
+        marginBottom: 0,
+        marginLeft: 16,
+    },
+    dotsStyle: {
+        width: 52,
+        height: 8,
+        marginTop: 24,
+    },
+    buttonContainer: {
+        width: 343,
+        height: 44,
+        marginBottom: 64,
+        backgroundColor: "#1858EA",
+        borderRadius: 8,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    buttonText: {
+        fontSize: 14,
+        lineHeight: 20,
+        textAlign: "center",
+        color: "#FFFFFF",
+    },
+});

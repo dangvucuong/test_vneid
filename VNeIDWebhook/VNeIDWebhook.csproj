@@ -9,5 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
 </Project>

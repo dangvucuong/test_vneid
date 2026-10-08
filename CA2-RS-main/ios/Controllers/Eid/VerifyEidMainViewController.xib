@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="GoogleSans-Medium.otf">
+            <string>GoogleSans-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VerifyEidMainViewController" customModule="xverifydemoapp" customModuleProvider="target">
+            <connections>
+                <outlet property="introDescription" destination="LTa-hg-fiJ" id="jfr-Ko-AVy"/>
+                <outlet property="startButton" destination="UkK-s9-VSP" id="bwb-Kx-YoJ"/>
+                <outlet property="titleLabel" destination="1Ib-e0-vqX" id="vIJ-7L-GvD"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_splash_eid" translatesAutoresizingMaskIntoConstraints="NO" id="lmI-rd-rsf">
+                    <rect key="frame" x="96.666666666666686" y="119" width="200" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="lmI-rd-rsf" secondAttribute="height" multiplier="1:1" id="RE4-8S-r0P"/>
+                        <constraint firstAttribute="width" constant="200" id="k5q-H3-nic"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ib-e0-vqX">
+                    <rect key="frame" x="32" y="351" width="329" height="28"/>
+                    <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="22"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UkK-s9-VSP">
+                    <rect key="frame" x="32" y="758" width="329" height="50"/>
+                    <color key="backgroundColor" name="appColorGreen"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="V0H-qJ-2Q1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="16"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="BẮT ĐẦU">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="startButtonAction:" destination="-1" eventType="touchUpInside" id="HeH-iP-VY4"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTa-hg-fiJ">
+                    <rect key="frame" x="32" y="411" width="329" height="20.666666666666686"/>
+                    <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans Medium" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="appColorDarkGray"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="UkK-s9-VSP" secondAttribute="bottom" constant="44" id="6HU-YK-b9i"/>
+                <constraint firstItem="1Ib-e0-vqX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="6xZ-fd-S2e"/>
+                <constraint firstItem="LTa-hg-fiJ" firstAttribute="top" secondItem="1Ib-e0-vqX" secondAttribute="bottom" constant="32" id="7gg-na-3Cw"/>
+                <constraint firstItem="lmI-rd-rsf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="A1s-cS-O3q"/>
+                <constraint firstItem="LTa-hg-fiJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="Chi-HJ-KIL"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UkK-s9-VSP" secondAttribute="trailing" constant="32" id="LZo-tg-kW7"/>
+                <constraint firstItem="lmI-rd-rsf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="60" id="Nn0-fb-MaM"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LTa-hg-fiJ" secondAttribute="trailing" constant="32" id="VH2-8c-6nC"/>
+                <constraint firstItem="1Ib-e0-vqX" firstAttribute="top" secondItem="lmI-rd-rsf" secondAttribute="bottom" constant="32" id="f7M-ki-sXU"/>
+                <constraint firstItem="UkK-s9-VSP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="rDp-YE-XFb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1Ib-e0-vqX" secondAttribute="trailing" constant="32" id="s4t-j4-eJp"/>
+            </constraints>
+            <point key="canvasLocation" x="131" y="-11"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="img_splash_eid" width="350" height="429"/>
+        <namedColor name="appColorDarkGray">
+            <color red="0.20000000298023224" green="0.20800000429153442" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorGreen">
+            <color red="0.0" green="0.6589999794960022" blue="0.34900000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

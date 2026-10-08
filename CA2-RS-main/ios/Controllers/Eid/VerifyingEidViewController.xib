@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="GoogleSans-Medium.otf">
+            <string>GoogleSans-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VerifyingEidViewController" customModule="xverifydemoapp" customModuleProvider="target">
+            <connections>
+                <outlet property="animationLoading" destination="ito-VN-qhe" id="u5x-jD-yyC"/>
+                <outlet property="stepInstructionLabel" destination="wbK-HC-iYr" id="BBM-Kd-Emx"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mgq-vK-UlA">
+                    <rect key="frame" x="16" y="348" width="382" height="200"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ito-VN-qhe" customClass="LottieAnimationView" customModule="Lottie">
+                            <rect key="frame" x="8" y="16" width="366" height="152"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" name="appColorBackground"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="animation_loading"/>
+                                <userDefinedRuntimeAttribute type="color" keyPath="colorFilter">
+                                    <color key="value" name="appColorWhite"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VERIYING DATA..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbK-HC-iYr">
+                            <rect key="frame" x="0.0" y="32" width="382" height="20.5"/>
+                            <fontDescription key="fontDescription" name="GoogleSans-Medium" family="Google Sans" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="3dY-9F-Pkm"/>
+                        <constraint firstAttribute="trailing" secondItem="wbK-HC-iYr" secondAttribute="trailing" id="BQQ-Cr-PFL"/>
+                        <constraint firstItem="ito-VN-qhe" firstAttribute="leading" secondItem="Mgq-vK-UlA" secondAttribute="leading" constant="8" id="O8J-qo-agW"/>
+                        <constraint firstItem="wbK-HC-iYr" firstAttribute="top" secondItem="Mgq-vK-UlA" secondAttribute="top" constant="32" id="YQA-oV-8hH"/>
+                        <constraint firstAttribute="trailing" secondItem="ito-VN-qhe" secondAttribute="trailing" constant="8" id="ZXv-pe-XLM"/>
+                        <constraint firstAttribute="bottom" secondItem="ito-VN-qhe" secondAttribute="bottom" constant="32" id="b19-Jc-4Tb"/>
+                        <constraint firstItem="ito-VN-qhe" firstAttribute="top" secondItem="Mgq-vK-UlA" secondAttribute="top" constant="16" id="sKV-jN-wwA"/>
+                        <constraint firstItem="wbK-HC-iYr" firstAttribute="leading" secondItem="Mgq-vK-UlA" secondAttribute="leading" id="urb-Ty-Zrn"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="appColorDarkGray"/>
+            <constraints>
+                <constraint firstItem="Mgq-vK-UlA" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="0GC-B0-YAs"/>
+                <constraint firstItem="Mgq-vK-UlA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Pt1-J2-QNl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Mgq-vK-UlA" secondAttribute="trailing" constant="16" id="sTd-fJ-yWi"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="-11"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="ito-VN-qhe"/>
+    </designables>
+    <resources>
+        <namedColor name="appColorBackground">
+            <color red="0.90196078431372551" green="0.90980392156862744" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorDarkGray">
+            <color red="0.20000000298023224" green="0.20800000429153442" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appColorWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
