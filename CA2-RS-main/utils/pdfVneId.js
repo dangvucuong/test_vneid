@@ -1,5 +1,5 @@
 const forge = require("node-forge");
-const { PDFDocument, StandardFonts, rgb } = require("pdf-lib");
+const { PDFDocument, StandardFonts, rgb, LineCapStyle } = require("pdf-lib");
 
 const SIGNATURE_BYTES = 16384;
 const BYTE_RANGE_PLACEHOLDER = "/ByteRange [0 /********** /********** /**********]";
@@ -359,7 +359,87 @@ function addSignaturePlaceholder(pdfBytes, placement = {}) {
 
 function signatureLines(signerName, signingTime) {
   const when = formatSignTime(signingTime instanceof Date ? signingTime : new Date());
-  return [`Chủ thể ký: ${String(signerName || "").trim()}`, `Ngày giờ ký: ${when}`];
+  return [`Người ký: ${String(signerName || "").trim()}`, `Ngày giờ ký: ${when}`];
+}
+
+function signatureLayout(font, lines, rect) {
+  const pad = 5;
+  const checkSize = Math.max(9, Math.min(16, rect.height - pad * 2, rect.width * 0.22));
+  const gap = 6;
+  const textMax = Math.max(rect.width - pad * 2 - checkSize - gap, 8);
+  const fitted = layoutSignatureText(font, lines, { width: textMax + 8, height: rect.height - 4 });
+  const widths = fitted.rows.map((row) => font.widthOfTextAtSize(row, fitted.size));
+  const widest = Math.max(...widths, 0);
+  const groupWidth = checkSize + gap + widest;
+  const groupX = Math.max(pad, (rect.width - groupWidth) / 2);
+  const blockHeight = Math.max(fitted.rows.length * fitted.leading, fitted.size);
+  const firstBaseline = (rect.height + blockHeight) / 2 - fitted.size;
+  return {
+    size: fitted.size,
+    rows: fitted.rows.map((row, index) => ({
+      text: row,
+      x: groupX + checkSize + gap + Math.max((widest - widths[index]) / 2, 0),
+      y: firstBaseline - index * fitted.leading,
+    })),
+    check: {
+      x: groupX,
+      y: Math.max((rect.height - checkSize) / 2, 2),
+      size: checkSize,
+    },
+  };
+}
+
+function drawCheckMark(page, originX, originY, check) {
+  const left = originX + check.x;
+  const bottom = originY + check.y;
+  const size = check.size;
+  page.drawCircle({
+    x: left + size / 2,
+    y: bottom + size / 2,
+    size: size / 2,
+    color: rgb(0.13, 0.69, 0.3),
+  });
+  const thickness = Math.max(1.2, size * 0.12);
+  const color = rgb(1, 1, 1);
+  page.drawLine({
+    start: { x: left + size * 0.26, y: bottom + size * 0.5 },
+    end: { x: left + size * 0.44, y: bottom + size * 0.3 },
+    thickness,
+    color,
+    lineCap: LineCapStyle.Round,
+  });
+  page.drawLine({
+    start: { x: left + size * 0.44, y: bottom + size * 0.3 },
+    end: { x: left + size * 0.76, y: bottom + size * 0.7 },
+    thickness,
+    color,
+    lineCap: LineCapStyle.Round,
+  });
+}
+
+function checkMarkCommands(check) {
+  const size = check.size;
+  const cx = check.x + size / 2;
+  const cy = check.y + size / 2;
+  const radius = size / 2;
+  const curve = radius * 0.5522847498;
+  const n = pdfNumber;
+  return [
+    "0.13 0.69 0.30 rg",
+    `${n(cx)} ${n(cy + radius)} m`,
+    `${n(cx + curve)} ${n(cy + radius)} ${n(cx + radius)} ${n(cy + curve)} ${n(cx + radius)} ${n(cy)} c`,
+    `${n(cx + radius)} ${n(cy - curve)} ${n(cx + curve)} ${n(cy - radius)} ${n(cx)} ${n(cy - radius)} c`,
+    `${n(cx - curve)} ${n(cy - radius)} ${n(cx - radius)} ${n(cy - curve)} ${n(cx - radius)} ${n(cy)} c`,
+    `${n(cx - radius)} ${n(cy + curve)} ${n(cx - curve)} ${n(cy + radius)} ${n(cx)} ${n(cy + radius)} c`,
+    "f",
+    "1 1 1 RG",
+    "1 J",
+    `${n(Math.max(1.2, size * 0.12))} w`,
+    `${n(check.x + size * 0.26)} ${n(check.y + size * 0.5)} m`,
+    `${n(check.x + size * 0.44)} ${n(check.y + size * 0.3)} l`,
+    `${n(check.x + size * 0.76)} ${n(check.y + size * 0.7)} l`,
+    "S",
+  ];
 }
 
 function drawSignatureBox(page, font, rect, lines) {
@@ -370,43 +450,37 @@ function drawSignatureBox(page, font, rect, lines) {
     height: rect.height,
     borderWidth: 1,
     borderColor: rgb(0.09, 0.35, 0.92),
-    color: rgb(1, 1, 1),
   });
-  const layout = layoutSignatureText(font, lines, rect);
-  const color = rgb(0.05, 0.16, 0.4);
-  let y = rect.y + rect.height - layout.size - 3;
+  const layout = signatureLayout(font, lines, rect);
+  drawCheckMark(page, rect.x, rect.y, layout.check);
   layout.rows.forEach((row) => {
-    page.drawText(row, {
-      x: rect.x + 4,
-      y,
+    page.drawText(row.text, {
+      x: rect.x + row.x,
+      y: rect.y + row.y,
       size: layout.size,
       font,
-      color,
+      color: rgb(0.05, 0.16, 0.4),
     });
-    y -= layout.leading;
   });
   return layout;
 }
 
 function appearanceStream(document, font, rect, layout) {
   const fontKey = String(font.name || "F1").replace(/[^\w-]/g, "") || "F1";
-  let y = rect.height - layout.size - 3;
   const commands = [
     "q",
-    "1 1 1 rg",
-    `0 0 ${pdfNumber(rect.width)} ${pdfNumber(rect.height)} re`,
-    "f",
     "0.09 0.35 0.92 RG",
     "1 w",
-    `0.5 0.5 ${pdfNumber(rect.width - 1)} ${pdfNumber(rect.height - 1)} re`,
+    `0.5 0.5 ${pdfNumber(Math.max(rect.width - 1, 1))} ${pdfNumber(Math.max(rect.height - 1, 1))} re`,
     "S",
+    ...checkMarkCommands(layout.check),
     "BT",
     `/${fontKey} ${pdfNumber(layout.size)} Tf`,
     "0.05 0.16 0.40 rg",
   ];
-  layout.rows.forEach((row, index) => {
-    commands.push(index === 0 ? `4 ${pdfNumber(y)} Td` : `0 ${pdfNumber(-layout.leading)} Td`);
-    commands.push(`${font.encodeText(row).toString()} Tj`);
+  layout.rows.forEach((row) => {
+    commands.push(`1 0 0 1 ${pdfNumber(row.x)} ${pdfNumber(row.y)} Tm`);
+    commands.push(`${font.encodeText(row.text).toString()} Tj`);
   });
   commands.push("ET", "Q");
   const stream = document.context.stream(commands.join("\n"), {
@@ -435,7 +509,7 @@ async function prepareSignedPdf(pdfBytes, options = {}) {
   let appearanceObject = 0;
   if (signerName) {
     if (!options.fontBytes) {
-      throw new Error("Thiếu font để ghi chủ thể ký.");
+      throw new Error("Thiếu font để ghi người ký.");
     }
     const fontkit = require("@pdf-lib/fontkit");
     document.registerFontkit(fontkit);
@@ -582,21 +656,39 @@ function authenticatedAttributes(messageDigest, signingTime) {
   };
 }
 
-function fieldText(field) {
+function decodeFieldValue(field) {
   if (!field) return "";
-  if (typeof field.value === "string") return field.value;
-  if (Array.isArray(field.value)) return field.value.map((item) => String(item)).join(" ");
-  return String(field.value || "");
+  const raw = field.value;
+  if (typeof raw !== "string") {
+    if (Array.isArray(raw)) return raw.map((item) => decodeFieldValue({ value: item })).join(" ");
+    return String(raw || "");
+  }
+  const tag = Number(field.valueTagClass);
+  if (tag === 12) {
+    try {
+      return forge.util.decodeUtf8(raw);
+    } catch (error) {
+      return raw;
+    }
+  }
+  if (tag === 30) {
+    let text = "";
+    for (let index = 0; index + 1 < raw.length; index += 2) {
+      text += String.fromCharCode((raw.charCodeAt(index) << 8) | raw.charCodeAt(index + 1));
+    }
+    return text;
+  }
+  return raw;
 }
 
 function commonName(certificateList) {
   const certificates = loadCertificates(certificateList);
   const subject = certificates[0]?.cert?.subject;
   if (!subject) return "";
-  const common = fieldText(subject.getField("CN")).trim();
+  const common = decodeFieldValue(subject.getField("CN")).trim();
   if (common) return common;
   return (subject.attributes || [])
-    .map((item) => fieldText(item).trim())
+    .map((item) => decodeFieldValue(item).trim())
     .filter(Boolean)
     .join(", ");
 }
