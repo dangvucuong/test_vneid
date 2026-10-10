@@ -286,6 +286,7 @@ function addSignaturePlaceholder(pdfBytes, placement = {}) {
     `/V ${signatureIndex} 0 R\n` +
     `/T (Signature1)\n` +
     `/F 4\n` +
+    `/Border [0 0 0]\n` +
     appearance +
     `/P ${pageIndex} 0 R\n` +
     `>>\nendobj\n`;
@@ -443,14 +444,6 @@ function checkMarkCommands(check) {
 }
 
 function drawSignatureBox(page, font, rect, lines) {
-  page.drawRectangle({
-    x: rect.x,
-    y: rect.y,
-    width: rect.width,
-    height: rect.height,
-    borderWidth: 1,
-    borderColor: rgb(0.09, 0.35, 0.92),
-  });
   const layout = signatureLayout(font, lines, rect);
   drawCheckMark(page, rect.x, rect.y, layout.check);
   layout.rows.forEach((row) => {
@@ -469,10 +462,6 @@ function appearanceStream(document, font, rect, layout) {
   const fontKey = String(font.name || "F1").replace(/[^\w-]/g, "") || "F1";
   const commands = [
     "q",
-    "0.09 0.35 0.92 RG",
-    "1 w",
-    `0.5 0.5 ${pdfNumber(Math.max(rect.width - 1, 1))} ${pdfNumber(Math.max(rect.height - 1, 1))} re`,
-    "S",
     ...checkMarkCommands(layout.check),
     "BT",
     `/${fontKey} ${pdfNumber(layout.size)} Tf`,
