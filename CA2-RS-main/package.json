@@ -20,6 +20,7 @@
     "@expo/react-native-action-sheet": "^4.0.1",
     "@expo/vector-icons": "^14.0.4",
     "@expo/webpack-config": "^18.0.1",
+    "@pdf-lib/fontkit": "1.1.1",
     "@peculiar/x509": "^1.12.3",
     "@react-native-async-storage/async-storage": "2.1.2",
     "@react-native-community/checkbox": "^0.5.14",

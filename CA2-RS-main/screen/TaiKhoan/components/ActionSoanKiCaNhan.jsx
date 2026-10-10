@@ -6,9 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
-  Pressable,
   Alert,
-  InteractionManager,
   ScrollView,
   TextInput,
   ActivityIndicator,
@@ -16,12 +14,10 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import * as DocumentPicker from "expo-document-picker";
-import { Camera, CameraView } from "expo-camera";
-import * as WebBrowser from "expo-web-browser";
-import DeviceInfo from "react-native-device-info";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as RootNavigation from "../../RootNavigation";
 import vneidClient from "../../../utils/vneidClient";
+import imageToPdf from "../../../utils/imageToPdf";
 
 const commonName = (subject) => {
   const match = /CN=([^,]+)/i.exec(String(subject || ""));
@@ -33,11 +29,10 @@ export default function ActionSoanKiCaNhan({
   visible = false,
   onClose = () => {},
 }) {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [step, setStep] = useState("choose");
+  const [converting, setConverting] = useState(false);
   const [cccd, setCccd] = useState("");
+  const [ca2UserId, setCa2UserId] = useState("");
   const [certs, setCerts] = useState([]);
   const [selectedId, setSelectedId] = useState("");
   const [certLoading, setCertLoading] = useState(false);
@@ -51,80 +46,9 @@ export default function ActionSoanKiCaNhan({
     AsyncStorage.getItem("@vneidCccd").then((saved) => {
       if (saved) setCccd(saved);
     });
+    setCa2UserId(String(global.Masothue || "").replace(/\D/g, ""));
   }, [visible]);
 
-  // Hàm yêu cầu quyền truy cập camera
-  const requestCameraPermission = async () => {
-    const { status } = await Camera.requestCameraPermissionsAsync();
-    setHasPermission(status === "granted");
-  };
-
-  // Biến trạng thái để kiểm soát việc mở trình duyệt
-  let isBrowserOpening = false;
-
-  // Hàm xử lý khi quét được mã QR
-  const handleBarCodeScanned = async ({ data }) => {
-    // Kiểm tra xem trình duyệt đã đang mở hay chưa
-    if (isBrowserOpening) {
-      console.warn("Trình duyệt đang mở. Vui lòng đợi...");
-      return;
-    }
-
-    try {
-      // Đánh dấu rằng trình duyệt đang được mở
-      isBrowserOpening = true;
-
-      // Cập nhật trạng thái quét và đóng modal
-      setScanned(true);
-      // Chờ cho đến khi các tương tác hoàn tất
-      await new Promise((resolve) =>
-        InteractionManager.runAfterInteractions(resolve)
-      );
-      // Parse dữ liệu từ QR code
-      const qrData = JSON.parse(data);
-      const { username, token, hostname, type } = qrData;
-      const deviceName = await DeviceInfo.getDeviceName();
-      const deviceId = DeviceInfo.getModel();
-      // Tạo URL để mở
-      let url = `${hostname}/dang-ky-passkey?mabutky=${global.idcts}&token=${token}&username=${username}&deviceName=${deviceName}`;
-      if (type === "email") {
-        url += `&email=${global.Email}`;
-        if (username !== global.Email) {
-          Alert.alert(
-            "Thông báo",
-            `Email Không trùng khớp. 
-            Tài khoản ở appRs đang là ${global.Email}. Tài khoản ở web đang là ${username}`
-          );
-          return;
-        }
-      } else if (type === "masothue") {
-        url += `&email=${global.Masothue}`;
-      }
-      // Mở URL trong trình duyệt
-      await WebBrowser.openBrowserAsync(url);
-    } catch (error) {
-      console.error("Lỗi khi xử lý QR code:", error);
-    } finally {
-      // Đảm bảo rằng biến trạng thái được reset sau khi hoàn thành
-      isBrowserOpening = false;
-    }
-  };
-
-  // Hàm mở modal quét mã QR
-  const openQRScanner = async () => {
-    if (hasPermission === null) {
-      await requestCameraPermission();
-    }
-    if (hasPermission === false) {
-      Alert.alert(
-        "Không có quyền truy cập camera",
-        "Vui lòng cấp quyền truy cập camera để sử dụng tính năng này."
-      );
-    } else {
-      setScanned(false); // Reset trạng thái đã quét
-      setIsModalVisible(true); // Mở modal
-    }
-  };
   const loadCertificates = async () => {
     const citizenPid = cccd.trim();
     if (!/^\d{12}$/.test(citizenPid)) {
@@ -193,71 +117,91 @@ export default function ActionSoanKiCaNhan({
     }
   };
 
+  const withinSize = async (uri) => {
+    const fileInfo = await FileSystem.getInfoAsync(uri);
+    const fileSize =
+      fileInfo && fileInfo.exists && typeof fileInfo.size === "number" ? fileInfo.size : 0;
+    if (fileSize > 20 * 1024 * 1024) {
+      Alert.alert("File quá lớn", "Vui lòng chọn file nhỏ hơn 20MB.");
+      return false;
+    }
+    return true;
+  };
+
+  const activatedAccount = () => {
+    const serial = String(global.Serial || "").replace(/[^0-9a-f]/gi, "").toUpperCase();
+    const citizenPid = ca2UserId.trim();
+    const taxId = String(global.Masothue || "").replace(/\D/g, "");
+    if (!serial) {
+      Alert.alert("Chứng thư", "Tài khoản chưa có serial chứng thư đã kích hoạt.");
+      return null;
+    }
+    if (!/^\d{10,13}$/.test(citizenPid)) {
+      Alert.alert("CCCD", "Nhập CCCD 12 số hoặc mã số thuế trên tài khoản.");
+      return null;
+    }
+    return { serial, citizenPid, taxId };
+  };
+
+  const openCa2Pdf = (pdfUri, fileName) => {
+    const account = activatedAccount();
+    if (!account) return;
+    const { serial, citizenPid, taxId } = account;
+    onClose();
+    RootNavigation.navigate("PDFViewer", {
+      pdfUri,
+      signMode: "ca2rs",
+      fileName: fileName || "tai-lieu.pdf",
+      ca2Account: {
+        userId: citizenPid,
+        fallbackUserId: taxId,
+        serialNumber: serial,
+      },
+    });
+  };
+
+  const openImageAsPdf = async (uri, mimeType) => {
+    if (!activatedAccount()) return;
+    if (!(await withinSize(uri))) return;
+    setConverting(true);
+    try {
+      const pdfUri = await imageToPdf.imageUriToPdf(uri, mimeType, FileSystem);
+      openCa2Pdf(pdfUri, "anh-ky.pdf");
+    } catch (error) {
+      Alert.alert("Ảnh", error?.message || "Không chuyển được ảnh sang PDF. Hãy chọn ảnh JPG hoặc PNG.");
+    } finally {
+      setConverting(false);
+    }
+  };
+
   const pickFile = async () => {
+    if (!activatedAccount()) return;
     try {
       const res = await DocumentPicker.getDocumentAsync({
         type: ["application/pdf"],
         copyToCacheDirectory: true,
         multiple: false,
       });
-
-      if (res.canceled) {
-        console.log("User cancelled the file picker.");
-        return;
-      }
-
-      const uri = res.assets[0].uri;
-      const fileInfo = await FileSystem.getInfoAsync(uri);
-      const fileSize =
-        fileInfo && fileInfo.exists && typeof fileInfo.size === "number"
-          ? fileInfo.size
-          : 0;
-
-      if (fileSize > 20 * 1024 * 1024) {
-        Alert.alert(
-          "File quá lớn",
-          "Kích thước file vượt quá giới hạn cho phép. Vui lòng chọn file có kích thước < 20MB."
-        );
-        return;
-      }
-
-      onClose();
-      navigation.navigate("PDFViewer", { pdfUri: uri });
+      if (res.canceled || !res.assets?.[0]) return;
+      const asset = res.assets[0];
+      if (!(await withinSize(asset.uri))) return;
+      openCa2Pdf(asset.uri, asset.name || "tai-lieu.pdf");
     } catch (err) {
       console.error("Error picking file:", err);
       Alert.alert("Lỗi", "Đã xảy ra lỗi khi chọn tài liệu.");
     }
   };
+
   const pickImage = async () => {
+    if (!activatedAccount()) return;
     try {
-      // Mở thư viện ảnh
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        //allowsEditing: true,
-        //aspect: [5, 7],
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 1,
       });
-
-      if (!result.canceled) {
-        const uri = result.assets[0].uri;
-
-        // Lấy thông tin file
-        const fileInfo = await FileSystem.getInfoAsync(uri);
-
-        if (fileInfo.size > 20 * 1024 * 1024) {
-          // Hiển thị thông báo nếu file lớn hơn 20MB
-          Alert.alert(
-            "File quá lớn",
-            "Kích thước file vượt quá giới hạn cho phép. Vui lòng chọn ảnh có kích thước < 20MB."
-          );
-          return;
-        }
-
-        // Tiếp tục nếu file hợp lệ
-        onClose();
-        console.log("pickImage", uri);
-        navigation.navigate("PDFViewer", { imageUri: uri });
-      }
+      if (result.canceled || !result.assets?.[0]) return;
+      const asset = result.assets[0];
+      await openImageAsPdf(asset.uri, asset.mimeType);
     } catch (error) {
       console.error("Error picking image:", error);
       Alert.alert("Lỗi", "Đã xảy ra lỗi khi chọn ảnh.");
@@ -265,46 +209,21 @@ export default function ActionSoanKiCaNhan({
   };
 
   const pickImageFromCamera = async () => {
+    if (!activatedAccount()) return;
     try {
-      // Yêu cầu quyền truy cập camera
-      const resultPermission =
-        await ImagePicker.requestCameraPermissionsAsync();
+      const resultPermission = await ImagePicker.requestCameraPermissionsAsync();
       if (!resultPermission.granted) {
-        alert("Bạn cần cấp quyền sử dụng camera để chụp ảnh.");
+        Alert.alert("Camera", "Bạn cần cấp quyền sử dụng camera để chụp ảnh.");
         return;
       }
-
-      // Mở camera
       const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [5, 7], // Tỷ lệ khung hình mong muốn
-        quality: 1, // Chất lượng ảnh
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
       });
-
-      if (!result.canceled) {
-        const { uri } = result.assets[0]; // Đường dẫn ảnh
-
-        // Chuẩn hóa đường dẫn
-        const normalizedUri = uri.startsWith("file://") ? uri : `file://${uri}`;
-
-        // Lấy thông tin file
-        const fileInfo = await FileSystem.getInfoAsync(normalizedUri);
-
-        if (fileInfo.size > 20 * 1024 * 1024) {
-          // Hiển thị thông báo nếu file lớn hơn 20MB
-          Alert.alert(
-            "File quá lớn",
-            "Kích thước file vượt quá giới hạn cho phép. Vui lòng cài đặt chụp ảnh có kích thước < 20MB."
-          );
-          return;
-        }
-
-        // Nếu file hợp lệ, điều hướng sang PDFViewer
-        onClose();
-        console.log("pickImageFromCamera ", normalizedUri);
-        navigation.navigate("PDFViewer", { imageUri: normalizedUri });
-      }
+      if (result.canceled || !result.assets?.[0]) return;
+      const asset = result.assets[0];
+      const uri = asset.uri.startsWith("file://") ? asset.uri : `file://${asset.uri}`;
+      await openImageAsPdf(uri, asset.mimeType || "image/jpeg");
     } catch (error) {
       console.error("Error capturing image from camera:", error);
       Alert.alert("Lỗi", "Đã xảy ra lỗi khi sử dụng camera.");
@@ -331,7 +250,7 @@ export default function ActionSoanKiCaNhan({
               {step === "vneid"
                 ? "Chọn chứng thư VNeID"
                 : step === "old"
-                ? "Ký theo luồng cũ"
+                ? "Ký bằng CA2 RS"
                 : "Chọn cách ký"}
             </Text>
             <TouchableOpacity onPress={onClose} style={styles.closeButton}>
@@ -351,9 +270,9 @@ export default function ActionSoanKiCaNhan({
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.choiceCardMuted} onPress={() => setStep("old")}>
-                <Text style={styles.choiceTitle}>Ký theo luồng cũ</Text>
+                <Text style={styles.choiceTitle}>Ký bằng CA2 RS</Text>
                 <Text style={styles.choiceText}>
-                  Tải tài liệu, ảnh hoặc quét QR và ký như hiện tại.
+                  Chọn PDF hoặc ảnh, khoanh vùng ký, rồi ký bằng chứng thư đang kích hoạt.
                 </Text>
               </TouchableOpacity>
             </View>
@@ -420,8 +339,21 @@ export default function ActionSoanKiCaNhan({
           )}
 
           {step === "old" && (
-          <>
-          <TouchableOpacity style={styles.option} onPress={pickFile}>
+          <ScrollView style={styles.ca2Sheet} keyboardShouldPersistTaps="handled">
+          <Text style={styles.fieldLabel}>CCCD hoặc mã số thuế</Text>
+          <TextInput
+            value={ca2UserId}
+            onChangeText={setCa2UserId}
+            keyboardType="number-pad"
+            maxLength={13}
+            placeholder="Mã trên tài khoản đang kích hoạt"
+            placeholderTextColor="#94A3B8"
+            style={styles.field}
+          />
+          <Text style={styles.certMeta}>
+            Serial đang kích hoạt: {global.Serial || "chưa có"}
+          </Text>
+          <TouchableOpacity style={styles.option} onPress={pickFile} disabled={converting}>
             <View style={styles.iconWrapper}>
               <Image
                 source={require("../../../img/upload2.png")}
@@ -429,14 +361,14 @@ export default function ActionSoanKiCaNhan({
               />
             </View>
             <View style={styles.textContainer}>
-              <Text style={styles.optionText}>Tải lên tài liệu</Text>
+              <Text style={styles.optionText}>Chọn file PDF</Text>
               <Text style={styles.subText}>Tối đa 20MB</Text>
             </View>
           </TouchableOpacity>
 
           <View style={styles.divider} />
 
-          <TouchableOpacity style={styles.option} onPress={pickImage}>
+          <TouchableOpacity style={styles.option} onPress={pickImage} disabled={converting}>
             <View style={styles.iconWrapper}>
               <Image
                 source={require("../../../img/photo2.png")}
@@ -444,69 +376,29 @@ export default function ActionSoanKiCaNhan({
               />
             </View>
             <View style={styles.textContainer}>
-              <Text style={styles.optionText}>Tải lên ảnh</Text>
-              <Text style={styles.subText}>Tối đa 20MB</Text>
+              <Text style={styles.optionText}>Chọn ảnh</Text>
+              <Text style={styles.subText}>JPG hoặc PNG, chuyển thành PDF trên máy</Text>
             </View>
           </TouchableOpacity>
 
           <View style={styles.divider} />
 
-          <TouchableOpacity style={styles.option} onPress={pickImageFromCamera}>
+          <TouchableOpacity style={styles.option} onPress={pickImageFromCamera} disabled={converting}>
             <View style={styles.iconWrapper}>
               <Image
                 source={require("../../../img/camera1.png")}
                 style={styles.icon}
               />
             </View>
-            <Text style={styles.optionText}>Chụp ảnh</Text>
-          </TouchableOpacity>
-          <View style={styles.divider} />
-
-          <View style={styles.sectionTitle}>
-            <Text style={styles.sectionText}>Kết nối</Text>
-          </View>
-
-          {/* Nút để mở chức năng quét QR */}
-          <TouchableOpacity
-            style={[styles.option, styles.lastOption]}
-            onPress={openQRScanner}
-          >
-            <View style={styles.iconWrapper}>
-              <Image
-                source={require("../../../img/qrcode.png")}
-                style={styles.icon}
-              />
-            </View>
             <View style={styles.textContainer}>
-              <Text style={styles.optionText}>Quét QR</Text>
-              <Text style={styles.subText}>Ký nhanh, kết nối Passkey</Text>
+              <Text style={styles.optionText}>Chụp ảnh</Text>
+              <Text style={styles.subText}>
+                {converting ? "Đang chuyển ảnh sang PDF..." : "Chuyển thành PDF trên máy"}
+              </Text>
             </View>
           </TouchableOpacity>
-          </>
+          </ScrollView>
           )}
-
-          {/* Modal chứa màn hình quét mã QR */}
-          <Modal
-            visible={isModalVisible}
-            animationType="slide"
-            transparent={false}
-          >
-            <View style={styles.modalContainer}>
-              <CameraView
-                onBarcodeScanned={scanned ? undefined : handleBarCodeScanned}
-                barcodeScannerSettings={{
-                  barcodeTypes: ["qr"],
-                }}
-                style={StyleSheet.absoluteFillObject}
-              />
-              <TouchableOpacity
-                style={styles.closeButtonModal}
-                onPress={() => setIsModalVisible(false)}
-              >
-                <Text style={styles.closeButtonModalText}>Đóng</Text>
-              </TouchableOpacity>
-            </View>
-          </Modal>
           <View style={styles.divider} />
 
           <View style={styles.bottomIndicator} />
@@ -589,6 +481,10 @@ const styles = StyleSheet.create({
   certSheet: {
     maxHeight: 520,
     paddingBottom: 12,
+  },
+  ca2Sheet: {
+    maxHeight: 460,
+    marginBottom: 8,
   },
   fieldLabel: {
     color: "#0F172A",

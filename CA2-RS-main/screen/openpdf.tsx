@@ -25,12 +25,18 @@ import { PDFDocument } from "pdf-lib";
 import { InsertCompleteProps, InsertTypes } from "../PDFViewer/constants";
 import pdfVneId from "../utils/pdfVneId";
 import vneidClient from "../utils/vneidClient";
+import ca2RsClient from "../utils/ca2RsClient";
+import localHashSign from "../utils/localHashSign";
+import { getPendingSignList } from "../utils/apiService";
 import * as Sharing from "expo-sharing";
-import { encode } from "base-64";
+import { Asset } from "expo-asset";
+import { decode, encode } from "base-64";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { AntDesign } from "@expo/vector-icons";
 import { DocumentPickerAsset } from "expo-document-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import ModalPinCode from "./component/ModalPinCode";
 
 type Size = {
   width: number;
@@ -53,6 +59,24 @@ interface PDFViewerProps {
 }
 
 const SIGN_TIMEOUT_MS = 60000;
+let signFontBytes: Uint8Array | null = null;
+
+const loadSignFont = async () => {
+  if (signFontBytes) return signFontBytes;
+  const asset = Asset.fromModule(require("../assets/fonts/Roboto-Regular.ttf"));
+  if (!asset.localUri) await asset.downloadAsync();
+  const uri = asset.localUri || asset.uri;
+  const base64 = await FileSystem.readAsStringAsync(uri, {
+    encoding: FileSystem.EncodingType.Base64,
+  });
+  const binary = decode(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index) & 0xff;
+  }
+  signFontBytes = bytes;
+  return bytes;
+};
 
 const goHome = (navigation: any) => {
   if (navigation.canGoBack()) {
@@ -81,7 +105,10 @@ const PDFViewer = (props: PDFViewerProps) => {
   const incomingPdfUri = route.params?.pdfUri;
   const imageUri = route.params?.imageUri;
   const vneidCert = route.params?.vneidCert;
+  const ca2Account = route.params?.ca2Account;
   const isVneid = route.params?.signMode === "vneid" && !!vneidCert?.credentialID;
+  const isCa2 = route.params?.signMode === "ca2rs" && !!ca2Account?.userId && !!ca2Account?.serialNumber;
+  const isLocalSign = isVneid || isCa2;
   const [loadingVisible, setModalVisible] = useState(false);
   const navigation = useNavigation<any>();
 
@@ -112,7 +139,16 @@ const PDFViewer = (props: PDFViewerProps) => {
   );
   const signAbortRef = useRef<AbortController | null>(null);
   const alive = useRef(true);
+  const pinBusy = useRef(false);
+  const notifyCodeRef = useRef("");
+  const pinVerifiedRef = useRef(false);
+  const cancelPinRef = useRef(false);
+  const signingRef = useRef(false);
   const [vneidStatus, setVneidStatus] = useState("");
+  const [showPopPin, setShowPopPin] = useState(false);
+  const [pinValue, setPinValue] = useState("");
+  const [signedFileUri, setSignedFileUri] = useState("");
+  const [signedTransactionId, setSignedTransactionId] = useState("");
 
   useEffect(() => {
     alive.current = true;
@@ -236,6 +272,17 @@ const PDFViewer = (props: PDFViewerProps) => {
 
       if (!filePath) {
         goHome(navigation);
+        return;
+      }
+
+      if (route.params?.signMode === "ca2rs") {
+        const pdfName = /\.pdf$/i.test(fileName) ? fileName : "tai-lieu.pdf";
+        setPdfUri(filePath);
+        setBaseUri(filePath);
+        setLocalSignUri(filePath);
+        setLocalSignName(sanitizeFileName(pdfName));
+        setInsertType("");
+        setvisibleFile(true);
         return;
       }
 
@@ -452,9 +499,220 @@ const PDFViewer = (props: PDFViewerProps) => {
     }
   };
 
+  const writeSignedPdf = async (signed: Uint8Array, prefix: string) => {
+    let binary = "";
+    const chunk = 0x2000;
+    for (let index = 0; index < signed.length; index += chunk) {
+      binary += String.fromCharCode.apply(null, signed.subarray(index, index + chunk));
+    }
+    const output = `${FileSystem.documentDirectory}${prefix}-${Date.now()}.pdf`;
+    await FileSystem.writeAsStringAsync(output, encode(binary), {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+    return output;
+  };
+
+  const handleSaveCa2 = async () => {
+    const rect = (params as any)?.pdfRect;
+    if (!rect || !params?.page || !pdfArrayBuffer) {
+      Alert.alert("Lỗi", "Chưa có vùng ký. Hãy khoanh vùng trên tài liệu.");
+      return;
+    }
+    cancelPinRef.current = false;
+    pinVerifiedRef.current = false;
+    notifyCodeRef.current = "";
+    signingRef.current = true;
+    setModalVisible(true);
+    setVneidStatus("Đang lấy chứng thư đã kích hoạt...");
+    try {
+      const certificate = await ca2RsClient.getCertificate(
+        ca2Account.userId,
+        ca2Account.serialNumber,
+        ca2Account.fallbackUserId
+      );
+      setVneidStatus("Đang băm PDF trên máy...");
+      const source = new Uint8Array(pdfArrayBuffer);
+      const signingTime = new Date();
+      const signerName = pdfVneId.commonName(certificate.certificates);
+      const prepared = await pdfVneId.prepareSignedPdf(source, {
+        pageNumber: params.page,
+        rect,
+        reason: "CA2 Sign",
+        signerName: signerName || ca2Account.userId,
+        signingTime,
+        fontBytes: await loadSignFont(),
+      });
+      const material = pdfVneId.digestForVneId(
+        prepared,
+        certificate.certificates,
+        signingTime
+      );
+      setVneidStatus("Đang gửi mã băm sang CA2 RS...");
+      localHashSign.begin((code: string) => {
+        notifyCodeRef.current = code;
+        setPinValue("");
+        setShowPopPin(true);
+        setVneidStatus("Nhập PIN để xác thực yêu cầu ký.");
+      });
+      const signedResult = await ca2RsClient.signAndWait(
+        {
+          userId: ca2Account.userId,
+          serialNumber: certificate.serialNumber,
+          digestValue: material.digestValue,
+          shouldStop: () => !alive.current || cancelPinRef.current,
+          pinVerified: () => pinVerifiedRef.current,
+        },
+        setVneidStatus
+      );
+      setVneidStatus("Đang ghép chữ ký vào PDF trên máy...");
+      const signed = pdfVneId.embedVneIdSignature(
+        prepared,
+        material,
+        signedResult.signature
+      );
+      const output = await writeSignedPdf(signed, "ca2");
+      setPdfUri(output);
+      setSignedFileUri(output);
+      setSignedTransactionId(signedResult.transactionId || "");
+      setIsInserted(false);
+      setInsertType("");
+      setisSave(false);
+      setvisibleFile(false);
+      setEditMode(false);
+      setModalVisible(false);
+      Alert.alert("Ký CA2 RS thành công", `Mã giao dịch: ${signedResult.transactionId}`);
+    } catch (error: any) {
+      setModalVisible(false);
+      Alert.alert("Lỗi", error?.message || "Ký CA2 RS thất bại.");
+    } finally {
+      signingRef.current = false;
+      localHashSign.end();
+      setShowPopPin(false);
+    }
+  };
+
+  const accountForSign = async () => {
+    const deviceId =
+      (global as any).UUID || (await AsyncStorage.getItem("@devid"));
+    const idcts =
+      (global as any).id ||
+      (global as any).idcts ||
+      (await AsyncStorage.getItem("@idcts"));
+    return { deviceId: String(deviceId || ""), idcts: String(idcts || "") };
+  };
+
+  const resolveSignCode = async (notifyCode: string) => {
+    const { deviceId, idcts } = await accountForSign();
+    if (!deviceId || !idcts) return notifyCode && notifyCode !== "1" ? notifyCode : "";
+    const load = async () => {
+      const list = await getPendingSignList(deviceId, idcts, true);
+      if (!Array.isArray(list) || !list.length) return "";
+      if (notifyCode && notifyCode !== "1") {
+        const found = list.find((item) => String(item?.Code) === notifyCode);
+        if (found?.Code) return String(found.Code);
+      }
+      return String(list[0]?.Code || "");
+    };
+    try {
+      const first = await load();
+      if (first) return first;
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+      return (await load()) || (notifyCode !== "1" ? notifyCode : "");
+    } catch (error) {
+      return notifyCode && notifyCode !== "1" ? notifyCode : "";
+    }
+  };
+
+  const submitNotifyPin = async (pin: string) => {
+    const { deviceId, idcts } = await accountForSign();
+    const code = await resolveSignCode(notifyCodeRef.current);
+    if (!code || !idcts || !deviceId) {
+      setPinValue("");
+      Alert.alert("PIN", "Chưa nhận được mã yêu cầu ký.");
+      return;
+    }
+    try {
+      const response = await fetch(
+        "https://apisign.nacencomm.vn/api/APISigncore/Ky_Mobilesign?Code=" +
+          code +
+          "&device_id=" +
+          deviceId +
+          "&IDCTS=" +
+          idcts +
+          "&pincode=" +
+          pin,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        }
+      );
+      const raw = await response.text();
+      let parsed: any = raw;
+      try {
+        parsed = JSON.parse(raw);
+      } catch (error) {
+        parsed = raw;
+      }
+      if (typeof parsed === "string") {
+        try {
+          parsed = JSON.parse(parsed);
+        } catch (error) {
+          parsed = parsed;
+        }
+      }
+      const result = Number(parsed);
+      if (result === 1) {
+        pinVerifiedRef.current = true;
+        setShowPopPin(false);
+        setPinValue("");
+        setVneidStatus("Đã xác thực PIN. Đang chờ chữ ký.");
+        return;
+      }
+      setPinValue("");
+      if (result === -4) cancelPinRef.current = true;
+      Alert.alert(
+        "PIN",
+        result === -3
+          ? "Mã PIN không đúng."
+          : result === -2
+            ? "Mã yêu cầu ký không hợp lệ."
+            : result === -4
+              ? "Yêu cầu ký đã bị hủy."
+              : "Xác thực PIN không thành công."
+      );
+    } catch (error) {
+      setPinValue("");
+      Alert.alert("PIN", "Không xác thực được PIN. Vui lòng thử lại.");
+    }
+  };
+
+  const closePinModal = (next?: boolean) => {
+    const visible = typeof next === "boolean" ? next : !showPopPin;
+    if (!visible && signingRef.current && !pinVerifiedRef.current) {
+      cancelPinRef.current = true;
+    }
+    setShowPopPin(visible);
+  };
+
+  useEffect(() => {
+    if (pinValue.length !== 6 || pinBusy.current || !showPopPin) return;
+    pinBusy.current = true;
+    submitNotifyPin(pinValue).finally(() => {
+      pinBusy.current = false;
+    });
+  }, [pinValue, showPopPin]);
+
   const handleSave = async () => {
     if (isVneid) {
       await handleSaveVneId();
+      return;
+    }
+    if (isCa2) {
+      await handleSaveCa2();
       return;
     }
     if (!params?.pos || !params?.dims || !params?.page) {
@@ -573,6 +831,15 @@ const PDFViewer = (props: PDFViewerProps) => {
     }
   }, [editMode]);
 
+  const shareSignedFile = async () => {
+    if (!signedFileUri) return;
+    if (await Sharing.isAvailableAsync()) {
+      await Sharing.shareAsync(signedFileUri, { mimeType: "application/pdf" });
+      return;
+    }
+    Alert.alert("Chia sẻ", "Thiết bị không hỗ trợ chia sẻ file.");
+  };
+
   const handleCloseViewer = () => {
     pdfUri && setPdfUri("");
     setIsInserted(false);
@@ -585,11 +852,22 @@ const PDFViewer = (props: PDFViewerProps) => {
     <SafeAreaView style={styles.screen}>
       <View style={styles.menuBar}>
         <View style={styles.insertBtnRow}>
-          {isVneid && !insertType ? (
+          {signedFileUri ? (
+            <View style={styles.vneidTitle}>
+              <Text style={styles.vneidTitleText}>File đã ký</Text>
+              <Text style={styles.vneidSubText} numberOfLines={1}>
+                {signedTransactionId
+                  ? `Mã giao dịch: ${signedTransactionId}`
+                  : "CA2 RS"}
+              </Text>
+            </View>
+          ) : isLocalSign && !insertType ? (
             <View style={styles.vneidTitle}>
               <Text style={styles.vneidTitleText}>Khoanh vùng ký</Text>
               <Text style={styles.vneidSubText} numberOfLines={1}>
-                {vneidCert?.subjectDN || vneidCert?.serialNumber}
+                {isCa2
+                  ? `Serial: ${ca2Account?.serialNumber}`
+                  : vneidCert?.subjectDN || vneidCert?.serialNumber}
               </Text>
             </View>
           ) : null}
@@ -640,6 +918,7 @@ const PDFViewer = (props: PDFViewerProps) => {
         {pdfUri ? (
           <>
             <PdfViewer
+              key={pdfUri}
               pdfUri={pdfUri}
               containerWidth={wrapperSize.width}
               containerHeight={wrapperSize.height}
@@ -655,7 +934,7 @@ const PDFViewer = (props: PDFViewerProps) => {
               editMode={editMode}
               lastContent={lastContent}
               isInserted={isInserted}
-              regionLabel={isVneid ? "VNeID" : ""}
+              regionLabel={isVneid ? "VNeID" : isCa2 ? "CA2" : ""}
               ref={editorRef}
             />
           </>
@@ -668,7 +947,12 @@ const PDFViewer = (props: PDFViewerProps) => {
       </View>
 
       <View style={styles.buttonRow}>
-        {isVneid && visibleFile && (
+        {signedFileUri ? (
+          <TouchableOpacity style={styles.primaryBtn} onPress={shareSignedFile}>
+            <Text style={styles.primaryBtnText}>Chia sẻ</Text>
+          </TouchableOpacity>
+        ) : null}
+        {isLocalSign && visibleFile && (
           <Text style={styles.regionHint}>
             Kéo ô chữ ký tới vị trí cần ký, chỉnh kích thước, rồi bấm dấu tích để chốt vùng.
           </Text>
@@ -684,7 +968,7 @@ const PDFViewer = (props: PDFViewerProps) => {
           >
             <Text style={styles.primaryBtnText}>
               {pdfArrayBuffer
-                ? isVneid
+                ? isLocalSign
                   ? "Khoanh vùng ký"
                   : "Thiết lập vùng ký"
                 : "Đang chuẩn bị tài liệu..."}
@@ -694,7 +978,7 @@ const PDFViewer = (props: PDFViewerProps) => {
         {isSave && (
           <TouchableOpacity style={styles.primaryBtn} onPress={handleSave}>
             <Text style={styles.primaryBtnText}>
-              {isVneid ? "Ký bằng VNeID" : "Ký văn bản"}
+              {isVneid ? "Ký bằng VNeID" : isCa2 ? "Ký bằng CA2 RS" : "Ký văn bản"}
             </Text>
           </TouchableOpacity>
         )}
@@ -717,14 +1001,20 @@ const PDFViewer = (props: PDFViewerProps) => {
           <View style={style.loadingBox}>
             <Text style={style.loadingTitle}>CA2 REMOTE SIGNING</Text>
             <Text style={style.loadingMessage}>
-              {isVneid
-                ? vneidStatus || "Đang ký VNeID trên máy"
+              {isLocalSign
+                ? vneidStatus || "Đang ký trên máy"
                 : "Đang xử lý yêu cầu\nVui lòng đợi trong giây lát"}
             </Text>
             <ActivityIndicator size="large" color="#fff" />
           </View>
         </View>
       </Modal>
+      <ModalPinCode
+        value={pinValue}
+        setValue={setPinValue}
+        showPopPin={showPopPin}
+        setShowPopPin={closePinModal}
+      />
     </SafeAreaView>
   );
 };

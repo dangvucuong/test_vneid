@@ -160,6 +160,77 @@ function normalizeRect(rect, pageWidth, pageHeight) {
   return { x, y, width, height };
 }
 
+function pdfLiteral(value) {
+  const text = String(value || "").replace(/[^\x20-\x7E]/g, "");
+  return `(${text.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)")})`;
+}
+
+function pdfUtf16(value) {
+  const text = String(value || "");
+  let hex = "FEFF";
+  for (let index = 0; index < text.length; index += 1) {
+    hex += text.charCodeAt(index).toString(16).toUpperCase().padStart(4, "0");
+  }
+  return `<${hex}>`;
+}
+
+function formatSignTime(date) {
+  const pad = (value) => String(value).padStart(2, "0");
+  return (
+    `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} ` +
+    `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`
+  );
+}
+
+function wrapText(font, text, size, maxWidth) {
+  const source = String(text || "").replace(/\s+/g, " ").trim();
+  if (!source) return [];
+  const rows = [];
+  let current = "";
+  source.split(" ").forEach((word) => {
+    const next = current ? `${current} ${word}` : word;
+    if (font.widthOfTextAtSize(next, size) <= maxWidth) {
+      current = next;
+      return;
+    }
+    if (current) rows.push(current);
+    if (font.widthOfTextAtSize(word, size) <= maxWidth) {
+      current = word;
+      return;
+    }
+    current = "";
+    Array.from(word).forEach((character) => {
+      const extended = current + character;
+      if (font.widthOfTextAtSize(extended, size) <= maxWidth) {
+        current = extended;
+      } else {
+        if (current) rows.push(current);
+        current = character;
+      }
+    });
+  });
+  if (current) rows.push(current);
+  return rows;
+}
+
+function layoutSignatureText(font, lines, rect) {
+  const maxWidth = Math.max(rect.width - 8, 8);
+  const maxHeight = Math.max(rect.height - 6, 8);
+  let size = 8;
+  while (size >= 5) {
+    const rows = lines.flatMap((line) => wrapText(font, line, size, maxWidth));
+    const leading = size + 1.5;
+    if (rows.length * leading <= maxHeight + 1) {
+      return { size, rows, leading };
+    }
+    size -= 0.5;
+  }
+  const rows = lines.flatMap((line) => wrapText(font, line, 5, maxWidth));
+  const leading = 6.5;
+  const maxRows = Math.max(1, Math.floor(maxHeight / leading));
+  return { size: 5, rows: rows.slice(0, maxRows), leading };
+}
+
 function pdfDate(date) {
   const pad = (value) => String(value).padStart(2, "0");
   const offset = -date.getTimezoneOffset();
@@ -186,6 +257,13 @@ function addSignaturePlaceholder(pdfBytes, placement = {}) {
   const widgetIndex = trailer.size + 1;
   const formIndex = trailer.size + 2;
   const contents = "0".repeat(SIGNATURE_BYTES * 2);
+  const reason = placement.reason || "Ky VNeID tren mobile";
+  const signerName = placement.signerName || "VNeID";
+  const signedAt = placement.signingTime instanceof Date ? placement.signingTime : new Date();
+  const appearance =
+    Number(placement.appearanceObject) > 0
+      ? `/AP << /N ${Number(placement.appearanceObject)} 0 R >>\n`
+      : "";
 
   const signatureObject =
     `${signatureIndex} 0 obj\n<<\n` +
@@ -194,9 +272,9 @@ function addSignaturePlaceholder(pdfBytes, placement = {}) {
     `/SubFilter /adbe.pkcs7.detached\n` +
     `${BYTE_RANGE_PLACEHOLDER}\n` +
     `/Contents <${contents}>\n` +
-    `/Reason (Ky VNeID tren mobile)\n` +
-    `/M (${pdfDate(new Date())})\n` +
-    `/Name (VNeID)\n` +
+    `/Reason ${pdfLiteral(reason)}\n` +
+    `/M (${pdfDate(signedAt)})\n` +
+    `/Name ${pdfUtf16(signerName)}\n` +
     `>>\nendobj\n`;
 
   const widgetObject =
@@ -208,6 +286,7 @@ function addSignaturePlaceholder(pdfBytes, placement = {}) {
     `/V ${signatureIndex} 0 R\n` +
     `/T (Signature1)\n` +
     `/F 4\n` +
+    appearance +
     `/P ${pageIndex} 0 R\n` +
     `>>\nendobj\n`;
 
@@ -278,6 +357,71 @@ function addSignaturePlaceholder(pdfBytes, placement = {}) {
   return { pdf, byteRange, placeholderAt, placeholderEnd };
 }
 
+function signatureLines(signerName, signingTime) {
+  const when = formatSignTime(signingTime instanceof Date ? signingTime : new Date());
+  return [`Chủ thể ký: ${String(signerName || "").trim()}`, `Ngày giờ ký: ${when}`];
+}
+
+function drawSignatureBox(page, font, rect, lines) {
+  page.drawRectangle({
+    x: rect.x,
+    y: rect.y,
+    width: rect.width,
+    height: rect.height,
+    borderWidth: 1,
+    borderColor: rgb(0.09, 0.35, 0.92),
+    color: rgb(1, 1, 1),
+  });
+  const layout = layoutSignatureText(font, lines, rect);
+  const color = rgb(0.05, 0.16, 0.4);
+  let y = rect.y + rect.height - layout.size - 3;
+  layout.rows.forEach((row) => {
+    page.drawText(row, {
+      x: rect.x + 4,
+      y,
+      size: layout.size,
+      font,
+      color,
+    });
+    y -= layout.leading;
+  });
+  return layout;
+}
+
+function appearanceStream(document, font, rect, layout) {
+  const fontKey = String(font.name || "F1").replace(/[^\w-]/g, "") || "F1";
+  let y = rect.height - layout.size - 3;
+  const commands = [
+    "q",
+    "1 1 1 rg",
+    `0 0 ${pdfNumber(rect.width)} ${pdfNumber(rect.height)} re`,
+    "f",
+    "0.09 0.35 0.92 RG",
+    "1 w",
+    `0.5 0.5 ${pdfNumber(rect.width - 1)} ${pdfNumber(rect.height - 1)} re`,
+    "S",
+    "BT",
+    `/${fontKey} ${pdfNumber(layout.size)} Tf`,
+    "0.05 0.16 0.40 rg",
+  ];
+  layout.rows.forEach((row, index) => {
+    commands.push(index === 0 ? `4 ${pdfNumber(y)} Td` : `0 ${pdfNumber(-layout.leading)} Td`);
+    commands.push(`${font.encodeText(row).toString()} Tj`);
+  });
+  commands.push("ET", "Q");
+  const stream = document.context.stream(commands.join("\n"), {
+    Type: "XObject",
+    Subtype: "Form",
+    BBox: [0, 0, rect.width, rect.height],
+    Resources: {
+      Font: {
+        [fontKey]: font.ref,
+      },
+    },
+  });
+  return document.context.register(stream).objectNumber;
+}
+
 async function prepareSignedPdf(pdfBytes, options = {}) {
   const document = await PDFDocument.load(pdfBytes);
   const pageNumber = Math.max(1, Number(options.pageNumber) || 1);
@@ -286,26 +430,48 @@ async function prepareSignedPdf(pdfBytes, options = {}) {
     throw new Error("Không tìm thấy trang đã khoanh vùng.");
   }
   const rect = normalizeRect(options.rect, page.getWidth(), page.getHeight());
-  const font = await document.embedFont(StandardFonts.Helvetica);
-  page.drawRectangle({
-    x: rect.x,
-    y: rect.y,
-    width: rect.width,
-    height: rect.height,
-    borderWidth: 1.2,
-    borderColor: rgb(0.09, 0.35, 0.92),
-  });
-  if (rect.width > 48 && rect.height > 18) {
-    page.drawText("VNeID", {
-      x: rect.x + 8,
-      y: rect.y + Math.max(6, (rect.height - 12) / 2),
-      size: 12,
-      font,
-      color: rgb(0.09, 0.35, 0.92),
+  const signingTime = options.signingTime instanceof Date ? options.signingTime : new Date();
+  const signerName = String(options.signerName || "").trim();
+  let appearanceObject = 0;
+  if (signerName) {
+    if (!options.fontBytes) {
+      throw new Error("Thiếu font để ghi chủ thể ký.");
+    }
+    const fontkit = require("@pdf-lib/fontkit");
+    document.registerFontkit(fontkit);
+    const font = await document.embedFont(options.fontBytes, { subset: true });
+    const layout = drawSignatureBox(page, font, rect, signatureLines(signerName, signingTime));
+    appearanceObject = appearanceStream(document, font, rect, layout);
+  } else {
+    const font = await document.embedFont(StandardFonts.Helvetica);
+    page.drawRectangle({
+      x: rect.x,
+      y: rect.y,
+      width: rect.width,
+      height: rect.height,
+      borderWidth: 1.2,
+      borderColor: rgb(0.09, 0.35, 0.92),
     });
+    const appearance = String(options.appearance || "VNeID").replace(/[^\x20-\x7E]/g, "").slice(0, 16) || "VNeID";
+    if (rect.width > 48 && rect.height > 18) {
+      page.drawText(appearance, {
+        x: rect.x + 8,
+        y: rect.y + Math.max(6, (rect.height - 12) / 2),
+        size: 12,
+        font,
+        color: rgb(0.09, 0.35, 0.92),
+      });
+    }
   }
   const saved = await document.save({ useObjectStreams: false });
-  return addSignaturePlaceholder(saved, { pageNumber, rect });
+  return addSignaturePlaceholder(saved, {
+    pageNumber,
+    rect,
+    reason: options.reason,
+    signerName: signerName || options.appearance || "VNeID",
+    signingTime,
+    appearanceObject,
+  });
 }
 
 function hashByteRange(pdf, byteRange) {
@@ -416,16 +582,35 @@ function authenticatedAttributes(messageDigest, signingTime) {
   };
 }
 
-function digestForVneId(prepared, certificateList) {
+function fieldText(field) {
+  if (!field) return "";
+  if (typeof field.value === "string") return field.value;
+  if (Array.isArray(field.value)) return field.value.map((item) => String(item)).join(" ");
+  return String(field.value || "");
+}
+
+function commonName(certificateList) {
+  const certificates = loadCertificates(certificateList);
+  const subject = certificates[0]?.cert?.subject;
+  if (!subject) return "";
+  const common = fieldText(subject.getField("CN")).trim();
+  if (common) return common;
+  return (subject.attributes || [])
+    .map((item) => fieldText(item).trim())
+    .filter(Boolean)
+    .join(", ");
+}
+
+function digestForVneId(prepared, certificateList, signingTime = new Date()) {
   const certificates = loadCertificates(certificateList);
   if (!certificates.length) {
     throw new Error("Chứng thư không có dữ liệu X.509.");
   }
-  const signingTime = new Date();
-  const attributes = authenticatedAttributes(hashByteRange(prepared.pdf, prepared.byteRange), signingTime);
+  const signedAt = signingTime instanceof Date ? signingTime : new Date();
+  const attributes = authenticatedAttributes(hashByteRange(prepared.pdf, prepared.byteRange), signedAt);
   return {
     certificates,
-    signingTime,
+    signingTime: signedAt,
     attributes: attributes.attributes,
     digestValue: attributes.digestBase64,
   };
@@ -487,5 +672,6 @@ module.exports = {
   prepareSignedPdf,
   digestForVneId,
   embedVneIdSignature,
+  commonName,
 };
 module.exports.default = module.exports;

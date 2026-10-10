@@ -131,23 +131,6 @@ export default function TaiKhoan({ navigation, props }) {
               style={styles.rightIcon}
             />
           </TouchableOpacity>
-          <View style={styles.line} />
-          <TouchableOpacity
-            style={[styles.dFlex, styles.functionItem]}
-            onPress={() => navigation.navigate("QuanLyDangNhap")}
-          >
-            <View style={styles.dFlex}>
-              <Image
-                source={require("../../img/LockKey.png")}
-                style={styles.leftIcon}
-              />
-              <Text>{i18n.t("tai_khoan_Quan_ly_dang_nhap")}</Text>
-            </View>
-            <Image
-              source={require("../../img/CaretRight.png")}
-              style={styles.rightIcon}
-            />
-          </TouchableOpacity>
         </View>
 
         <View style={[styles.commonLayout, styles.functionGroup]}>
@@ -191,23 +174,6 @@ export default function TaiKhoan({ navigation, props }) {
 
         <View style={[styles.commonLayout, styles.functionGroup]}>
           <Text style={styles.textTitle}>{i18n.t("tai_khoan_Thiet_lap")}</Text>
-          <TouchableOpacity
-            style={[styles.dFlex, styles.functionItem]}
-            onPress={() => navigation.navigate("ThietLapChuKy")}
-          >
-            <View style={styles.dFlex}>
-              <Image
-                source={require("../../img/PencilCircle.png")}
-                style={styles.leftIcon}
-              />
-              <Text>{i18n.t("tai_khoan_Thiet_lap_chu_ky")}</Text>
-            </View>
-            <Image
-              source={require("../../img/CaretRight.png")}
-              style={styles.rightIcon}
-            />
-          </TouchableOpacity>
-          <View style={styles.line} />
           <TouchableOpacity
             style={[styles.dFlex, styles.functionItem]}
             onPress={() => navigation.navigate("DoiMaPIN")}

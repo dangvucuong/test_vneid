@@ -60,6 +60,7 @@ import {
   handleKey2SignNotification,
   registerKey2SignHandler,
 } from "./utils/signNotificationHandler";
+import localHashSign from "./utils/localHashSign";
 import {
   isBatchSignOnceEnabled,
   loadBatchSignOnceSetting,
@@ -763,6 +764,9 @@ export default function App({ }) {
 
   useEffect(() => {
     const processKey2Notification = async (remoteMessage) => {
+      if (localHashSign.takeNotification(remoteMessage.data?.code)) {
+        return;
+      }
       let code = remoteMessage.data?.code;
       if (code === "1") code = generateUUID(32);
       global.code = code;
