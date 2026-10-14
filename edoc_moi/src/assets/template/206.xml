@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TDiep>
+    <TTChung>
+        <PBan>2.0.1</PBan>
+        <MNGui>0103930279</MNGui>
+        <MNNhan>0103930279</MNNhan>
+        <MLTDiep>206</MLTDiep>
+        <MTDiep>010393027972C40DE6258B42CFA9A863C3E6B2C23A</MTDiep>
+        <MTDTChieu></MTDTChieu>
+        <MST>0103930279-999</MST>
+        <SLuong>2</SLuong>
+    </TTChung>
+    <DLieu Id="_010393027972C40DE6258B42CFA9A863C3E6B2C23A">
+        <HDon>
+            <DLHDon Id="_2429190">
+                <TTChung>
+                    <PBan>2.0.1</PBan>
+                    <THDon>Hoá đơn giá trị gia tăng</THDon>
+                    <KHMSHDon>1</KHMSHDon>
+                    <KHHDon>C22MMT</KHHDon>
+                    <SHDon>1</SHDon>
+                    <MHSo>C22MMT</MHSo>
+                    <NLap>2022-12-09</NLap>
+                    <DVTTe>VND</DVTTe>
+                    <HTTToan>Tiền mặt/Chuyển khoản</HTTToan>
+                    <MSTTCGP>0103930279</MSTTCGP>
+                </TTChung>
+                <NDHDon>
+                    <NBan>
+                        <Ten>Công ty cổ phần công nghệ thẻ NACENCOMM</Ten>
+                        <MST>0103930279-999</MST>
+                        <DChi>Tòa nhà BOHEMIA số 25, Lê Văn Thiêm, Thanh Xuân, Hà Nội, Việt Nam</DChi>
+                        <SDThoai>1900.54.54.07</SDThoai>
+                    </NBan>
+                    <NMua>
+                        <Ten>Công ty cổ phần công nghệ thẻ NACENCOMM</Ten>
+                        <MST>0103930279-999</MST>
+                        <CCCDan>010011252552</CCCDan>
+                    </NMua>
+                    <DSHHDVu>
+                        <HHDVu>
+                            <TChat>1</TChat>
+                            <STT>1</STT>
+                            <MHHDVu>MMT1</MHHDVu>
+                            <THHDVu>Test HĐ GTGT khởi tạo từ máy tính tiền</THHDVu>
+                            <DVTinh>G</DVTinh>
+                            <SLuong>0</SLuong>
+                            <DGia>0</DGia>
+                            <ThTien>0</ThTien>
+                            <TSuat>0%</TSuat>
+                        </HHDVu>
+                    </DSHHDVu>
+                    <TToan>
+                        <THTTLTSuat>
+                            <LTSuat>
+                                <TSuat>0%</TSuat>
+                                <ThTien>0</ThTien>
+                                <TThue>0</TThue>
+                            </LTSuat>
+                        </THTTLTSuat>
+                        <TgTCThue>0</TgTCThue>
+                        <TgTThue>0</TgTThue>
+                        <TgTTTBSo>0</TgTTTBSo>
+                        <TgTTTBChu>Không đồng</TgTTTBChu>
+                    </TToan>
+                </NDHDon>
+            </DLHDon>
+            <MCCQT>M1-22-ZAMJZ-00000000003</MCCQT>
+            <DLQRCode>
+                0002019988003286C0894E0F814EEBAC7A1B32046243F801130103930279999020110306C22MMT041105082022120906106304383C</DLQRCode>
+            <DSCKS>
+                <NBan />
+                <NMua />
+            </DSCKS>
+        </HDon>
+        <HDon>
+            <DLHDon Id="_2429207">
+                <TTChung>
+                    <PBan>2.0.1</PBan>
+                    <THDon>Hoá đơn giá trị gia tăng</THDon>
+                    <KHMSHDon>1</KHMSHDon>
+                    <KHHDon>C22MMT</KHHDon>
+                    <SHDon>2</SHDon>
+                    <MHSo>C22MMT</MHSo>
+                    <NLap>2022-12-09</NLap>
+                    <DVTTe>VND</DVTTe>
+                    <HTTToan>Tiền mặt/Chuyển khoản</HTTToan>
+                    <MSTTCGP>0103930279</MSTTCGP>
+                </TTChung>
+                <NDHDon>
+                    <NBan>
+                        <Ten>Công ty cổ phần công nghệ thẻ NACENCOMM</Ten>
+                        <MST>0103930279-999</MST>
+                        <DChi>Tòa nhà BOHEMIA số 25, Lê Văn Thiêm, Thanh Xuân, Hà Nội, Việt Nam</DChi>
+                        <SDThoai>1900.54.54.07</SDThoai>
+                    </NBan>
+                    <NMua>
+                        <Ten>Công ty cổ phần công nghệ thẻ NACENCOMM</Ten>
+                        <MST>0103930279-999</MST>
+                        <CCCDan>012525466666</CCCDan>
+                    </NMua>
+                    <DSHHDVu>
+                        <HHDVu>
+                            <TChat>1</TChat>
+                            <STT>1</STT>
+                            <MHHDVu>MMT1</MHHDVu>
+                            <THHDVu>Test HĐ GTGT khởi tạo từ máy tính tiền</THHDVu>
+                            <DVTinh>G</DVTinh>
+                            <SLuong>0</SLuong>
+                            <DGia>0</DGia>
+                            <ThTien>0</ThTien>
+                            <TSuat>0%</TSuat>
+                        </HHDVu>
+                    </DSHHDVu>
+                    <TToan>
+                        <THTTLTSuat>
+                            <LTSuat>
+                                <TSuat>0%</TSuat>
+                                <ThTien>0</ThTien>
+                                <TThue>0</TThue>
+                            </LTSuat>
+                        </THTTLTSuat>
+                        <TgTCThue>0</TgTCThue>
+                        <TgTThue>0</TgTThue>
+                        <TgTTTBSo>0</TgTTTBSo>
+                        <TgTTTBChu>Không đồng</TgTTTBChu>
+                    </TToan>
+                </NDHDon>
+            </DLHDon>
+            <MCCQT>M1-22-ZAMJZ-00000000004</MCCQT>
+            <DLQRCode>
+                00020199880032C8507AAF973D4897999603C841AD575E01130103930279999020110306C22MMT041205082022120906106304383C</DLQRCode>
+            <DSCKS>
+                <NBan />
+                <NMua />
+            </DSCKS>
+        </HDon>
+    </DLieu>
+    <CKSNNT />
+</TDiep>
