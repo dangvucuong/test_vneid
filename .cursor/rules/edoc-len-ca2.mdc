@@ -1,0 +1,18 @@
+---
+description: Tiếp tục đưa chức năng edoc lên app CA2 theo plan đã chốt
+alwaysApply: true
+---
+
+# Edoc lên CA2
+
+Khi người dùng yêu cầu triển khai hoặc tiếp tục đưa edoc lên CA2, đọc `docs/PLAN_EDOC_LEN_CA2.md` và làm mục chưa tick đầu tiên trong phần Trạng thái. Xong bước nào thì tick mục đó trong file plan.
+
+Giữ hộp thư ký chứng thư, PIN và eKYC hiện tại. Thêm màn native, gọi SOAP/REST như web. Phiên edoc dùng `global.Email` sau đăng nhập CA2, không thêm màn đăng nhập edoc.
+
+Không làm trong phase này:
+
+- Đẩy lô, import Excel nhiều file, upload hàng loạt, `GuiYCKyLo`
+- Ký VNeID của edoc: `HashPDFFile_VNEID`, `GhepCKYVNEID`, `signings/hash`
+- Đăng nhập, đăng ký, quên mật khẩu edoc, ký USB token
+
+Màn `KyFileVneId` của CA2 giữ nguyên, không nối vào văn bản edoc.
