@@ -402,6 +402,25 @@ export default function Home({ navigation, route, props }) {
         contentContainerStyle={{ gap: 8 }}
       >
         <TouchableOpacity
+          onPress={() => RootNavigation.navigate("EdocGate")}
+          style={{
+            marginHorizontal: 16,
+            backgroundColor: "#ffffff",
+            borderRadius: 8,
+            borderWidth: 1,
+            borderColor: "#1858EA",
+            padding: 14,
+          }}
+        >
+          <Text style={{ color: "#1858EA", fontWeight: "700" }}>
+            Tài liệu edoc
+          </Text>
+          <Text style={{ color: "#1858EA", marginTop: 4, fontSize: 12 }}>
+            Xem, ký và tạo tài liệu theo email đăng nhập
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           onPress={() => RootNavigation.navigate("KyFileVneId")}
           style={{
             marginHorizontal: 16,

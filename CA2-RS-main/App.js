@@ -104,6 +104,13 @@ import DangKyCaNhanThuocToChuc from "./screen/DangKy/DangKyCaNhanThuocToChuc";
 import XacThucThongTin from "./screen/DangKy/XacThucThongTin";
 import ViewFilePdf from "./screen/TaiLieu/ViewFilePdf";
 import KyFileVneId from "./screen/VneId/KyFileVneId";
+import EdocGate from "./screen/Edoc/EdocGate";
+import EdocList from "./screen/Edoc/EdocList";
+import EdocDetail from "./screen/Edoc/EdocDetail";
+import EdocCreate from "./screen/Edoc/EdocCreate";
+import EdocDanhMuc from "./screen/Edoc/EdocDanhMuc";
+import EdocDanhBa from "./screen/Edoc/EdocDanhBa";
+import EdocSettings from "./screen/Edoc/EdocSettings";
 import ToChuc from "./screen/DangKy/ToChuc";
 import HomeWrapper from "./screen/Home/HomeWrapper";
 import QuanLyTaiLieuList from "./screen/TaiLieu/List";
@@ -1129,6 +1136,13 @@ export default function App({ }) {
               <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
               <Stack.Screen name="ViewSignedFile" component={ViewSignedFile} />
               <Stack.Screen name="KyFileVneId" component={KyFileVneId} />
+              <Stack.Screen name="EdocGate" component={EdocGate} />
+              <Stack.Screen name="EdocList" component={EdocList} />
+              <Stack.Screen name="EdocDetail" component={EdocDetail} />
+              <Stack.Screen name="EdocCreate" component={EdocCreate} />
+              <Stack.Screen name="EdocDanhMuc" component={EdocDanhMuc} />
+              <Stack.Screen name="EdocDanhBa" component={EdocDanhBa} />
+              <Stack.Screen name="EdocSettings" component={EdocSettings} />
               <Stack.Screen
                 name="PDFViewer"
                 getComponent={() => require("./screen/openpdf").default}

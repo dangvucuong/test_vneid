@@ -275,7 +275,7 @@ const PDFViewer = (props: PDFViewerProps) => {
         return;
       }
 
-      if (route.params?.signMode === "ca2rs") {
+      if (route.params?.signMode === "ca2rs" || route.params?.pickEdocRegion) {
         const pdfName = /\.pdf$/i.test(fileName) ? fileName : "tai-lieu.pdf";
         setPdfUri(filePath);
         setBaseUri(filePath);
@@ -391,6 +391,18 @@ const PDFViewer = (props: PDFViewerProps) => {
         effectiveWrapper,
         _type === InsertTypes.TEXT ? 14 : dims.height
       );
+
+      if (route.params?.pickEdocRegion) {
+        const edocDraft = require("../utils/edoc/draft");
+        const x2 = x + dims.width;
+        const y2 = y + dims.height;
+        edocDraft.setRegion({
+          page: pageNumber,
+          info: `${Math.round(x)} ${Math.round(y)} ${Math.round(x2)} ${Math.round(y2)} ${pageNumber}`,
+        });
+        navigation.goBack();
+        return;
+      }
 
       setInsertType("");
       setIsInserted(true);
@@ -707,6 +719,10 @@ const PDFViewer = (props: PDFViewerProps) => {
   }, [pinValue, showPopPin]);
 
   const handleSave = async () => {
+    if (route.params?.pickEdocRegion) {
+      Alert.alert("Vùng ký", "Khoanh vùng chữ ký rồi bấm xác nhận. Màn này chỉ chọn vùng cho tài liệu edoc.");
+      return;
+    }
     if (isVneid) {
       await handleSaveVneId();
       return;
@@ -968,9 +984,11 @@ const PDFViewer = (props: PDFViewerProps) => {
           >
             <Text style={styles.primaryBtnText}>
               {pdfArrayBuffer
-                ? isLocalSign
-                  ? "Khoanh vùng ký"
-                  : "Thiết lập vùng ký"
+                ? route.params?.pickEdocRegion
+                  ? "Khoanh vùng ký edoc"
+                  : isLocalSign
+                    ? "Khoanh vùng ký"
+                    : "Thiết lập vùng ký"
                 : "Đang chuẩn bị tài liệu..."}
             </Text>
           </TouchableOpacity>

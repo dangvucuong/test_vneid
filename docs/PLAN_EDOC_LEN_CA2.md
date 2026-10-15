@@ -8,12 +8,12 @@ Phiên edoc lấy từ `global.Email` sau khi đăng nhập CA2. Phase này khô
 
 Cập nhật dòng tương ứng thành `done` khi xong bước đó, rồi commit cùng code của bước.
 
-- [ ] edoc-client: Thêm SOAP client, REST file client và session theo global.Email + PhanloaiTK
-- [ ] edoc-list: Màn danh sách tài liệu, xem PDF, nhật ký, xóa/hoàn tác, gán danh mục
-- [ ] edoc-sign: Ký mobilesign qua hash/ghép file, từ chối và phê duyệt ảnh. Không đưa ký VNeID của edoc
-- [ ] edoc-create: Tạo một tài liệu: upload, người ký, vùng ký, gửi
-- [ ] edoc-master: Danh mục và danh bạ cho PhanloaiTK = 1
-- [ ] edoc-settings: Template vùng ký, hồ sơ và đăng ký chứng thư VNeID. Chưa làm đẩy lô
+- [x] edoc-client: Thêm SOAP client, REST file client và session theo global.Email + PhanloaiTK
+- [x] edoc-list: Màn danh sách tài liệu, xem PDF, nhật ký, xóa/hoàn tác, gán danh mục
+- [x] edoc-sign: Ký mobilesign qua hash/ghép file, từ chối và phê duyệt ảnh. Không đưa ký VNeID của edoc
+- [x] edoc-create: Tạo một tài liệu: upload, người ký, vùng ký, gửi
+- [x] edoc-master: Danh mục và danh bạ cho PhanloaiTK = 1
+- [x] edoc-settings: Template vùng ký, hồ sơ và đăng ký chứng thư VNeID. Chưa làm đẩy lô
 
 ## Hai hệ đang chạy song song
 
