@@ -13,6 +13,7 @@ interface PdfViewerProps {
     size?: { width: number; height: number },
   ) => void;
   handlePageChanged: ((page: number) => void) | undefined;
+  onError?: (error: unknown) => void;
 }
 
 const PdfViewer: React.FC<PdfViewerProps> = props => {
@@ -44,7 +45,10 @@ const PdfViewer: React.FC<PdfViewerProps> = props => {
         style={pdfStyle}
         onLoadComplete={handleLoadCompelete}
         onPageChanged={handlePageChanged}
-        onError={(error) => console.error("PDF load error:", error)}
+        onError={(error) => {
+          console.error("PDF load error:", error);
+          if (props.onError) props.onError(error);
+        }}
         trustAllCerts={Platform.OS === 'ios'}
       />
     </View>

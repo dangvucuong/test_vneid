@@ -1,6 +1,7 @@
 const soap = require("./soap");
 const files = require("./files");
 const session = require("./session");
+const localHashSign = require("../localHashSign");
 
 const TABS = [
   { key: "1", title: "Chờ ký", action: "LayDSVB_Choky", row: "DSVBchoky" },
@@ -153,67 +154,95 @@ async function markSigned(idFile, trinhTuKy, phuongThucKy) {
   return soap.resultNumber(xml, "KyVB");
 }
 
-async function signMobilesign(idFile) {
+async function signMobilesign(idFile, hooks = {}) {
+  const report = (text) => {
+    if (hooks.onStatus) hooks.onStatus(text);
+  };
   const serial = String(global.Serial || "").trim();
   if (!serial) throw new Error("Chưa có serial chứng thư trên máy. Hãy đăng nhập lại CA2.");
-  const rows = await documentDetail(idFile);
-  const row = signerRow(rows);
-  if (!row) throw new Error("Không thấy tài liệu.");
-  const setupXml = await soap.call("Laythongtinthietlapky_hash", {
-    idFile,
-    Taikhoanky: accountEmail(),
-    trinhtuky: row.trinhtuky || row.Trinhtuky || "",
-  });
-  const info = soap.scalar(setupXml, "Info");
-  const parts = String(info || "").trim().split(/\s+/).map(Number);
-  if (parts.length < 5 || parts.some((item) => Number.isNaN(item))) {
-    throw new Error("Tài liệu chưa có vùng ký.");
+  let started = false;
+  try {
+    report("Đang đọc vùng ký...");
+    const rows = await documentDetail(idFile);
+    const row = signerRow(rows);
+    if (!row) throw new Error("Không thấy tài liệu.");
+    if (String(row.Trangthaiky) === "1") throw new Error("Bạn đã ký tài liệu này.");
+    const setupXml = await soap.call("Laythongtinthietlapky_hash", {
+      idFile,
+      Taikhoanky: accountEmail(),
+      trinhtuky: row.trinhtuky || row.Trinhtuky || "",
+    });
+    const info = soap.scalar(setupXml, "Info");
+    const parts = String(info || "").trim().split(/\s+/).map(Number);
+    if (parts.length < 5 || parts.some((item) => Number.isNaN(item))) {
+      throw new Error("Tài liệu chưa có vùng ký.");
+    }
+    const signatureField = soap.scalar(setupXml, "Singnaturefield");
+    const keyHeThong = soap.scalar(setupXml, "Keyhethong");
+    const sourcePath = row.VitriluuBandau || row.Vitriluu;
+    report("Đang băm file PDF...");
+    const hashed = await files.hashPdf({
+      idFile,
+      email: accountEmail(),
+      serial,
+      sourcePath,
+      page: parts[4],
+      x1: parts[0],
+      y1: parts[1],
+      x2: parts[2],
+      y2: parts[3],
+      signatureField,
+    });
+    report("Đang gửi yêu cầu ký...");
+    localHashSign.begin((code) => {
+      if (hooks.onNotifyCode) hooks.onNotifyCode(code);
+      if (hooks.onPinRequired) hooks.onPinRequired(code);
+    });
+    started = true;
+    const codeBody = await files.requestMobileSign({
+      Serial: serial,
+      Cleartext: hashed.strhash,
+      Linkfile_goc: files.publicFileUrl(row.Vitriluu || sourcePath),
+      Email: soap.scalar(setupXml, "Email") || accountEmail(),
+      Masothue: "1",
+      Mahethong: "1",
+      Type: "PDF",
+      Keyhethong: keyHeThong,
+    });
+    const rescode = signCode(codeBody);
+    if (!rescode || rescode === "0" || rescode === "-1") {
+      throw new Error("Máy chủ không nhận yêu cầu ký.");
+    }
+    report("Nhập PIN để xác nhận. Chữ ký sẽ được ghép ngay sau đó.");
+    if (hooks.waitForPin) await hooks.waitForPin();
+    report("Đã xác thực PIN. Đang ghép chữ ký vào tài liệu...");
+    let merged;
+    try {
+      merged = await files.mergeSignature({
+        rescode,
+        tempfile: hashed.tempfile,
+        serial,
+        sourcePath,
+        signatureField,
+      });
+    } catch (error) {
+      if (String(error?.message || "").includes("Hết thời gian")) {
+        throw new Error("Hết thời gian chờ ghép chữ ký. Hãy ký lại.");
+      }
+      throw error;
+    }
+    if (merged === 0 || merged === "0" || merged === -1 || merged === "-1") {
+      throw new Error("Không ghép được chữ ký vào file.");
+    }
+    report("Đang cập nhật trạng thái văn bản...");
+    const marked = await markSigned(idFile, row.trinhtuky || row.Trinhtuky, 1);
+    if (!(marked > 0)) {
+      throw new Error("Đã ghép chữ ký nhưng chưa cập nhật được trạng thái văn bản.");
+    }
+    return marked;
+  } finally {
+    if (started) localHashSign.end();
   }
-  const signatureField = soap.scalar(setupXml, "Singnaturefield");
-  const keyHeThong = soap.scalar(setupXml, "Keyhethong");
-  const sourcePath = row.VitriluuBandau || row.Vitriluu;
-  // Tham số taikhoanky là email người ký. Web đang ghép thêm một dấu $ do template.
-  const hashed = await files.hashPdf({
-    idFile,
-    email: accountEmail(),
-    serial,
-    sourcePath,
-    page: parts[4],
-    x1: parts[0],
-    y1: parts[1],
-    x2: parts[2],
-    y2: parts[3],
-    signatureField,
-  });
-  const codeBody = await files.requestMobileSign({
-    Serial: serial,
-    Cleartext: hashed.strhash,
-    Linkfile_goc: files.publicFileUrl(row.Vitriluu || sourcePath),
-    Email: soap.scalar(setupXml, "Email") || accountEmail(),
-    Masothue: "1",
-    Mahethong: "1",
-    Type: "PDF",
-    Keyhethong: keyHeThong,
-  });
-  const rescode = signCode(codeBody);
-  if (!rescode || rescode === "0" || rescode === "-1") {
-    throw new Error("Máy chủ không nhận yêu cầu ký.");
-  }
-  const merged = await files.mergeSignature({
-    rescode,
-    tempfile: hashed.tempfile,
-    serial,
-    sourcePath,
-    signatureField,
-  });
-  if (merged === 0 || merged === "0" || merged === -1 || merged === "-1") {
-    throw new Error("Không ghép được chữ ký vào file.");
-  }
-  const marked = await markSigned(idFile, row.trinhtuky || row.Trinhtuky, 1);
-  if (!(marked > 0)) {
-    throw new Error("Đã ghép chữ ký nhưng chưa cập nhật được trạng thái văn bản.");
-  }
-  return marked;
 }
 
 async function approveWithImage(idFile, image) {
@@ -323,6 +352,7 @@ async function setMobileSignDefault() {
 async function createDocument({ file, folder, category, signers }) {
   const email = accountEmail();
   const uploaded = await files.upload(email, folder, file);
+  if (!uploaded.vitriluu) throw new Error("Máy chủ không trả vị trí lưu file.");
   const createdXml = await soap.call("TaoVB", {
     TenVBGoc: file.name || "tai-lieu.pdf",
     Vitriluu: uploaded.vitriluu,
@@ -332,43 +362,57 @@ async function createDocument({ file, folder, category, signers }) {
   });
   const idFile = soap.resultNumber(createdXml, "TaoVB");
   if (!(idFile >= 1)) throw new Error("Không tạo được tài liệu.");
+  const assignedXml = await soap.call("GanDMTailieu", {
+    Taikhoantao: email,
+    MaDM: category,
+    idFile,
+  });
+  const assigned = soap.resultNumber(assignedXml, "GanDMTailieu");
+  if (!(assigned > 0)) {
+    throw new Error("File đã tải lên nhưng chưa gán được danh mục, nên hệ thống không hiện tài liệu.");
+  }
   for (let index = 0; index < signers.length; index += 1) {
     const signer = signers[index];
+    const signerEmail = String(signer.email || "").trim();
+    const order = index + 1;
+    const method = Number(signer.hinhThuc) === 2 ? 2 : 1;
     const setupXml = await soap.call("Thietlaptaikhoanky", {
       idFile,
-      Taikhoanky: signer.email,
-      Trinhtuky: index + 1,
-      Hinhthucky: signer.hinhThuc || 1,
+      Taikhoanky: signerEmail,
+      Trinhtuky: order,
+      Hinhthucky: String(method),
       Taikhoantao: email,
     });
     const setupCode = soap.resultNumber(setupXml, "Thietlaptaikhoanky");
-    if (setupCode < 0) {
+    if (!(setupCode > 0)) {
       throw new Error(
         setupCode === -2
-          ? `${signer.email} đã có trình tự ký khác.`
-          : "Không gán được người ký."
+          ? `${signerEmail} đã có trình tự ký khác.`
+          : `Không gán được người ký ${signerEmail}.`
       );
     }
+    const info = String(signer.info || "").trim();
+    const page = signer.page || info.split(/\s+/).pop() || "1";
     const regionXml = await soap.call("Thietlapvungky", {
       idFile,
-      Taikhoanky: signer.email,
-      Trinhtuky: index + 1,
-      Hinhthucky: signer.hinhThuc || 1,
-      Trangky: signer.page || String(signer.info || "").trim().split(/\s+/).pop() || "1",
-      info: signer.info,
+      Taikhoanky: signerEmail,
+      Trinhtuky: order,
+      Hinhthucky: method,
+      Trangky: page,
+      info,
       Toadocuoi: "",
       Mamauvungky: "",
       Taikhoantao: email,
     });
     const regionCode = soap.resultNumber(regionXml, "Thietlapvungky");
-    if (!(regionCode >= 0)) throw new Error(`Không lưu được vùng ký của ${signer.email}.`);
+    if (!(regionCode > 0)) throw new Error(`Không lưu được vùng ký của ${signerEmail}.`);
   }
   const sentXml = await soap.call("GuiVB", {
     idFile,
     taikhoanthuchien: email,
   });
   const sent = soap.resultNumber(sentXml, "GuiVB");
-  if (sent < 0) throw new Error("Đã tạo tài liệu nhưng chưa gửi được.");
+  if (!(sent > 0)) throw new Error("Đã tạo tài liệu nhưng chưa gửi được cho người ký.");
   return idFile;
 }
 

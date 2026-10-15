@@ -14,6 +14,21 @@ Cập nhật dòng tương ứng thành `done` khi xong bước đó, rồi comm
 - [x] edoc-create: Tạo một tài liệu: upload, người ký, vùng ký, gửi
 - [x] edoc-master: Danh mục và danh bạ cho PhanloaiTK = 1
 - [x] edoc-settings: Template vùng ký, hồ sơ và đăng ký chứng thư VNeID. Chưa làm đẩy lô
+- [x] edoc-upload: Upload bằng blob-util, gán `GanDMTailieu`, chỉ gửi khi thiết lập người ký, vùng ký và `GuiVB` đều > 0
+- [x] edoc-view: Tải PDF về máy rồi xem, vì URL `GetFile` bị mã hóa hai lần trong `react-native-pdf`
+- [x] edoc-pin: Ký mobilesign ngay trên màn tài liệu, nhập PIN rồi mới ghép chữ ký
+- [x] edoc-after-sign: Sau khi ký chỉ xem file đã ký, ẩn ký mobilesign, phê duyệt ảnh và từ chối
+- [x] edoc-ui: Header chung, danh sách gọn, màn tạo tài liệu theo ba bước
+
+## Đã chỉnh sau khi chạy trên điện thoại
+
+Các mục trên đã chạy được với tài khoản edoc có sẵn. Phần dưới là các chỗ phải sửa thêm để cả quy trình tạo, xem và ký chạy trên máy.
+
+- Upload một file PDF bằng `react-native-blob-util`, kèm tên file thật. ASP.NET `Request.Files` trả `kq=-1` ("Không thấy file") nếu tên file rỗng. Sau `TaoVB` gọi `GanDMTailieu`, vì danh sách web và app chỉ đọc `v_VBChitiet_cn` theo email được gán. `Thietlaptaikhoanky`, `Thietlapvungky` và `GuiVB` chỉ được tính thành công khi kết quả lớn hơn 0.
+- Xem tài liệu: `files.downloadPdf` tải `GetFile` vào cache rồi mở `file://`. Không đưa URL đã `encodeURIComponent` vào `Pdf.tsx`, vì component gọi `encodeURI` thêm một lần và máy chủ không tìm thấy file.
+- Ký mobilesign ở lại `EdocDetail`. Trước `Guiyeucauky_Mobilesign`, bật `localHashSign` để thông báo `key=2` của yêu cầu này không mở popup hộp thư cũ và không rời màn. Ô PIN hiện trên chính màn tài liệu. Xác nhận PIN gọi `Ky_Mobilesign` với `Code` lấy từ danh sách chờ ký, `global.UUID` và `global.id` hoặc `global.idcts`. PIN đúng rồi mới gọi `GhepCKY`. Đóng ô PIN thì hủy. Thông báo ký từ nguồn khác vẫn đi luồng hộp thư cũ.
+- Sau khi ghép xong, tải lại PDF đã ký và ẩn nút Ký mobilesign, Phê duyệt bằng ảnh, Từ chối. Mở lại tài liệu có `Trangthaiky = 1` của người đang đăng nhập cũng chỉ còn file và nhật ký.
+- Giao diện edoc dùng header chung. Danh sách là thẻ, nút thao tác gọn. Tạo tài liệu chia ba bước: chọn PDF, chọn thư mục và danh mục, chọn người ký rồi khoanh vùng. Nút gửi nằm cố định phía dưới.
 
 ## Hai hệ đang chạy song song
 

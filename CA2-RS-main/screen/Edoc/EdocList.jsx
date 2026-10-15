@@ -121,42 +121,52 @@ export default function EdocList({ navigation }) {
     }
   };
 
+  const openDetail = (item) => {
+    navigation.navigate("EdocDetail", {
+      idFile: item.idFile,
+      vitriluu: item.Vitriluu,
+      title: item.TenVBGoc,
+    });
+  };
+
   return (
-    <Screen title="Danh sách tài liệu" onBack={() => navigation.goBack()}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ maxHeight: 52 }}>
-        <View style={{ flexDirection: "row", padding: 10, gap: 8 }}>
+    <Screen title="Danh sách tài liệu" subtitle="Chạm vào tài liệu để xem và ký" onBack={() => navigation.goBack()}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ maxHeight: 58, backgroundColor: "#fff" }}>
+        <View style={{ flexDirection: "row", paddingHorizontal: 12, paddingVertical: 10 }}>
           {documents.TABS.map((item) => (
             <TouchableOpacity
               key={item.key}
               onPress={() => setTab(item.key)}
               style={{
-                backgroundColor: tab === item.key ? colors.blue : "#fff",
-                borderRadius: 16,
-                paddingHorizontal: 12,
+                backgroundColor: tab === item.key ? colors.navy : colors.blueSoft,
+                borderRadius: 999,
+                paddingHorizontal: 14,
                 paddingVertical: 8,
+                marginRight: 8,
               }}
             >
-              <Text style={{ color: tab === item.key ? "#fff" : colors.text }}>{item.title}</Text>
+              <Text style={{ color: tab === item.key ? "#fff" : colors.navy, fontWeight: "700" }}>{item.title}</Text>
             </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
-      <View style={{ paddingHorizontal: 16, paddingBottom: 8 }}>
+      <View style={{ paddingHorizontal: 16, paddingTop: 12, paddingBottom: 8 }}>
         <TextInput
           value={keyword}
           onChangeText={setKeyword}
           placeholder="Tìm theo tên hoặc email"
-          style={{ backgroundColor: "#fff", borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10 }}
+          placeholderTextColor="#98A2B3"
+          style={{ backgroundColor: "#fff", borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, borderWidth: 1, borderColor: "#E6EAF0" }}
         />
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ maxHeight: 44 }}>
-        <View style={{ flexDirection: "row", paddingHorizontal: 16, gap: 8 }}>
-          <TouchableOpacity onPress={() => setCategory("")}>
-            <Text style={{ color: category ? colors.muted : colors.blue }}>Tất cả danh mục</Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ maxHeight: 36 }}>
+        <View style={{ flexDirection: "row", paddingHorizontal: 16 }}>
+          <TouchableOpacity onPress={() => setCategory("")} style={{ marginRight: 14 }}>
+            <Text style={{ color: category ? colors.muted : colors.blue, fontWeight: "700" }}>Tất cả</Text>
           </TouchableOpacity>
           {categories.map((item) => (
-            <TouchableOpacity key={String(item.MaDM)} onPress={() => setCategory(String(item.MaDM))}>
-              <Text style={{ color: String(category) === String(item.MaDM) ? colors.blue : colors.muted }}>
+            <TouchableOpacity key={String(item.MaDM)} onPress={() => setCategory(String(item.MaDM))} style={{ marginRight: 14 }}>
+              <Text style={{ color: String(category) === String(item.MaDM) ? colors.blue : colors.muted, fontWeight: "600" }}>
                 {item.TenDM}
               </Text>
             </TouchableOpacity>
@@ -164,32 +174,35 @@ export default function EdocList({ navigation }) {
         </View>
       </ScrollView>
       {loading ? (
-        <Loading />
+        <Loading label="Đang tải danh sách" />
       ) : (
         <FlatList
           data={filtered}
           keyExtractor={(item) => String(item.IDThietlap || item.idFile)}
           style={{ flex: 1 }}
-          contentContainerStyle={{ padding: 16 }}
+          contentContainerStyle={{ padding: 16, paddingBottom: 28 }}
           ListEmptyComponent={<Empty text="Không có tài liệu trong mục này." />}
           refreshing={loading}
           onRefresh={() => load(tab)}
           renderItem={({ item }) => (
-            <Card onPress={() => navigation.navigate("EdocDetail", { idFile: item.idFile })}>
-              <Text style={{ fontWeight: "700", color: colors.text }}>{item.TenVBGoc || "Tài liệu"}</Text>
-              <Text style={{ color: colors.muted, marginTop: 4 }}>
-                Tạo: {item.Taikhoantao || "—"} · Ký: {item.Taikhoanky || "—"}
+            <Card onPress={() => openDetail(item)}>
+              <Text style={{ fontWeight: "700", color: colors.text, fontSize: 16 }}>{item.TenVBGoc || "Tài liệu"}</Text>
+              <Text style={{ color: colors.muted, marginTop: 6 }}>
+                Tạo: {item.Taikhoantao || "—"}
               </Text>
-              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
-                <Button label="Xem" onPress={() => navigation.navigate("EdocDetail", { idFile: item.idFile })} />
+              <Text style={{ color: colors.muted, marginTop: 2 }}>
+                Ký: {item.Taikhoanky || "—"}
+              </Text>
+              <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 12 }}>
+                <Button compact label="Mở" icon="eye-outline" onPress={() => openDetail(item)} />
                 {tab === "6" ? (
-                  <Button label="Hoàn tác" tone="ghost" onPress={() => restore(item)} />
+                  <Button compact label="Hoàn tác" tone="ghost" onPress={() => restore(item)} />
                 ) : (
-                  <Button label="Xóa" tone="danger" onPress={() => confirmRemove(item)} />
+                  <Button compact label="Xóa" tone="danger-ghost" onPress={() => confirmRemove(item)} />
                 )}
-                <Button label="Danh mục" tone="ghost" onPress={() => setAssigning(item)} />
-                <Button label="Gửi mail" tone="ghost" onPress={() => { setMailFor(item); setMail(""); }} />
-                <Button label="Xác thực" tone="ghost" onPress={() => verify(item)} />
+                <Button compact label="Danh mục" tone="ghost" onPress={() => setAssigning(item)} />
+                <Button compact label="Gửi mail" tone="ghost" onPress={() => { setMailFor(item); setMail(""); }} />
+                <Button compact label="Xác thực" tone="ghost" onPress={() => verify(item)} />
               </View>
             </Card>
           )}

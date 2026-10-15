@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
-import { Alert, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Text, TouchableOpacity, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import * as DocumentPicker from "expo-document-picker";
 import { useFocusEffect } from "@react-navigation/native";
 import documents from "../../utils/edoc/documents";
@@ -7,7 +8,7 @@ import files from "../../utils/edoc/files";
 import draft from "../../utils/edoc/draft";
 import templates from "../../utils/edoc/templates";
 import session from "../../utils/edoc/session";
-import { Button, Field, FormScroll, Loading, Screen, colors } from "./ui";
+import { Field, FormScroll, Screen, colors } from "./ui";
 
 const emptySigner = () => ({
   email: "",
@@ -16,6 +17,42 @@ const emptySigner = () => ({
   info: "",
   page: "1",
 });
+
+function Section({ step, title, children }) {
+  return (
+    <View style={{ marginBottom: 18 }}>
+      <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 10 }}>
+        <View style={{ width: 26, height: 26, borderRadius: 13, backgroundColor: colors.navy, alignItems: "center", justifyContent: "center", marginRight: 8 }}>
+          <Text style={{ color: "#fff", fontWeight: "700", fontSize: 13 }}>{step}</Text>
+        </View>
+        <Text style={{ color: colors.text, fontWeight: "700", fontSize: 16 }}>{title}</Text>
+      </View>
+      {children}
+    </View>
+  );
+}
+
+function Chip({ label, selected, onPress }) {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        backgroundColor: selected ? colors.navy : "#fff",
+        borderColor: selected ? colors.navy : "#D6E2F5",
+        borderWidth: 1,
+        borderRadius: 999,
+        paddingHorizontal: 14,
+        paddingVertical: 8,
+        marginRight: 8,
+        marginBottom: 8,
+      }}
+    >
+      <Text style={{ color: selected ? "#fff" : colors.navy, fontWeight: "600" }} numberOfLines={1}>
+        {label}
+      </Text>
+    </TouchableOpacity>
+  );
+}
 
 export default function EdocCreate({ navigation }) {
   const [file, setFile] = useState(null);
@@ -102,7 +139,9 @@ export default function EdocCreate({ navigation }) {
     if (!file) return Alert.alert("Thiếu file", "Chọn một file PDF.");
     if (!folder) return Alert.alert("Thiếu thư mục", "Chọn thư mục lưu.");
     if (!category) return Alert.alert("Thiếu danh mục", "Hãy tạo danh mục trước khi tạo tài liệu.");
-    const ready = signers.filter((item) => item.email && item.info);
+    const ready = signers
+      .map((item) => ({ ...item, email: String(item.email || "").trim() }))
+      .filter((item) => item.email && item.info);
     if (!ready.length) return Alert.alert("Thiếu người ký", "Chọn người ký và khoanh vùng ký.");
     setBusy(true);
     try {
@@ -121,81 +160,162 @@ export default function EdocCreate({ navigation }) {
     }
   };
 
+  const readyCount = signers.filter((item) => item.email && item.info).length;
+
   return (
-    <Screen title="Tạo một tài liệu" onBack={() => navigation.goBack()}>
-      <FormScroll>
-        <Button label={file ? file.name : "Chọn file PDF"} onPress={pickFile} />
-        <Text style={{ marginTop: 16, fontWeight: "700", color: colors.text }}>Thư mục</Text>
-        <View style={{ gap: 8, marginVertical: 8 }}>
-          {folders.map((item) => (
-            <Button key={item} label={item} tone={folder === item ? undefined : "ghost"} onPress={() => setFolder(item)} />
-          ))}
-          {folders.length === 0 ? <Text style={{ color: colors.muted }}>Chưa có thư mục.</Text> : null}
+    <Screen
+      title="Tạo tài liệu"
+      subtitle="Một file PDF, người ký và vùng ký"
+      onBack={() => navigation.goBack()}
+      footer={(
+        <View style={{ paddingHorizontal: 16, paddingTop: 8, paddingBottom: 16, backgroundColor: "#fff", borderTopWidth: 1, borderTopColor: "#EEF2F6" }}>
+          <TouchableOpacity
+            onPress={send}
+            disabled={busy}
+            style={{
+              backgroundColor: colors.blue,
+              borderRadius: 14,
+              paddingVertical: 14,
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row",
+              opacity: busy ? 0.6 : 1,
+            }}
+          >
+            {busy ? <ActivityIndicator color="#fff" style={{ marginRight: 8 }} /> : (
+              <Ionicons name="send" size={16} color="#fff" style={{ marginRight: 8 }} />
+            )}
+            <Text style={{ color: "#fff", fontWeight: "700", fontSize: 16 }}>
+              {busy ? "Đang gửi..." : "Gửi tài liệu"}
+            </Text>
+          </TouchableOpacity>
+          <Text style={{ color: colors.muted, textAlign: "center", marginTop: 8, fontSize: 12 }}>
+            {readyCount ? `${readyCount} người ký đã đủ thông tin` : "Cần file, danh mục, email và vùng ký"}
+          </Text>
         </View>
-        <Text style={{ fontWeight: "700", color: colors.text }}>Danh mục</Text>
-        <View style={{ gap: 8, marginVertical: 8 }}>
-          {groups.map((item) => (
-            <Button
-              key={String(item.MaDM)}
-              label={item.TenDM}
-              tone={String(category) === String(item.MaDM) ? undefined : "ghost"}
-              onPress={() => setCategory(String(item.MaDM))}
-            />
-          ))}
+      )}
+    >
+      <FormScroll>
+        <Section step="1" title="Tệp PDF">
+          <TouchableOpacity
+            onPress={pickFile}
+            style={{
+              backgroundColor: "#fff",
+              borderRadius: 16,
+              borderWidth: 1,
+              borderColor: file ? "#B7E4C7" : "#D6E2F5",
+              borderStyle: file ? "solid" : "dashed",
+              padding: 16,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <View style={{ width: 44, height: 44, borderRadius: 12, backgroundColor: file ? "#ECFDF3" : colors.blueSoft, alignItems: "center", justifyContent: "center", marginRight: 12 }}>
+              <Ionicons name={file ? "checkmark-circle" : "document-attach-outline"} size={22} color={file ? colors.ok : colors.blue} />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={{ color: colors.text, fontWeight: "700" }} numberOfLines={2}>
+                {file ? file.name : "Chọn file PDF"}
+              </Text>
+              <Text style={{ color: colors.muted, marginTop: 2 }}>
+                {file ? "Bấm để chọn file khác" : "Chỉ một file, định dạng PDF"}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </Section>
+
+        <Section step="2" title="Nơi lưu">
+          <Text style={{ color: colors.muted, marginBottom: 8, fontWeight: "600" }}>Thư mục</Text>
+          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+            {folders.map((item) => (
+              <Chip key={item} label={item} selected={folder === item} onPress={() => setFolder(item)} />
+            ))}
+          </View>
+          {folders.length === 0 ? <Text style={{ color: colors.muted }}>Chưa có thư mục.</Text> : null}
+          <Text style={{ color: colors.muted, marginTop: 8, marginBottom: 8, fontWeight: "600" }}>Danh mục</Text>
+          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+            {groups.map((item) => (
+              <Chip
+                key={String(item.MaDM)}
+                label={item.TenDM}
+                selected={String(category) === String(item.MaDM)}
+                onPress={() => setCategory(String(item.MaDM))}
+              />
+            ))}
+          </View>
           {groups.length === 0 ? (
             <Text style={{ color: colors.muted }}>Chưa có danh mục. Hãy tạo ở mục Danh mục.</Text>
           ) : null}
-        </View>
-        {samples.length ? (
-          <View style={{ gap: 8, marginBottom: 12 }}>
-            <Text style={{ fontWeight: "700", color: colors.text }}>Áp mẫu vùng ký</Text>
-            {samples.map((item) => (
-              <Button key={String(item.idTemplate || item.ten)} label={item.ten} tone="ghost" onPress={() => applyTemplate(item)} />
-            ))}
-          </View>
-        ) : null}
-        <Text style={{ fontWeight: "700", color: colors.text }}>Người ký</Text>
-        {signers.map((signer, index) => (
-          <View key={String(index)} style={{ backgroundColor: "#fff", borderRadius: 10, padding: 12, marginTop: 10 }}>
-            <Text style={{ color: colors.muted, marginBottom: 8 }}>Thứ tự {index + 1}</Text>
-            {book.map((contact) => (
-              <Button
-                key={String(contact.idDanhba || contact.TaikhoanDB)}
-                label={contact.HotenTKDB ? `${contact.HotenTKDB} · ${contact.TaikhoanDB}` : contact.TaikhoanDB}
-                tone={signer.email === contact.TaikhoanDB ? undefined : "ghost"}
-                onPress={() => updateSigner(index, { email: contact.TaikhoanDB, hoten: contact.HotenTKDB || "" })}
-              />
-            ))}
-            <Field label="Hoặc nhập email" value={signer.email} onChangeText={(email) => updateSigner(index, { email })} />
-            <View style={{ flexDirection: "row", gap: 8 }}>
-              <View style={{ flex: 1 }}>
-                <Button
-                  label="Mobilesign"
-                  tone={Number(signer.hinhThuc) === 1 ? undefined : "ghost"}
-                  onPress={() => updateSigner(index, { hinhThuc: 1 })}
-                />
-              </View>
-              <View style={{ flex: 1 }}>
-                <Button
-                  label="USB token"
-                  tone={Number(signer.hinhThuc) === 2 ? undefined : "ghost"}
-                  onPress={() => updateSigner(index, { hinhThuc: 2 })}
-                />
+          {samples.length ? (
+            <View style={{ marginTop: 8 }}>
+              <Text style={{ color: colors.muted, marginBottom: 8, fontWeight: "600" }}>Mẫu vùng ký</Text>
+              <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                {samples.map((item) => (
+                  <Chip key={String(item.idTemplate || item.ten)} label={item.ten} onPress={() => applyTemplate(item)} />
+                ))}
               </View>
             </View>
-            <Text style={{ color: colors.muted, marginVertical: 8 }}>
-              {signer.info ? `Vùng ký: ${signer.info}` : "Chưa khoanh vùng ký."}
-            </Text>
-            <Button label="Khoanh vùng trên PDF" tone="ghost" onPress={() => pickRegion(index)} />
-          </View>
-        ))}
-        <View style={{ height: 10 }} />
-        <Button label="Thêm người ký" tone="ghost" onPress={() => setSigners((current) => [...current, emptySigner()])} />
-        <View style={{ height: 16 }} />
-        {busy ? <Loading /> : <Button label="Tải lên và gửi" onPress={send} disabled={busy} />}
-        <Text style={{ color: colors.muted, marginTop: 8 }}>
-          USB token chỉ ký trên web. Người ký chọn token vẫn được ghi nhận, còn máy này ký edoc bằng mobilesign.
-        </Text>
+          ) : null}
+        </Section>
+
+        <Section step="3" title="Người ký">
+          {signers.map((signer, index) => (
+            <View key={String(index)} style={{ backgroundColor: "#fff", borderRadius: 16, padding: 14, marginBottom: 12, borderWidth: 1, borderColor: "#EEF2F6" }}>
+              <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 10 }}>
+                <Text style={{ flex: 1, color: colors.text, fontWeight: "700" }}>Thứ tự {index + 1}</Text>
+                {signers.length > 1 ? (
+                  <TouchableOpacity onPress={() => setSigners((current) => current.filter((_, itemIndex) => itemIndex !== index))}>
+                    <Text style={{ color: colors.danger, fontWeight: "600" }}>Bỏ</Text>
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+              {book.length ? (
+                <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                  {book.map((contact) => (
+                    <Chip
+                      key={String(contact.idDanhba || contact.TaikhoanDB)}
+                      label={contact.HotenTKDB || contact.TaikhoanDB}
+                      selected={signer.email === contact.TaikhoanDB}
+                      onPress={() => updateSigner(index, { email: contact.TaikhoanDB, hoten: contact.HotenTKDB || "" })}
+                    />
+                  ))}
+                </View>
+              ) : null}
+              <Field
+                label="Email người ký"
+                value={signer.email}
+                onChangeText={(email) => updateSigner(index, { email })}
+                placeholder="ten@email.com"
+              />
+              <Text style={{ color: colors.muted, marginBottom: 8, fontWeight: "600" }}>Cách ký</Text>
+              <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                <Chip label="Mobilesign" selected={Number(signer.hinhThuc) === 1} onPress={() => updateSigner(index, { hinhThuc: 1 })} />
+                <Chip label="USB token" selected={Number(signer.hinhThuc) === 2} onPress={() => updateSigner(index, { hinhThuc: 2 })} />
+              </View>
+              <Text style={{ color: colors.muted, fontSize: 12, marginBottom: 10 }}>
+                USB token chỉ ký trên web. Trên máy này tài liệu được ký bằng mobilesign.
+              </Text>
+              <View style={{ backgroundColor: signer.info ? "#ECFDF3" : "#F8FAFC", borderRadius: 12, padding: 12 }}>
+                <Text style={{ color: signer.info ? colors.ok : colors.muted, fontWeight: "600" }}>
+                  {signer.info ? `Đã khoanh vùng · trang ${signer.page || "1"}` : "Chưa khoanh vùng ký"}
+                </Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => pickRegion(index)}
+                style={{ marginTop: 10, borderRadius: 12, borderWidth: 1, borderColor: "#D6E2F5", paddingVertical: 12, alignItems: "center", flexDirection: "row", justifyContent: "center" }}
+              >
+                <Ionicons name="crop-outline" size={16} color={colors.blue} style={{ marginRight: 6 }} />
+                <Text style={{ color: colors.blue, fontWeight: "700" }}>Khoanh vùng trên PDF</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+          <TouchableOpacity
+            onPress={() => setSigners((current) => [...current, emptySigner()])}
+            style={{ borderRadius: 12, borderWidth: 1, borderColor: "#D6E2F5", backgroundColor: "#fff", paddingVertical: 12, alignItems: "center" }}
+          >
+            <Text style={{ color: colors.blue, fontWeight: "700" }}>Thêm người ký</Text>
+          </TouchableOpacity>
+        </Section>
       </FormScroll>
     </Screen>
   );

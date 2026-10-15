@@ -62,26 +62,73 @@ async function getFolders(email) {
   return Array.isArray(data) ? data.map((item) => String(item)) : [];
 }
 
+function safeUploadName(name) {
+  const base = String(name || "tai-lieu.pdf").split(/[/\\]/).pop();
+  const cleaned = base.replace(/[^\w.\-]+/g, "_").replace(/_+/g, "_");
+  return /\.pdf$/i.test(cleaned) ? cleaned : `${cleaned || "tai-lieu"}.pdf`;
+}
+
+function localPath(uri) {
+  const value = decodeURI(String(uri || ""));
+  if (value.startsWith("file://")) return value.slice("file://".length);
+  return value;
+}
+
 async function upload(email, folder, file) {
+  const ReactNativeBlobUtil = require("react-native-blob-util").default;
+  const FileSystem = require("expo-file-system");
+  const filename = safeUploadName(file.name);
+  const dest = `${FileSystem.cacheDirectory}edoc-upload-${Date.now()}-${filename}`;
+  await FileSystem.copyAsync({ from: file.uri, to: dest });
   const url = `${API_BASE}/api/data/Upload?taikhoan=${encodeURIComponent(email)}&thumucluu=${encodeURIComponent(folder)}`;
-  const body = new FormData();
-  body.append("file", {
-    uri: file.uri,
-    name: file.name || "tai-lieu.pdf",
-    type: file.type || "application/pdf",
-  });
-  const response = await fetch(url, { method: "POST", body });
-  const data = await readBody(response);
-  if (!response.ok) throw new Error("Không tải được file lên");
+  const response = await ReactNativeBlobUtil.fetch(
+    "POST",
+    url,
+    { "Content-Type": "multipart/form-data" },
+    [
+      {
+        name: "file",
+        filename,
+        type: "application/pdf",
+        data: ReactNativeBlobUtil.wrap(localPath(dest)),
+      },
+    ]
+  );
+  const status = response.info().status;
+  const raw = await Promise.resolve(response.text());
+  let data = raw;
+  try {
+    data = JSON.parse(raw);
+  } catch (error) {
+    data = raw;
+  }
+  if (status < 200 || status >= 300) {
+    throw new Error("Không tải được file lên");
+  }
   const result = Array.isArray(data) ? data[0] : data;
-  if (!result || Number(result.kq) !== 1) {
-    throw new Error("Máy chủ không nhận file");
+  if (!result || Number(result.kq) !== 1 || !result.sourcefile) {
+    throw new Error(result?.Mota || "Máy chủ không nhận file");
   }
   return {
-    sourcefile: result.sourcefile || "",
+    sourcefile: result.sourcefile,
     linkFile: result.Linkfile || result.LinkFile || "",
-    vitriluu: extractFileSourcePath(result.sourcefile || result.Linkfile || ""),
+    vitriluu: extractFileSourcePath(result.sourcefile),
   };
+}
+
+async function downloadPdf(vitriluu) {
+  const ReactNativeBlobUtil = require("react-native-blob-util").default;
+  const url = getFileUrl(vitriluu);
+  const dest = `${ReactNativeBlobUtil.fs.dirs.CacheDir}/edoc-view-${Date.now()}.pdf`;
+  const response = await ReactNativeBlobUtil.config({ path: dest }).fetch("GET", url);
+  const status = response.info().status;
+  if (status < 200 || status >= 300) {
+    throw new Error("Không tải được nội dung PDF.");
+  }
+  const path = response.path();
+  const info = await ReactNativeBlobUtil.fs.stat(path);
+  if (Number(info.size) < 5) throw new Error("File PDF rỗng.");
+  return path.startsWith("file://") ? path : `file://${path}`;
 }
 
 async function verifySignature(vitriluu) {
@@ -166,6 +213,7 @@ module.exports = {
   getFileUrl,
   getFolders,
   upload,
+  downloadPdf,
   verifySignature,
   hashPdf,
   mergeSignature,
