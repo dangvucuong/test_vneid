@@ -47,7 +47,7 @@ async function getCertificate(userId, serialNumber, fallbackUserId) {
   }
   const userIds = [...new Set([digitsOnly(userId), digitsOnly(fallbackUserId)].filter(Boolean))];
   if (!userIds.length) {
-    throw new Error("Nhập CCCD hoặc mã số thuế đã đăng ký trên CA2 RS.");
+    throw new Error("Tài khoản chưa có CCCD hoặc mã số thuế đã đăng ký trên CA2 RS.");
   }
   let lastMessage = "Không có dữ liệu trong hệ thống";
   for (const currentUserId of userIds) {

@@ -13,6 +13,7 @@ import { IMAGE_GROUP } from "../../utils/constant";
 import { useI18n } from "../../utils/i18n";
 import { SafeAreaView } from "react-native-safe-area-context";
 import NetInfo from "@react-native-community/netinfo";
+import { isActivationRouteLocked } from "../../utils/activationCode";
 
 const SlideItem = ({ item }) => {
   return (
@@ -62,6 +63,7 @@ export default function Start2({ navigation }) {
   const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     AsyncStorage.getItem("@startscreen").then((value) => {
+      if (isActivationRouteLocked()) return;
       if (value == "0") {
         navigation.navigate("StartLogin");
       }
@@ -116,7 +118,7 @@ export default function Start2({ navigation }) {
                   .then((responseJson) => {
                     var res1 = JSON.stringify(responseJson);
                     console.log(res1);
-                    if (res1 === "1") {
+                    if (res1 === "1" && !isActivationRouteLocked()) {
                       navigation.navigate("Login");
                     }
                   })

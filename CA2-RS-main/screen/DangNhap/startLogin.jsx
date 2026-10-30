@@ -14,6 +14,7 @@ import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
 import DefaultPreference from "react-native-default-preference";
+import { isActivationRouteLocked } from "../../utils/activationCode";
 import { i18n } from "../../utils/i18n";
 import { AppStyle } from "../../styles";
 
@@ -188,6 +189,7 @@ export default function StartLogin({ navigation, route }) {
                 .then((responseJson) => {
                   var res1 = JSON.stringify(responseJson);
                   console.log(res1);
+                  if (isActivationRouteLocked()) return;
                   if (res1 === "1") {
                     navigation.navigate("Login");
                   } else {
@@ -197,7 +199,7 @@ export default function StartLogin({ navigation, route }) {
                 .catch((error) => {
                   console.error(error);
                 });
-            } else {
+            } else if (!isActivationRouteLocked()) {
               navigation.navigate("Kichhoat");
               //alert('Chua co id');
             }

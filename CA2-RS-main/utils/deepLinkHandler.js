@@ -1,13 +1,28 @@
 import * as Linking from "expo-linking";
 import * as RootNavigation from "../screen/RootNavigation";
+import {
+  codeFromActivateUrl,
+  isDeviceActivated,
+  lockActivationRoute,
+  setSessionActivationCode,
+} from "./activationCode";
+
+export function isActivateUrl(url) {
+  if (!url) return false;
+  try {
+    return normalizeDeepLinkPath(url) === "/activate";
+  } catch (error) {
+    return false;
+  }
+}
 
 export const LINKING_CONFIG = {
   prefixes: ["apprs://", "https://applink.nacencomm.vn"],
+  filter: (url) => !isActivateUrl(url),
   config: {
     screens: {
       Start2: "",
       Login: "login",
-      Kichhoat: "activate",
       HomeWrapper: {
         path: "app",
         screens: {
@@ -34,7 +49,6 @@ export function isLinkingHandledPath(path) {
   return (
     path === "/" ||
     path === "/login" ||
-    path === "/activate" ||
     path === "/app/home" ||
     path === "/app/account" ||
     path === "/sign-batch" ||
@@ -51,7 +65,7 @@ export function shouldHandleDeepLinkManually(url) {
     const path = normalizeDeepLinkPath(url);
     if (isLinkingHandledPath(path)) return false;
     return path === "/callback" || path.startsWith("/callback/") || path === "/home";
-  } catch {
+  } catch (error) {
     return false;
   }
 }
@@ -64,7 +78,7 @@ export function handleDeepLink(url) {
     const urlObj = new URL(normalized);
     const path = urlObj.pathname.replace(/\/$/, "") || "/";
 
-    if (isLinkingHandledPath(path)) return;
+    if (isLinkingHandledPath(path) || path === "/activate") return;
 
     if (path === "/callback") {
       const token = urlObj.searchParams.get("token");
@@ -94,10 +108,73 @@ export function handleDeepLink(url) {
   }
 }
 
+let queuedUrl = null;
+let readyTimer = null;
+let activateRequest = 0;
+
+function ensureFlush() {
+  if (RootNavigation.navigationRef.isReady()) {
+    flushQueuedDeepLink();
+    return;
+  }
+  if (readyTimer) return;
+  const started = Date.now();
+  readyTimer = setInterval(() => {
+    if (RootNavigation.navigationRef.isReady() || Date.now() - started > 5000) {
+      clearInterval(readyTimer);
+      readyTimer = null;
+      flushQueuedDeepLink();
+    }
+  }, 50);
+}
+
+export function flushQueuedDeepLink() {
+  if (!queuedUrl || !RootNavigation.navigationRef.isReady()) return;
+  const url = queuedUrl;
+  queuedUrl = null;
+  dispatchUrl(url);
+}
+
+function dispatchUrl(url) {
+  if (!url) return;
+  if (!RootNavigation.navigationRef.isReady()) {
+    queuedUrl = url;
+    ensureFlush();
+    return;
+  }
+  if (isActivateUrl(url)) {
+    openActivationFromUrl(url);
+    return;
+  }
+  if (shouldHandleDeepLinkManually(url)) {
+    handleDeepLink(url);
+  }
+}
+
+async function openActivationFromUrl(url) {
+  const requestId = ++activateRequest;
+  const code = codeFromActivateUrl(url);
+  const activated = await isDeviceActivated();
+  if (requestId !== activateRequest) return;
+  if (!RootNavigation.navigationRef.isReady()) {
+    queuedUrl = url;
+    ensureFlush();
+    return;
+  }
+  if (activated) return;
+  if (code) setSessionActivationCode(code);
+  lockActivationRoute();
+  RootNavigation.navigationRef.navigate(
+    "Kichhoat",
+    code ? { c: code } : undefined
+  );
+}
+
 export function setupDeepLinkListeners() {
   const processUrl = (url) => {
-    if (shouldHandleDeepLinkManually(url)) {
-      handleDeepLink(url);
+    if (!url) return;
+    if (isActivateUrl(url) || shouldHandleDeepLinkManually(url)) {
+      dispatchUrl(url);
     }
   };
 
@@ -109,5 +186,11 @@ export function setupDeepLinkListeners() {
     processUrl(url);
   });
 
-  return () => subscription.remove();
+  return () => {
+    subscription.remove();
+    if (readyTimer) {
+      clearInterval(readyTimer);
+      readyTimer = null;
+    }
+  };
 }

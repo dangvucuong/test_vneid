@@ -9,9 +9,19 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  captureInstallReferrerOnce,
+  clearStoredActivationCode,
+  getSessionActivationCode,
+  isActivationPrefillEnabled,
+  resolveActivationCode,
+  readPendingActivationCode,
+  setSessionActivationCode,
+} from "../../utils/activationCode";
 import { i18n } from "../../utils/i18n";
 import { AppStyle, KichHoatStyle, StartStyle } from "../../styles";
 import PageHeader from "../component/PageHeader";
@@ -32,6 +42,35 @@ export default function Kichhoat({ navigation, route }) {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [text, setText] = useState("");
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!isActivationPrefillEnabled()) return undefined;
+      let active = true;
+      const paramCode = resolveActivationCode(route?.params?.c);
+      if (paramCode) {
+        setSessionActivationCode(paramCode);
+        setText(paramCode);
+        return undefined;
+      }
+      const sessionCode = getSessionActivationCode();
+      if (sessionCode) {
+        setText(sessionCode);
+        return undefined;
+      }
+      captureInstallReferrerOnce().then(() => {
+        if (!active || !isActivationPrefillEnabled() || getSessionActivationCode()) {
+          return null;
+        }
+        return readPendingActivationCode();
+      }).then((pendingCode) => {
+        if (active && pendingCode) setText(pendingCode);
+      });
+      return () => {
+        active = false;
+      };
+    }, [route?.params?.c])
+  );
 
   const updateError = (error, stateUpdater) => {
     stateUpdater(error);
@@ -74,6 +113,8 @@ export default function Kichhoat({ navigation, route }) {
                 global.idcts = text;
                 // Setkey('@idcts',idcts);
                 await AsyncStorage.setItem("@idcts", text);
+                await clearStoredActivationCode();
+                setText("");
                 setLoading(false);
                 navigation.navigate("OTP");
               } else if (responseJson == "0") {
@@ -171,6 +212,7 @@ export default function Kichhoat({ navigation, route }) {
             <TextInput
               style={style.input}
               keyboardType="number-pad"
+              value={text}
               onChangeText={(newText) => setText(newText)}
               placeholder={i18n.t("kich_hoat.placeholder")}
             />

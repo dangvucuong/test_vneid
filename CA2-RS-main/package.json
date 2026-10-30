@@ -81,6 +81,7 @@
     "react-native-nfc-manager": "^3.14.13",
     "react-native-pager-view": "^6.1.2",
     "react-native-pdf": "^6.6.2",
+    "react-native-play-install-referrer": "^2.0.1",
     "react-native-push-notification": "^8.1.1",
     "react-native-push-notification-popup": "^1.6.1",
     "react-native-radio-buttons-group": "^2.3.2",

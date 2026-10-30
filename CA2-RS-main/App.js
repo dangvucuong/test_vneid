@@ -48,8 +48,10 @@ import * as Localization from "expo-localization";
 import { I18n } from "i18n-js";
 import {
   LINKING_CONFIG,
+  flushQueuedDeepLink,
   setupDeepLinkListeners,
 } from "./utils/deepLinkHandler";
+import { captureInstallReferrerOnce } from "./utils/activationCode";
 import {
   checkSessionOnForeground,
   onAppBackground,
@@ -273,6 +275,7 @@ export default function App({ }) {
 
 
   useEffect(() => {
+    captureInstallReferrerOnce();
     return setupDeepLinkListeners();
   }, []);
   useEffect(() => {
@@ -1045,7 +1048,11 @@ export default function App({ }) {
     <ActionSheetProvider>
       <SafeAreaProvider>
         <LanguageProvider>
-          <NavigationContainer ref={navigationRef} linking={LINKING_CONFIG}>
+          <NavigationContainer
+            ref={navigationRef}
+            linking={LINKING_CONFIG}
+            onReady={flushQueuedDeepLink}
+          >
             <Stack.Navigator
               // initialRouteName={startScr}
               initialRouteName="Start2"

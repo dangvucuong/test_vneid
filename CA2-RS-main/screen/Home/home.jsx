@@ -30,7 +30,6 @@ import SectionKyGanDay from "./SectionKyGanDay";
 import SectionDoiCTS from "./SectionDoiCTS";
 import { SafeAreaApp } from "../component/SafeAreaApp";
 import HeaderInfo from "../component/HeaderInfo";
-import * as RootNavigation from "../RootNavigation";
 
 const DATA_DANG_NHAP_GAN_DAY = [
   // {
@@ -401,42 +400,6 @@ export default function Home({ navigation, route, props }) {
         style={{ flex: 1, marginTop: 8, width: "100%" }}
         contentContainerStyle={{ gap: 8 }}
       >
-        <TouchableOpacity
-          onPress={() => RootNavigation.navigate("EdocGate")}
-          style={{
-            marginHorizontal: 16,
-            backgroundColor: "#ffffff",
-            borderRadius: 8,
-            borderWidth: 1,
-            borderColor: "#1858EA",
-            padding: 14,
-          }}
-        >
-          <Text style={{ color: "#1858EA", fontWeight: "700" }}>
-            Tài liệu edoc
-          </Text>
-          <Text style={{ color: "#1858EA", marginTop: 4, fontSize: 12 }}>
-            Xem, ký và tạo tài liệu theo email đăng nhập
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => RootNavigation.navigate("KyFileVneId")}
-          style={{
-            marginHorizontal: 16,
-            backgroundColor: "#1858EA",
-            borderRadius: 8,
-            padding: 14,
-          }}
-        >
-          <Text style={{ color: "#ffffff", fontWeight: "700" }}>
-            Ký file PDF bằng VNeID
-          </Text>
-          <Text style={{ color: "#ffffff", marginTop: 4, fontSize: 12 }}>
-            Chọn chứng thư, băm và ghép chữ ký trên máy
-          </Text>
-        </TouchableOpacity>
-
         {dsChoKy.length > 0 && (
           <SectionCanXuLy
             data={dsChoKy}

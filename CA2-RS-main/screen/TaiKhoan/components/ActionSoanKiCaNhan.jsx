@@ -29,10 +29,9 @@ export default function ActionSoanKiCaNhan({
   visible = false,
   onClose = () => {},
 }) {
-  const [step, setStep] = useState("choose");
+  const [step, setStep] = useState("old");
   const [converting, setConverting] = useState(false);
   const [cccd, setCccd] = useState("");
-  const [ca2UserId, setCa2UserId] = useState("");
   const [certs, setCerts] = useState([]);
   const [selectedId, setSelectedId] = useState("");
   const [certLoading, setCertLoading] = useState(false);
@@ -40,13 +39,12 @@ export default function ActionSoanKiCaNhan({
 
   useEffect(() => {
     if (!visible) {
-      setStep("choose");
+      setStep("old");
       return;
     }
     AsyncStorage.getItem("@vneidCccd").then((saved) => {
       if (saved) setCccd(saved);
     });
-    setCa2UserId(String(global.Masothue || "").replace(/\D/g, ""));
   }, [visible]);
 
   const loadCertificates = async () => {
@@ -130,17 +128,16 @@ export default function ActionSoanKiCaNhan({
 
   const activatedAccount = () => {
     const serial = String(global.Serial || "").replace(/[^0-9a-f]/gi, "").toUpperCase();
-    const citizenPid = ca2UserId.trim();
     const taxId = String(global.Masothue || "").replace(/\D/g, "");
     if (!serial) {
       Alert.alert("Chứng thư", "Tài khoản chưa có serial chứng thư đã kích hoạt.");
       return null;
     }
-    if (!/^\d{10,13}$/.test(citizenPid)) {
-      Alert.alert("CCCD", "Nhập CCCD 12 số hoặc mã số thuế trên tài khoản.");
+    if (!/^\d{10,13}$/.test(taxId)) {
+      Alert.alert("Tài khoản", "Tài khoản chưa có CCCD hoặc mã số thuế.");
       return null;
     }
-    return { serial, citizenPid, taxId };
+    return { serial, citizenPid: taxId, taxId };
   };
 
   const openCa2Pdf = (pdfUri, fileName) => {
@@ -239,13 +236,7 @@ export default function ActionSoanKiCaNhan({
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
           <View style={styles.header}>
-            {step !== "choose" ? (
-              <TouchableOpacity onPress={() => setStep("choose")} style={styles.backButton}>
-                <Text style={styles.backText}>Quay lại</Text>
-              </TouchableOpacity>
-            ) : (
-              <View style={styles.backButton} />
-            )}
+            <View style={styles.backButton} />
             <Text style={styles.title}>
               {step === "vneid"
                 ? "Chọn chứng thư VNeID"
@@ -260,23 +251,6 @@ export default function ActionSoanKiCaNhan({
               />
             </TouchableOpacity>
           </View>
-
-          {step === "choose" && (
-            <View style={styles.choiceWrap}>
-              <TouchableOpacity style={styles.choiceCard} onPress={() => setStep("vneid")}>
-                <Text style={styles.choiceTitleLight}>Ký bằng VNeID</Text>
-                <Text style={styles.choiceTextLight}>
-                  Chọn chứng thư số, khoanh vùng ký trên file, rồi ký ngay trên điện thoại.
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.choiceCardMuted} onPress={() => setStep("old")}>
-                <Text style={styles.choiceTitle}>Ký bằng CA2 RS</Text>
-                <Text style={styles.choiceText}>
-                  Chọn PDF hoặc ảnh, khoanh vùng ký, rồi ký bằng chứng thư đang kích hoạt.
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
 
           {step === "vneid" && (
             <View style={styles.certSheet}>
@@ -340,16 +314,9 @@ export default function ActionSoanKiCaNhan({
 
           {step === "old" && (
           <ScrollView style={styles.ca2Sheet} keyboardShouldPersistTaps="handled">
-          <Text style={styles.fieldLabel}>CCCD hoặc mã số thuế</Text>
-          <TextInput
-            value={ca2UserId}
-            onChangeText={setCa2UserId}
-            keyboardType="number-pad"
-            maxLength={13}
-            placeholder="Mã trên tài khoản đang kích hoạt"
-            placeholderTextColor="#94A3B8"
-            style={styles.field}
-          />
+          <Text style={styles.certMeta}>
+            CCCD hoặc mã số thuế: {String(global.Masothue || "").replace(/\D/g, "") || "chưa có"}
+          </Text>
           <Text style={styles.certMeta}>
             Serial đang kích hoạt: {global.Serial || "chưa có"}
           </Text>

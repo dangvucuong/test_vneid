@@ -7973,6 +7973,11 @@ react-native-pdf@^6.6.2:
     crypto-js "4.2.0"
     deprecated-react-native-prop-types "^2.3.0"
 
+react-native-play-install-referrer@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-play-install-referrer/-/react-native-play-install-referrer-2.0.1.tgz#85b78257083ff10d235baf1472d5c785bff0fd99"
+  integrity sha512-6fUz7qY6k21SQf+NYMdjzM/ae1f1jqhw+RYfkcYbKQZ1U4iqoAKwoobEFZT9Bj73V/PGYaHFVve+mqm2DWkUUA==
+
 react-native-push-notification-popup@^1.6.1:
   version "1.7.0"
   resolved "https://registry.npmjs.org/react-native-push-notification-popup/-/react-native-push-notification-popup-1.7.0.tgz"
