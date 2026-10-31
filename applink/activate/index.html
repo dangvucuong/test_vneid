@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kích hoạt CA2 RS</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f4f7fb;
+      color: #0f172a;
+    }
+    main {
+      max-width: 420px;
+      margin: 48px auto;
+      padding: 24px;
+      background: #fff;
+      border-radius: 12px;
+    }
+    a {
+      display: block;
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .primary { background: #1858ea; color: #fff; }
+    .secondary { background: #e8eefc; color: #1858ea; }
+    p { line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>CA2 RS</h1>
+    <p id="status">Đang mở ứng dụng...</p>
+    <a id="open-app" class="primary" href="#">Mở ứng dụng</a>
+    <a id="install-app" class="secondary" href="#">Cài từ CH Play</a>
+  </main>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var code = params.get("c") || "";
+      var play =
+        "https://play.google.com/store/apps/details?id=com.rs.ca2&referrer=" +
+        encodeURIComponent("c=" + code);
+      var intent =
+        "intent://activate?c=" +
+        encodeURIComponent(code) +
+        "#Intent;scheme=apprs;package=com.rs.ca2;S.browser_fallback_url=" +
+        encodeURIComponent(play) +
+        ";end";
+      var openLink = document.getElementById("open-app");
+      var installLink = document.getElementById("install-app");
+      openLink.href = intent;
+      installLink.href = play;
+
+      var android = /Android/i.test(navigator.userAgent || "");
+      if (!android) {
+        document.getElementById("status").textContent =
+          "Mở liên kết này trên điện thoại Android.";
+        return;
+      }
+      window.location.replace(intent);
+    })();
+  </script>
+</body>
+</html>

@@ -36,8 +36,8 @@ async function postJson(path, body) {
   return json;
 }
 
-function digitsOnly(value) {
-  return String(value || "").replace(/\D/g, "");
+function accountId(value) {
+  return String(value || "").trim();
 }
 
 async function getCertificate(userId, serialNumber, fallbackUserId) {
@@ -45,7 +45,7 @@ async function getCertificate(userId, serialNumber, fallbackUserId) {
   if (!serial) {
     throw new Error("Tài khoản chưa có serial chứng thư đã kích hoạt.");
   }
-  const userIds = [...new Set([digitsOnly(userId), digitsOnly(fallbackUserId)].filter(Boolean))];
+  const userIds = [...new Set([accountId(userId), accountId(fallbackUserId)].filter(Boolean))];
   if (!userIds.length) {
     throw new Error("Tài khoản chưa có CCCD hoặc mã số thuế đã đăng ký trên CA2 RS.");
   }

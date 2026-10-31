@@ -49,9 +49,9 @@ import { I18n } from "i18n-js";
 import {
   LINKING_CONFIG,
   flushQueuedDeepLink,
+  openPendingActivationIfNeeded,
   setupDeepLinkListeners,
 } from "./utils/deepLinkHandler";
-import { captureInstallReferrerOnce } from "./utils/activationCode";
 import {
   checkSessionOnForeground,
   onAppBackground,
@@ -275,7 +275,7 @@ export default function App({ }) {
 
 
   useEffect(() => {
-    captureInstallReferrerOnce();
+    openPendingActivationIfNeeded();
     return setupDeepLinkListeners();
   }, []);
   useEffect(() => {
@@ -1051,7 +1051,10 @@ export default function App({ }) {
           <NavigationContainer
             ref={navigationRef}
             linking={LINKING_CONFIG}
-            onReady={flushQueuedDeepLink}
+            onReady={() => {
+              flushQueuedDeepLink();
+              openPendingActivationIfNeeded();
+            }}
           >
             <Stack.Navigator
               // initialRouteName={startScr}

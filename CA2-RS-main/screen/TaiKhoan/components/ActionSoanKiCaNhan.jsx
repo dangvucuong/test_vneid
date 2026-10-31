@@ -128,12 +128,12 @@ export default function ActionSoanKiCaNhan({
 
   const activatedAccount = () => {
     const serial = String(global.Serial || "").replace(/[^0-9a-f]/gi, "").toUpperCase();
-    const taxId = String(global.Masothue || "").replace(/\D/g, "");
+    const taxId = String(global.Masothue || "").trim();
     if (!serial) {
       Alert.alert("Chứng thư", "Tài khoản chưa có serial chứng thư đã kích hoạt.");
       return null;
     }
-    if (!/^\d{10,13}$/.test(taxId)) {
+    if (!taxId) {
       Alert.alert("Tài khoản", "Tài khoản chưa có CCCD hoặc mã số thuế.");
       return null;
     }
@@ -315,7 +315,7 @@ export default function ActionSoanKiCaNhan({
           {step === "old" && (
           <ScrollView style={styles.ca2Sheet} keyboardShouldPersistTaps="handled">
           <Text style={styles.certMeta}>
-            CCCD hoặc mã số thuế: {String(global.Masothue || "").replace(/\D/g, "") || "chưa có"}
+            CCCD hoặc mã số thuế: {String(global.Masothue || "").trim() || "chưa có"}
           </Text>
           <Text style={styles.certMeta}>
             Serial đang kích hoạt: {global.Serial || "chưa có"}
