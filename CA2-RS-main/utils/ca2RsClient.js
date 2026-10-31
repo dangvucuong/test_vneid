@@ -169,5 +169,6 @@ module.exports = {
   getCertificate,
   signAndWait,
   normalizeSerial,
+  accountId,
 };
 module.exports.default = module.exports;

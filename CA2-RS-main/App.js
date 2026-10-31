@@ -52,6 +52,7 @@ import {
   openPendingActivationIfNeeded,
   setupDeepLinkListeners,
 } from "./utils/deepLinkHandler";
+import { captureInstallReferrerOnce } from "./utils/activationCode";
 import {
   checkSessionOnForeground,
   onAppBackground,
@@ -275,8 +276,24 @@ export default function App({ }) {
 
 
   useEffect(() => {
-    openPendingActivationIfNeeded();
-    return setupDeepLinkListeners();
+    try {
+      captureInstallReferrerOnce();
+    } catch (error) {
+      console.log("Install referrer capture failed", error);
+    }
+    let removeListeners = () => {};
+    try {
+      removeListeners = setupDeepLinkListeners() || removeListeners;
+    } catch (error) {
+      console.log("Deep link setup failed", error);
+    }
+    return () => {
+      try {
+        removeListeners();
+      } catch (error) {
+        console.log("Deep link cleanup failed", error);
+      }
+    };
   }, []);
   useEffect(() => {
     AsyncStorage.getItem("@language").then((value) => {
@@ -1052,7 +1069,11 @@ export default function App({ }) {
             ref={navigationRef}
             linking={LINKING_CONFIG}
             onReady={() => {
-              flushQueuedDeepLink();
+              try {
+                flushQueuedDeepLink();
+              } catch (error) {
+                console.log("Queued deep link failed", error);
+              }
               openPendingActivationIfNeeded();
             }}
           >

@@ -3,6 +3,7 @@ import * as RootNavigation from "../screen/RootNavigation";
 import {
   captureInstallReferrerOnce,
   codeFromActivateUrl,
+  isActivationRouteLocked,
   isDeviceActivated,
   lockActivationRoute,
   readPendingActivationCode,
@@ -173,32 +174,21 @@ async function openActivationFromUrl(url) {
 }
 
 let pendingActivationOpened = false;
-let pendingActivationTask = null;
 
 export function openPendingActivationIfNeeded() {
-  if (pendingActivationOpened || isActivationRouteLocked()) return Promise.resolve();
-  if (!pendingActivationTask) {
-    pendingActivationTask = runOpenPendingActivation().finally(() => {
-      if (!pendingActivationOpened) pendingActivationTask = null;
-    });
-  }
-  return pendingActivationTask;
+  return runOpenPendingActivation().catch((error) => {
+    console.log("Pending activation open failed", error);
+  });
 }
 
 async function runOpenPendingActivation() {
   if (pendingActivationOpened || isActivationRouteLocked()) return;
-  let initialUrl = "";
-  try {
-    initialUrl = await Linking.getInitialURL();
-  } catch (error) {
-    initialUrl = "";
-  }
-  if (isActivateUrl(initialUrl)) return;
   await captureInstallReferrerOnce();
   if (pendingActivationOpened || isActivationRouteLocked()) return;
   if (await isDeviceActivated()) return;
   const code = await readPendingActivationCode();
   if (!code || !RootNavigation.navigationRef.isReady()) return;
+  if (pendingActivationOpened || isActivationRouteLocked()) return;
   pendingActivationOpened = true;
   setSessionActivationCode(code);
   lockActivationRoute();
