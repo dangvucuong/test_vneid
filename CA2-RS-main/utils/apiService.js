@@ -45,6 +45,60 @@ export async function fetchWithCache(url, cacheKey, ttlMs, forceRefresh = false)
   return data;
 }
 
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export async function readRegistrationId() {
+  let regId = global.RegID || (await AsyncStorage.getItem("@regid")) || "";
+  if (regId && regId !== "undefined" && regId !== "null") return regId;
+  try {
+    const messaging = require("@react-native-firebase/messaging").default;
+    regId = await messaging().getToken();
+  } catch (error) {
+    console.log("FCM getToken failed", error);
+    return "";
+  }
+  if (!regId) return "";
+  global.RegID = regId;
+  await AsyncStorage.setItem("@regid", regId);
+  return regId;
+}
+
+let registrationPublish = null;
+
+export function publishDevicePushToken() {
+  if (!registrationPublish) {
+    registrationPublish = sendRegistrationId().finally(() => {
+      registrationPublish = null;
+    });
+  }
+  return registrationPublish;
+}
+
+async function sendRegistrationId() {
+  let regId = "";
+  let deviceId = "";
+  for (let attempt = 0; attempt < 20; attempt++) {
+    regId = await readRegistrationId();
+    deviceId = global.UUID || (await AsyncStorage.getItem("@devid")) || "";
+    if (regId && deviceId) break;
+    await wait(300);
+  }
+  if (!regId || !deviceId) {
+    console.log("CapnhatRegID skipped", { hasRegId: Boolean(regId), hasDeviceId: Boolean(deviceId) });
+    return;
+  }
+  const url =
+    API_BASE + "CapnhatRegID?device_id=" + deviceId + "&regid=" + regId;
+  try {
+    await fetchJson(url);
+    console.log("CapnhatRegID updated");
+  } catch (error) {
+    console.log("CapnhatRegID failed", error);
+  }
+}
+
 export async function getPendingSignList(deviceId, idcts, forceRefresh = false) {
   const cacheKey = `pending_${deviceId}_${idcts}`;
   const url = `${API_BASE}Laydanhsachyeucauky_Mobilesign?deviceid=${deviceId}&idcts=${idcts}`;

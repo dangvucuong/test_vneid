@@ -24,6 +24,7 @@ import MainLayout from "../../layout";
 import { en, vi } from "../../localize";
 import AppStyle from "../../styles/AppStyle";
 import { IMAGE_GROUP } from "../../utils/constant";
+import { readRegistrationId } from "../../utils/apiService";
 import { markLoggedIn } from "../../utils/sessionManager";
 const rnBiometrics = new ReactNativeBiometrics();
 const i18n = new I18n();
@@ -89,19 +90,20 @@ export default function Login({ navigation, route, props }) {
   const [modal1Visible, setModal1Visible] = useState(false);
 
   const UpdateRegid = (devid, regid) => {
-    NetInfo.fetch().then((state) => {
+    NetInfo.fetch().then(async (state) => {
       if (state.isConnected == true) {
-        var dev_id = global.UUID;
-        var token = global.RegID;
+        var dev_id = devid || global.UUID || (await AsyncStorage.getItem("@devid"));
+        var token = await readRegistrationId();
+        if (!dev_id || !token) return;
         var idcts = global.idcts;
 
         var pin = text;
         //  console.log(idcts);
         var url =
           "https://apisign.nacencomm.vn/api/APISigncore/CapnhatRegID?device_id=" +
-          devid +
+          dev_id +
           "&regid=" +
-          regid;
+          token;
 
         fetch(url, {
           method: "POST",

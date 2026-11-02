@@ -22,6 +22,7 @@ import {
   readPendingActivationCode,
   setSessionActivationCode,
 } from "../../utils/activationCode";
+import { readRegistrationId } from "../../utils/apiService";
 import { i18n } from "../../utils/i18n";
 import { AppStyle, KichHoatStyle, StartStyle } from "../../styles";
 import PageHeader from "../component/PageHeader";
@@ -85,10 +86,15 @@ export default function Kichhoat({ navigation, route }) {
       createAlert();
       setLoading(false);
     } else {
-      NetInfo.fetch().then((state) => {
+      NetInfo.fetch().then(async (state) => {
         if (state.isConnected == true) {
-          var dev_id = global.UUID;
-          var token = global.RegID;
+          var dev_id = global.UUID || (await AsyncStorage.getItem("@devid"));
+          var token = await readRegistrationId();
+          if (!dev_id || !token) {
+            setLoading(false);
+            updateError("Chưa có mã đăng ký thông báo. Hãy mở lại app rồi thử lại.", setError);
+            return;
+          }
 
           var url =
             "https://apisign.nacencomm.vn/api/APISigncore/Ketnoithietbi_mobilesign?idcts=" +

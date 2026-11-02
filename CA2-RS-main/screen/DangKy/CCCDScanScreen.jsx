@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
   View,
@@ -7,26 +7,68 @@ import {
   TouchableOpacity,
   Image,
   NativeModules,
+  DeviceEventEmitter,
+  AppState,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import { useI18n } from "../../utils/i18n";
 import DefaultPreference from "react-native-default-preference";
+import { setExternalFlowActive } from "../../utils/sessionManager";
 
 export default function CCCDScanScreen({ navigation, route }) {
-  const { onComplete } = route.params;
+  const onComplete = route.params?.onComplete;
+  const scanning = useRef(false);
+  const opened = useRef(false);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      DefaultPreference.get("EKYC_done").then(function (EKYC_done) {
-        console.log("EKYC_done", EKYC_done);
-        if (EKYC_done == "1") {
-          clearInterval(interval);
-          onComplete();
-          // navigation.navigate("RegEKYC");
-        }
-      });
-    }, 1000);
-  }, []);
+    const openForm = () => {
+      if (!scanning.current || opened.current) return;
+      if (typeof onComplete !== "function") return;
+      opened.current = true;
+      scanning.current = false;
+      setExternalFlowActive(false);
+      onComplete();
+    };
+    const checkDone = () => {
+      if (!scanning.current || opened.current) return;
+      DefaultPreference.get("EKYC_done")
+        .then((done) => {
+          if (done === "1") openForm();
+        })
+        .catch(() => {});
+    };
+    const subscription = DeviceEventEmitter.addListener("ekycCompleted", openForm);
+    const appState = AppState.addEventListener("change", (state) => {
+      if (state === "active") checkDone();
+    });
+    const unfocus = navigation.addListener("focus", checkDone);
+    const timer = setInterval(checkDone, 1000);
+    return () => {
+      subscription.remove();
+      appState.remove();
+      unfocus();
+      clearInterval(timer);
+      setExternalFlowActive(false);
+    };
+  }, [onComplete, navigation]);
+
+  const startEkyc = async () => {
+    opened.current = false;
+    try {
+      await DefaultPreference.set("EKYC_done", "0");
+    } catch (error) {}
+    scanning.current = true;
+    setExternalFlowActive(true);
+    NativeModules.EIDModule.StartEKYC(
+      "ekyc",
+      () => {},
+      () => {
+        scanning.current = false;
+        setExternalFlowActive(false);
+      }
+    );
+  };
   const { i18n } = useI18n();
   const steps = [
     { id: 1, title: i18n.t("ekyc.steps.scan") },
@@ -147,29 +189,7 @@ export default function CCCDScanScreen({ navigation, route }) {
       <TouchableOpacity
         style={styles.button}
         // onPress={ScanMRZCode}
-        onPress={() => {
-          // Handle chip reading process
-          // Then navigate to face verification
-          // navigation.navigate('ChipReadingScreen');
-          //   NativeModules.EIDModule.StartEKYC(
-          //     "ekyc",
-          //     (success) => {
-          //       console.log(success);
-          //     },
-          //     (error) => {
-          //       console.log("NativeModules", error);
-          //     }
-          //   );
-          console.log("NativeModules.EIDModule", NativeModules.EIDModule);
-          NativeModules.EIDModule.StartEKYC(
-            "ekyc",
-            (success) => {},
-            (error) => {
-              //alert(error);
-            }
-          );
-          //NativeModules.EIDModule.VerifyEkyc();
-        }}
+        onPress={startEkyc}
       >
         <Text style={styles.buttonText}>
           {i18n.t("ekyc.scanScreen.button")}

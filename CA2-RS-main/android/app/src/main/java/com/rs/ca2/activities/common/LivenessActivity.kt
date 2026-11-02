@@ -3,6 +3,7 @@ package com.rs.ca2.activities.common
 import android.content.Context
 import android.annotation.SuppressLint
 import android.content.Intent
+import com.google.gson.Gson
 import android.graphics.Outline
 import android.media.MediaPlayer
 import android.os.Handler
@@ -17,7 +18,9 @@ import com.rs.ca2.common.BusinessType
 import com.rs.ca2.common.CoreConstant
 import com.rs.ca2.common.IntentData
 import com.rs.ca2.common.ONBOARDDATAMANAGER
+import com.rs.ca2.common.Utils
 import com.rs.ca2.databinding.ActivityLivenessBinding
+import co.vnsafe.xverifysdk.network.models.response.face.FaceMatchingModel
 import co.vnsafe.xverifysdk.network.ApiService.Companion.APISERVICE
 
 import co.vnsafe.xverifysdk.network.models.CecaEnums
@@ -162,44 +165,33 @@ class LivenessActivity : BaseActivity() {
             capturedFace: String
         ) {
             hideProgress()
-            when (ekycVerificationMode) {
-                EkycVerificationMode.LIVENESS -> {
-                }
-
-                EkycVerificationMode.LIVENESS_FACE_MATCHING -> {
-                    // -> live face & eidFace : verifyFaceMatch
-                }
-
-                EkycVerificationMode.VERIFY_LIVENESS -> {
-                }
-                // -> (verify left - right - center) vs (live face & eidFace) : verifyFaceMatch
-                EkycVerificationMode.VERIFY_LIVENESS_FACE_MATCHING -> {
-                    when (ONBOARDDATAMANAGER.businessType) {
-                        else -> verifyLivenessFaceMatchingSuccess(isMatching, capturedFace!!)
-                    }
-                }
-
-                EkycVerificationMode.CAPTURE_LIVENESS -> {
-
-                }
+            runOnUiThread {
+                verifyLivenessFaceMatchingSuccess(isMatching, capturedFace)
             }
         }
 
         override fun onFailed(
-            error: String,
-            capturedFace: String,
-            ekycVerificationMode: EkycVerificationMode,
-            errorCodes: EkycVerifyError
+            error: String?,
+            capturedFace: String?,
+            ekycVerificationMode: EkycVerificationMode?,
+            errorCodes: EkycVerifyError?
         ) {
             hideProgress()
-            CoreConstant.showAlertDialog(
-                this@LivenessActivity,
-                error,
-                CoreConstant.DialogType.ERROR
-            )
-            Handler().postDelayed({
-                ActiveEkycUtils.EKYCSERVICE.resetAnalysis()
-            },2000)
+            runOnUiThread {
+                if (isFinishing) return@runOnUiThread
+                if (errorCodes == EkycVerifyError.EKYC_FAILED && isSuccessMessage(error)) {
+                    verifyFaceMatchingAfterLiveness(capturedFace)
+                    return@runOnUiThread
+                }
+                CoreConstant.showAlertDialog(
+                    this@LivenessActivity,
+                    error ?: getString(R.string.active_ekyc_failed_message),
+                    CoreConstant.DialogType.ERROR
+                )
+                Handler(mainLooper).postDelayed({
+                    ActiveEkycUtils.EKYCSERVICE.resetAnalysis()
+                }, 2000)
+            }
 //            if (errorCodes == EkycVerifyError.EKYC_FAILED) {
 //                when (ekycVerificationMode) {
 //                    EkycVerificationMode.LIVENESS -> {}
@@ -385,12 +377,80 @@ class LivenessActivity : BaseActivity() {
 //    }
 
 
+    private fun isSuccessMessage(message: String?): Boolean {
+        val text = message?.trim()?.lowercase() ?: return false
+        return text.contains("success") || text.contains("thành công")
+    }
+
+    private fun verifyFaceMatchingAfterLiveness(capturedFace: String?) {
+        ActiveEkycUtils.EKYCSERVICE.stopAnalysisImage()
+        if (capturedFace.isNullOrEmpty()) {
+            verifyLivenessFaceMatchingSuccess(false, "")
+            return
+        }
+        val referencePath = ONBOARDDATAMANAGER.referenceFaceImagePath
+        if (!referencePath.isNullOrEmpty()) {
+            requestFaceMatching(referencePath, capturedFace)
+            return
+        }
+        val chipFace = ONBOARDDATAMANAGER.eid?.faceImage
+        if (chipFace == null) {
+            verifyLivenessFaceMatchingSuccess(false, capturedFace)
+            return
+        }
+        var savedPath: String? = null
+        try {
+            Utils.storeImageEid(this, chipFace) { path -> savedPath = path }
+        } catch (_: Exception) {
+        }
+        val path = savedPath
+        if (path.isNullOrEmpty()) {
+            verifyLivenessFaceMatchingSuccess(false, capturedFace)
+        } else {
+            ONBOARDDATAMANAGER.referenceFaceImagePath = path
+            requestFaceMatching(path, capturedFace)
+        }
+    }
+
+    private fun requestFaceMatching(referencePath: String, capturedFace: String) {
+        showProgress()
+        mBinding?.tvStepInstruction?.text = getString(R.string.loading_verify)
+        APISERVICE.init(BuildConfig.API_KEY, BuildConfig.API_BASE_URL, BuildConfig.CUSTOMER_CODE)
+        APISERVICE.verifyFaceMatching(referencePath, capturedFace, object : RestCallback<FaceMatchingModel>() {
+            override fun Success(model: FaceMatchingModel?) {
+                val data = model?.data
+                val matched = data != null && (data.isMatching || data.match == 1)
+                runOnUiThread {
+                    hideProgress()
+                    verifyLivenessFaceMatchingSuccess(matched, capturedFace)
+                }
+            }
+
+            override fun Error(error: String?) {
+                runOnUiThread {
+                    hideProgress()
+                    verifyLivenessFaceMatchingSuccess(false, capturedFace)
+                }
+            }
+        })
+    }
+
     private fun verifyLivenessFaceMatchingSuccess(verifyFaceMatch: Boolean, pathFace: String) {
+        if (isFinishing) return
         ONBOARDDATAMANAGER.onboardingFaceImagePath = pathFace
         ONBOARDDATAMANAGER.isFaceMatch = verifyFaceMatch
+        val details = ONBOARDDATAMANAGER.eid?.personOptionalDetails
+        val cardInfo = if (details == null) "{}" else Gson().toJson(details)
         val pref = getSharedPreferences(packageName + "_preferences", Context.MODE_PRIVATE)
-        pref.edit().putString("isValidIdCard", ONBOARDDATAMANAGER.isValidIdCard.toString() ).apply()
-        pref.edit().putString("isFaceMatch", verifyFaceMatch.toString()).apply()
+        pref.edit()
+            .putString("isValidIdCard", ONBOARDDATAMANAGER.isValidIdCard.toString())
+            .putString("isFaceMatch", verifyFaceMatch.toString())
+            .putString("faceMatching", verifyFaceMatch.toString())
+            .putString("verifyID", ONBOARDDATAMANAGER.isValidIdCard.toString())
+            .putString("card_info", cardInfo)
+            .putString("EKYC_done", "1")
+            .commit()
+        com.rs.ca2.EIDModule.pendingForm = true
         setResult(RESULT_OK)
         finish()
     }

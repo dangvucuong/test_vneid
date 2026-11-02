@@ -18,6 +18,7 @@ import {
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { readRegistrationId } from "../../utils/apiService";
 import { useI18n } from "../../utils/i18n";
 import { AppStyle, KichHoatStyle, StartStyle } from "../../styles";
 import PageContainer from "../component/PageContainer";
@@ -53,7 +54,7 @@ export default function OTP({ navigation, route }) {
       createAlertCustom(i18n.t("otpErr1"));
       setLoading(false);
     } else {
-      NetInfo.fetch().then((state) => {
+      NetInfo.fetch().then(async (state) => {
         if (state.isConnected == true) {
           var enter_otp = value;
           if (enter_otp != global.otp) {
@@ -62,9 +63,14 @@ export default function OTP({ navigation, route }) {
               setLoading(false);
             }, 2000);
           } else {
-            var dev_id = global.UUID;
-            var token = global.RegID;
+            var dev_id = global.UUID || (await AsyncStorage.getItem("@devid"));
+            var token = await readRegistrationId();
             var idcts = global.idcts;
+            if (!dev_id || !token) {
+              setLoading(false);
+              createAlertCustom("Chưa có mã đăng ký thông báo. Hãy mở lại app rồi thử lại.");
+              return;
+            }
 
             var url =
               "https://apisign.nacencomm.vn/api/APISigncore/Kichhoatthietbi?idcts=" +

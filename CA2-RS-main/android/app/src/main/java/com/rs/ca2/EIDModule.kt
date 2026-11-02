@@ -11,6 +11,8 @@ import co.vnsafe.xverifysdk.network.ApiService
 class EIDModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
     companion object {
         const val NAME = "EIDModule"
+        @JvmField
+        var pendingForm = false
     }
 
     override fun getName(): String {
@@ -28,11 +30,14 @@ class EIDModule(private val reactContext: ReactApplicationContext) : ReactContex
             )
 
             // Tạo intent để mở VerifyEkycMainActivity
-            val intent = Intent(reactContext, VerifyEkycMainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-
-            // Khởi động activity
-            reactContext.startActivity(intent)
+            val activity = reactContext.currentActivity
+            val intent = Intent(activity ?: reactContext, VerifyEkycMainActivity::class.java)
+            if (activity == null) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                reactContext.startActivity(intent)
+            } else {
+                activity.startActivity(intent)
+            }
 
             // Gọi successCallback
             successCallback.invoke("eKYC activity started successfully")

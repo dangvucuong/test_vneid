@@ -57,7 +57,7 @@ import {
   checkSessionOnForeground,
   onAppBackground,
 } from "./utils/sessionManager";
-import { batchSignDocuments, getCertInfo, getPendingSignList } from "./utils/apiService";
+import { batchSignDocuments, getCertInfo, getPendingSignList, publishDevicePushToken } from "./utils/apiService";
 import { notifySignListRefresh } from "./utils/signListEvents";
 import {
   handleKey2SignNotification,
@@ -158,13 +158,32 @@ function notifyMessage(msg) {
   }
 }
 
+async function storeRegistrationId(token) {
+  if (!token) return;
+  await AsyncStorage.setItem("@regid", token);
+  global.RegID = token;
+  await publishDevicePushToken();
+}
+
+async function openQueuedSignNotification() {
+  try {
+    const code = await DefaultPreference.get("pending_sign_code");
+    if (!code) return;
+    await DefaultPreference.set("pending_sign_code", "");
+    await handleKey2SignNotification({ data: { key: "2", code } });
+  } catch (error) {
+    console.log("Queued sign notification failed", error);
+  }
+}
+
 messaging()
   .getToken()
-  .then(async (token) => {
-    await AsyncStorage.setItem("@regid", token);
-    global.RegID = token;
-  })
+  .then(storeRegistrationId)
   .catch((error) => console.warn("FCM getToken failed:", error));
+
+messaging().onTokenRefresh((token) => {
+  storeRegistrationId(token);
+});
 
 
 
@@ -322,6 +341,8 @@ export default function App({ }) {
         await AsyncStorage.setItem("@devid", uniqueId);
         await AsyncStorage.setItem("@countPin", "5");
         global.UUID = uniqueId;
+        await publishDevicePushToken();
+        await openQueuedSignNotification();
         //  console.log("UUID: ", uniqueId);
 
         if (uniqueId) {
@@ -370,6 +391,8 @@ export default function App({ }) {
           nextAppState === "active"
         ) {
           console.log('App has come to the foreground!');
+          await publishDevicePushToken();
+          await openQueuedSignNotification();
           const sessionExpired = await checkSessionOnForeground();
           if (sessionExpired) {
             appState.current = nextAppState;
@@ -676,16 +699,17 @@ export default function App({ }) {
 
     checkAndRequestPermission();
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      try {
       var value = JSON.stringify(remoteMessage);
       console.log("Remote message app", remoteMessage);
 
       var value1 = JSON.parse(value);
-
-      var key = JSON.parse(JSON.stringify(value1.data)).key;
-      var code = JSON.parse(JSON.stringify(value1.data)).code;
+      var data = value1.data || {};
+      var key = data.key;
+      var code = data.code;
       if(code==="1") code=generateUUID(32);
       console.log('code',code);
-      var notification = value1.notification;
+      var notification = value1.notification || {};
 
       if (key == "0") {
         var otp_received = notification.body;
@@ -704,14 +728,9 @@ export default function App({ }) {
       if (key == "3") {
         LocalPush(i18n.t("appText2"));
         setloadingVisible(false);
-        var value = JSON.stringify(remoteMessage);
-        // console.log("Remote message", remoteMessage);
-        var value1 = JSON.parse(value);
-        var key = JSON.parse(JSON.stringify(value1.data)).key;
-        var code = JSON.parse(JSON.stringify(value1.data)).code;
-        var link = JSON.parse(JSON.stringify(value1.data)).linkfile;
-        var tenfile = JSON.parse(JSON.stringify(value1.data)).file;
-        var notification = value1.notification;
+        var link = data.linkfile;
+        var tenfile = data.file || "";
+        var notification = value1.notification || {};
         var val = {
           key: key,
           Code: code,
@@ -769,6 +788,9 @@ export default function App({ }) {
           }
         });
       }
+      } catch (error) {
+        console.log("Foreground message failed", error);
+      }
     });
     return unsubscribe;
   }, []);
@@ -799,6 +821,7 @@ export default function App({ }) {
       global.code = code;
 
       setTitle(i18n.t("appText1"));
+      LocalPush(i18n.t("appText1"));
 
       const batchOnce = await isBatchSignOnceEnabled();
       if (batchOnce) {
@@ -845,7 +868,6 @@ export default function App({ }) {
         return;
       }
 
-      LocalPush(i18n.t("appText1"));
       setModalVisible(true);
     };
 

@@ -168,8 +168,13 @@ const ThongTinCCCDGanChip = ({ navigation, route }) => {
       ...prevState,
       mrz: MRZ,
     }));
-    //const card_info = Settings.get("card_info");
-    const parsedCardInfo = JSON.parse(card_info);
+    let parsedCardInfo = {};
+    try {
+      parsedCardInfo = card_info ? JSON.parse(card_info) : {};
+    } catch (error) {
+      parsedCardInfo = {};
+    }
+    if (!parsedCardInfo || typeof parsedCardInfo !== "object") parsedCardInfo = {};
     setPersonalInfo((prevState) => ({
       ...prevState,
       hoVaTen: parsedCardInfo.fullName,
@@ -183,11 +188,17 @@ const ThongTinCCCDGanChip = ({ navigation, route }) => {
     }));
     global.card_info = card_info;
 
-    const parsedNFCRead = JSON.parse(NFC_read);
+    let parsedNFCRead = {};
+    try {
+      parsedNFCRead = NFC_read ? JSON.parse(NFC_read) : {};
+    } catch (error) {
+      parsedNFCRead = {};
+    }
+    if (!parsedNFCRead || typeof parsedNFCRead !== "object") parsedNFCRead = {};
     setPersonalInfo((prevState) => ({
       ...prevState,
       tinhTP: parsedNFCRead.province,
-      req_id: parsedNFCRead.request_id,
+      req_id: parsedNFCRead.request_id || parsedNFCRead.requestId,
     }));
     global.nfc_read = NFC_read;
 

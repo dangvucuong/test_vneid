@@ -6,6 +6,12 @@ import { invalidateCacheByPrefix } from "./apiCache";
 export const SESSION_TIMEOUT_MS = 5 * 60 * 1000;
 export const LOGGED_IN_KEY = "@logged_in";
 
+let externalFlowActive = false;
+
+export function setExternalFlowActive(active) {
+  externalFlowActive = Boolean(active);
+}
+
 export async function markLoggedIn() {
   await AsyncStorage.setItem(LOGGED_IN_KEY, "1");
   await DefaultPreference.set("checksession", "0");
@@ -17,6 +23,7 @@ export async function performLogout() {
 }
 
 export async function onAppBackground() {
+  if (externalFlowActive) return;
   const loggedIn = await AsyncStorage.getItem(LOGGED_IN_KEY);
   if (loggedIn === "1") {
     await DefaultPreference.set("date1", new Date().toISOString());
@@ -25,6 +32,7 @@ export async function onAppBackground() {
 }
 
 export async function checkSessionOnForeground() {
+  if (externalFlowActive) return false;
   const loggedIn = await AsyncStorage.getItem(LOGGED_IN_KEY);
   if (loggedIn !== "1") return false;
 

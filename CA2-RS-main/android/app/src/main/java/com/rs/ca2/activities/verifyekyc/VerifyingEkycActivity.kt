@@ -132,8 +132,9 @@ class VerifyingEkycActivity : BaseActivity() {
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 REQUEST_LIVENESS -> {
-                    val intent = Intent(this, VerifyEkycSuccessActivity::class.java)
-                    startActivity(intent)
+                    val back = Intent(this, com.rs.ca2.MainActivity::class.java)
+                    back.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                    startActivity(back)
                     finish()
                 }
                 else -> {

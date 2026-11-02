@@ -6,12 +6,28 @@ import android.os.Bundle
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
+import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 
 import expo.modules.ReactActivityDelegateWrapper
 
 class MainActivity : ReactActivity() {
+  override fun onResume() {
+    super.onResume()
+    window.decorView.post {
+      if (!EIDModule.pendingForm) return@post
+      val reactContext = (application as MainApplication)
+        .reactNativeHost
+        .reactInstanceManager
+        .currentReactContext ?: return@post
+      EIDModule.pendingForm = false
+      reactContext
+        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+        .emit("ekycCompleted", null)
+    }
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     // Set the theme to AppTheme BEFORE onCreate to support
     // coloring the background, status bar, and navigation bar.
