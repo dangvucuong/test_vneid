@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-itunes-app" content="app-id=6445924092" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
   <title>Kích hoạt CA2 RS</title>
   <style>
     body {
@@ -30,22 +33,37 @@
     .primary { background: #1858ea; color: #fff; }
     .secondary { background: #e8eefc; color: #1858ea; }
     p { line-height: 1.5; }
+    #device { color: #64748b; font-size: 12px; word-break: break-all; }
   </style>
 </head>
 <body>
   <main>
     <h1>CA2 RS</h1>
-    <p id="status">Đang mở ứng dụng...</p>
-    <a id="open-app" class="primary" href="#">Mở ứng dụng</a>
-    <a id="install-app" class="secondary" href="#">Cài từ CH Play</a>
+    <p id="status">Nếu chưa có ứng dụng, hãy cài từ App Store rồi bấm Mở ứng dụng.</p>
+    <a id="open-app" class="primary" href="apprs://activate">Mở ứng dụng</a>
+    <a id="install-ios" class="secondary" href="itms-apps://apps.apple.com/app/id6445924092">Cài từ App Store</a>
+    <p id="device"></p>
   </main>
   <script>
     (function () {
-      var params = new URLSearchParams(window.location.search);
-      var code = params.get("c") || "";
+      var search = window.location.search || "";
+      var code = "";
+      var match = /(?:\?|&)c=([^&]*)/.exec(search);
+      if (match) {
+        try {
+          code = decodeURIComponent(match[1].replace(/\+/g, " "));
+        } catch (error) {
+          code = match[1];
+        }
+      }
+
+      var ua = navigator.userAgent || "";
+      var apple = /iPhone|iPad|iPod|Macintosh|Mac OS X|CriOS|FxiOS|EdgiOS/i.test(ua);
+      var android = /Android/i.test(ua) && !apple;
       var play =
         "https://play.google.com/store/apps/details?id=com.rs.ca2&referrer=" +
         encodeURIComponent("c=" + code);
+      var scheme = "apprs://activate?c=" + encodeURIComponent(code);
       var intent =
         "intent://activate?c=" +
         encodeURIComponent(code) +
@@ -53,16 +71,18 @@
         encodeURIComponent(play) +
         ";end";
       var openLink = document.getElementById("open-app");
-      var installLink = document.getElementById("install-app");
-      openLink.href = intent;
-      installLink.href = play;
+      var iosLink = document.getElementById("install-ios");
+      var status = document.getElementById("status");
+      var device = document.getElementById("device");
+      openLink.href = scheme;
+      device.textContent = (android ? "Android" : "Apple") + " — " + ua;
 
-      var android = /Android/i.test(navigator.userAgent || "");
-      if (!android) {
-        document.getElementById("status").textContent =
-          "Mở liên kết này trên điện thoại Android.";
-        return;
-      }
+      if (!android) return;
+
+      iosLink.href = play;
+      iosLink.textContent = "Cài từ CH Play";
+      openLink.href = intent;
+      status.textContent = "Đang mở ứng dụng...";
       window.location.replace(intent);
     })();
   </script>

@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appID": "K4TYT9SR2P.com.ca2.remotesigning",
+        "paths": ["*", "/path/*"]
+      }
+    ]
+  }
+}
