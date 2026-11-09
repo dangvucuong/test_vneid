@@ -54,8 +54,8 @@ android {
         applicationId 'com.rs.ca2'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 36
-        versionName "1.4.8"
+        versionCode 37
+        versionName "1.4.9"
         buildConfigField "String", "API_KEY", "\"iL572exYxosnGA0XakqeMjU9xsKiUPCi\""
         buildConfigField "String", "API_BASE_URL", "\"https://api.idcheck.vn/\""
         buildConfigField "String", "API_BIO2345_BASE_URL", "\"https://api.idcheck.vn/\""

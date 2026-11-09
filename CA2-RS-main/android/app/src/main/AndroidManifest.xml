@@ -33,7 +33,8 @@
       android:allowBackup="true" 
       android:theme="@style/AppTheme" 
       android:supportsRtl="true" 
-      android:requestLegacyExternalStorage="true">
+      android:requestLegacyExternalStorage="true"
+      android:networkSecurityConfig="@xml/network_security_config">
       <meta-data
         android:name="com.google.firebase.messaging.default_notification_icon"
         android:resource="@drawable/ic_notification" />

@@ -10,6 +10,8 @@ const SIGNED_DATA_OID = "1.2.840.113549.1.7.2";
 const CONTENT_TYPE_OID = "1.2.840.113549.1.9.3";
 const MESSAGE_DIGEST_OID = "1.2.840.113549.1.9.4";
 const SIGNING_TIME_OID = "1.2.840.113549.1.9.5";
+const TIME_STAMP_TOKEN_OID = "1.2.840.113549.1.9.16.2.14";
+const TSA_URL = "http://tsa.cavn.vn/get.aspx";
 
 function latin1FromBytes(bytes) {
   let text = "";
@@ -697,10 +699,101 @@ function digestForVneId(prepared, certificateList, signingTime = new Date()) {
   };
 }
 
-function buildCms(material, signatureBase64) {
+function derInteger(bytes) {
+  let value = bytes;
+  if (!value || (value.charCodeAt(0) & 0x80) !== 0) value = `\u0000${value || ""}`;
+  return forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.INTEGER, false, value);
+}
+
+function integerValue(node) {
+  const raw = String(node?.value || "");
+  let value = 0;
+  for (let index = 0; index < raw.length; index += 1) {
+    value = value * 256 + raw.charCodeAt(index);
+  }
+  return value;
+}
+
+function timeStampRequest(hashedMessage) {
+  let nonce = forge.random.getBytesSync(8);
+  if ((nonce.charCodeAt(0) & 0x80) !== 0) nonce = `\u0000${nonce}`;
+  return forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
+    derInteger("\u0001"),
+    forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
+      algorithmIdentifier(SHA256_OID),
+      forge.asn1.create(
+        forge.asn1.Class.UNIVERSAL,
+        forge.asn1.Type.OCTETSTRING,
+        false,
+        hashedMessage
+      ),
+    ]),
+    derInteger(nonce),
+    forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.BOOLEAN, false, "\u00ff"),
+  ]);
+}
+
+function imprintFromToken(token) {
+  const signedData = token.value[1].value[0];
+  const content = signedData.value[2].value[1].value[0];
+  const info =
+    content.type === forge.asn1.Type.OCTETSTRING ? forge.asn1.fromDer(content.value) : content;
+  return info.value[2].value[1].value;
+}
+
+function timeStampTokenFromReply(reply, hashedMessage) {
+  let parsed;
+  try {
+    parsed = forge.asn1.fromDer(reply);
+  } catch (error) {
+    throw new Error("Máy chủ dấu thời gian trả dữ liệu không đọc được.");
+  }
+  const status = integerValue(parsed.value?.[0]?.value?.[0]);
+  const token = parsed.value?.[1];
+  if ((status !== 0 && status !== 1) || !token) {
+    throw new Error("Máy chủ dấu thời gian từ chối yêu cầu.");
+  }
+  let imprint = "";
+  try {
+    imprint = imprintFromToken(token);
+  } catch (error) {
+    throw new Error("Dấu thời gian không đúng cấu trúc.");
+  }
+  if (imprint !== hashedMessage) {
+    throw new Error("Dấu thời gian không khớp chữ ký.");
+  }
+  return token;
+}
+
+async function requestTimeStampToken(signatureBase64) {
+  const signature = forge.util.decode64(cleanCertificate(signatureBase64));
+  if (!signature) throw new Error("Không có chữ ký để lấy dấu thời gian.");
+  const digest = forge.md.sha256.create();
+  digest.update(signature, "raw");
+  const hashedMessage = digest.digest().getBytes();
+  const body = bytesFromLatin1(forge.asn1.toDer(timeStampRequest(hashedMessage)).getBytes());
+  let response;
+  try {
+    response = await fetch(TSA_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/timestamp-query",
+        Accept: "application/timestamp-reply",
+      },
+      body,
+    });
+  } catch (error) {
+    throw new Error("Không kết nối được máy chủ dấu thời gian.");
+  }
+  if (!response.ok) throw new Error("Máy chủ dấu thời gian trả lỗi.");
+  const reply = latin1FromBytes(new Uint8Array(await response.arrayBuffer()));
+  return timeStampTokenFromReply(reply, hashedMessage);
+}
+
+function buildCms(material, signatureBase64, timeStampToken) {
   const signature = forge.util.decode64(cleanCertificate(signatureBase64));
   const identity = signerIdentity(material.certificates[0]);
-  const signerInfo = forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
+  const signerFields = [
     forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.INTEGER, false, "\u0001"),
     forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
       identity.issuer,
@@ -710,7 +803,20 @@ function buildCms(material, signatureBase64) {
     forge.asn1.create(forge.asn1.Class.CONTEXT_SPECIFIC, 0, true, material.attributes),
     algorithmIdentifier(RSA_OID),
     forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.OCTETSTRING, false, signature),
-  ]);
+  ];
+  if (timeStampToken) {
+    signerFields.push(
+      forge.asn1.create(forge.asn1.Class.CONTEXT_SPECIFIC, 1, true, [
+        attribute(TIME_STAMP_TOKEN_OID, timeStampToken),
+      ])
+    );
+  }
+  const signerInfo = forge.asn1.create(
+    forge.asn1.Class.UNIVERSAL,
+    forge.asn1.Type.SEQUENCE,
+    true,
+    signerFields
+  );
 
   const signedData = forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
     forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.INTEGER, false, "\u0001"),
@@ -735,8 +841,8 @@ function buildCms(material, signatureBase64) {
   ).getBytes();
 }
 
-function embedVneIdSignature(prepared, material, signatureBase64) {
-  const cms = forge.util.bytesToHex(buildCms(material, signatureBase64));
+function embedVneIdSignature(prepared, material, signatureBase64, timeStampToken) {
+  const cms = forge.util.bytesToHex(buildCms(material, signatureBase64, timeStampToken));
   const capacity = prepared.placeholderEnd - prepared.placeholderAt - 1;
   if (cms.length > capacity) {
     throw new Error("Chữ ký dài hơn vùng dành sẵn trong PDF.");
@@ -752,6 +858,7 @@ function embedVneIdSignature(prepared, material, signatureBase64) {
 module.exports = {
   prepareSignedPdf,
   digestForVneId,
+  requestTimeStampToken,
   embedVneIdSignature,
   commonName,
 };

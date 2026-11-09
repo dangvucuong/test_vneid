@@ -576,11 +576,14 @@ const PDFViewer = (props: PDFViewerProps) => {
         },
         setVneidStatus
       );
+      setVneidStatus("Đang lấy dấu thời gian...");
+      const timeStampToken = await pdfVneId.requestTimeStampToken(signedResult.signature);
       setVneidStatus("Đang ghép chữ ký vào PDF trên máy...");
       const signed = pdfVneId.embedVneIdSignature(
         prepared,
         material,
-        signedResult.signature
+        signedResult.signature,
+        timeStampToken
       );
       const output = await writeSignedPdf(signed, "ca2");
       setPdfUri(output);
